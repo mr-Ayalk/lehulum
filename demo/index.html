@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LE HULUM</title>
+<link rel="stylesheet" href="demo.css">
+<script>var t=new URLSearchParams(location.search).get("theme");if(t==="light"||t==="dark"||t==="contrast")document.documentElement.dataset.theme=t;</script>
+</head>
+<body>
+<a class="skip" href="#main"><span class="en-only">Skip to content</span><span class="am-only" lang="am">ወደ ይዘቱ ዝለል</span></a>
+<header>
+  <div class="bar">
+    <a class="logo" href="index.html"><span class="mark" aria-hidden="true"><i></i></span><span class="brand"><b>LE HULUM</b><span lang="am">ለሁሉም</span></span></a>
+    <nav class="desk" aria-label="Main">
+      <a href="index.html" aria-current="page"><span class="en-only">Home</span><span class="am-only" lang="am">መነሻ</span></a>
+      <a href="lesson-video.html"><span class="en-only">Video lesson</span><span class="am-only" lang="am">የቪዲዮ ትምህርት</span></a>
+      <a href="lesson-text.html"><span class="en-only">Text lesson</span><span class="am-only" lang="am">የጽሑፍ ትምህርት</span></a>
+      <a href="jobs.html"><span class="en-only">Jobs</span><span class="am-only" lang="am">ሥራዎች</span></a>
+      <a href="/api/docs"><span class="en-only">API docs</span><span class="am-only" lang="am">API ሰነዶች</span></a>
+    </nav>
+    <div class="tools">
+      <button type="button" id="lang"><span class="en-only" lang="am">አማርኛ</span><span class="am-only">English</span></button>
+      <button type="button" id="theme">Light</button>
+      <button type="button" id="menu" class="menu" aria-expanded="false" aria-controls="nav-menu"><span class="closed en-only">☰ Menu</span><span class="closed am-only" lang="am">☰ ምናሌ</span><span class="opened en-only">✕ Close</span><span class="opened am-only" lang="am">✕ ዝጋ</span></button>
+    </div>
+  </div>
+  <nav id="nav-menu" class="mobile" hidden aria-label="Main">
+    <a href="index.html"><span class="en-only">Home</span><span class="am-only" lang="am">መነሻ</span><span aria-hidden="true">→</span></a>
+    <a href="lesson-video.html"><span class="en-only">Video lesson</span><span class="am-only" lang="am">የቪዲዮ ትምህርት</span><span aria-hidden="true">→</span></a>
+    <a href="lesson-text.html"><span class="en-only">Text lesson</span><span class="am-only" lang="am">የጽሑፍ ትምህርት</span><span aria-hidden="true">→</span></a>
+    <a href="jobs.html"><span class="en-only">Jobs</span><span class="am-only" lang="am">ሥራዎች</span><span aria-hidden="true">→</span></a>
+    <a href="/api/docs"><span class="en-only">API docs</span><span class="am-only" lang="am">API ሰነዶች</span><span aria-hidden="true">→</span></a>
+  </nav>
+</header>
+<main id="main">
+  <div class="hero">
+    <div>
+      <p class="kicker"><span class="en-only">A player for every learner</span><span class="am-only" lang="am">ለእያንዳንዱ ተማሪ ማጫወቻ</span></p>
+      <h1>Ear to the deaf. Eye for the blind. <span class="am" lang="am">ለመስማት ለተሳናቸው ጆሮ፣ ለማየት ለተሳናቸው ዓይን።</span></h1>
+    </div>
+    <div>
+      <p class="lead"><span class="en-only">LE HULUM adds Ethiopian Sign Language, captions, and a transcript to a lesson. It works on Savanna and on any site that can add one tag.</span><span class="am-only" lang="am">ለሁሉም የኢትዮጵያ ምልክት ቋንቋን፣ የግርጌ ጽሑፍን እና ግልባጭን ወደ ትምህርት ይጨምራል። በሳቫና እና ማንኛውም ጣቢያ ላይ በአንድ መለያ ይሠራል።</span></p>
+      <div class="cta">
+        <a class="go" href="lesson-video.html">▶ <span class="en-only">Try the video lesson</span><span class="am-only" lang="am">የቪዲዮ ትምህርቱን ይሞክሩ</span></a>
+        <a class="alt second-cta" href="/api/docs"><span class="en-only">Read the API docs</span><span class="am-only" lang="am">የ API ሰነዶችን ያንብቡ</span></a>
+      </div>
+    </div>
+  </div>
+  <nav class="stack" aria-label="Demo pages">
+    <a href="lesson-video.html"><span class="en-only">Video lesson</span><span class="am-only" lang="am">የቪዲዮ ትምህርት</span><span aria-hidden="true">→</span></a>
+    <a href="lesson-text.html"><span class="en-only">Text lesson</span><span class="am-only" lang="am">የጽሑፍ ትምህርት</span><span aria-hidden="true">→</span></a>
+    <a href="jobs.html"><span class="en-only">Jobs</span><span class="am-only" lang="am">ሥራዎች</span><span aria-hidden="true">→</span></a>
+    <a href="/api/docs"><span class="en-only">API docs</span><span class="am-only" lang="am">API ሰነዶች</span><span aria-hidden="true">→</span></a>
+  </nav>
+  <nav class="cards" aria-label="Demo pages">
+    <a class="card" href="lesson-video.html"><span class="n">01</span><strong>Video lesson →</strong><span class="am" lang="am">የቪዲዮ ትምህርት</span><span>Captions, sign, and a transcript beside the video.</span></a>
+    <a class="card" href="lesson-text.html"><span class="n">02</span><strong>Text lesson →</strong><span class="am" lang="am">የጽሑፍ ትምህርት</span><span>The same lesson as sentences you can sign and hear.</span></a>
+    <a class="card" href="jobs.html"><span class="n">03</span><strong>Jobs →</strong><span class="am" lang="am">ሥራዎች</span><span>Roles written so a screen reader can read them.</span></a>
+    <a class="card" href="/api/docs"><span class="n">04</span><strong>API docs →</strong><span class="am" lang="am">API ሰነዶች</span><span>Install the player with one script tag.</span></a>
+  </nav>
+  <section class="install">
+    <div>
+      <h2><span class="en-only">Install</span><span class="am-only" lang="am">ጫን</span></h2>
+      <p class="note"><span class="en-only">One script tag. Then put the player where the lesson is.</span><span class="am-only" lang="am">አንድ የስክሪፕት መለያ። ከዚያ ማጫወቻውን ትምህርቱ ባለበት ያስቀምጡ።</span></p>
+    </div>
+    <div>
+      <pre id="install">&lt;script type="module" src="https://cdn.lehulum.org/db-player.js"&gt;&lt;/script&gt;
+
+&lt;db-player src="lesson.mp4" lang="am" sign="auto"&gt;&lt;/db-player&gt;</pre>
+      <p><button type="button" class="copy" id="copy"><span class="en-only">Copy code</span><span class="am-only" lang="am">ኮዱን ቅዳ</span></button> <span id="copied" role="status"></span> <span class="note">MIT licence · works on any site</span></p>
+    </div>
+  </section>
+  <section class="devtools" aria-labelledby="dev-tools">
+    <h2 id="dev-tools"><span class="en-only">Tools</span><span class="am-only" lang="am">መሣሪያዎች</span></h2>
+    <p><a href="tools/caption-timer.html"><span class="en-only">Caption timer</span><span class="am-only" lang="am">የግርጌ ጽሑፍ ሰዓት</span></a></p>
+  </section>
+</main>
+<footer>
+  <span>Built for the Digital Bridge Accessibility Hackathon (ALX) · first used on Savanna</span>
+  <span>Source code</span>
+</footer>
+<script src="demo.js"></script>
+<script type="module" src="/module/db-player.js"></script>
+</body>
+</html>

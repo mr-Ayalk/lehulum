@@ -1,0 +1,40 @@
+id,text_am,text_en
+A01,ሰላም፣ እንኳን ደህና መጣችሁ።,"Hello, and welcome."
+A02,በዚህ ትምህርት ስለ ተለዋዋጮች እንማራለን።,"In this lesson, we will learn about variables."
+A03,ተለዋዋጭ መረጃን የሚያስቀምጥ ሳጥን ነው።,A variable is a box that stores data.
+A04,መጀመሪያ የኮድ ኤዲተራችሁን ክፈቱ።,"First, open your code editor."
+A05,አሁን ይህን መስመር ጻፉ።,"Now, type this line."
+A06,"እንደምታዩት፣ የተለዋዋጩ ስም ""name"" ነው።","As you can see, the variable name is ""name""."
+A07,"እሴቱ ""አበበ"" ነው።","The value is ""Abebe""."
+A08,ቀጥሎ ተለዋዋጩን በስክሪን ላይ እናሳያለን።,"Next, we show the variable on the screen."
+A09,ኮዱን አስኪዱት።,Run the code.
+A10,"ስክሪኑን ተመልከቱ። ኮምፒውተሩ ""አበበ"" ያሳያል።","Look at the screen. The computer shows ""Abebe""."
+A11,ስህተት ካያችሁ፣ አጻጻፋችሁን አረጋግጡ።,"If you see an error, check your spelling."
+A12,ጥሩ ሥራ! የመጀመሪያ ተለዋዋጫችሁን ፈጠራችሁ።,Good job! You created your first variable.
+A13,በሚቀጥለው ትምህርት ስለ ድግግሞሽ (loop) እንማራለን።,"In the next lesson, we will learn about loops."
+A14,አመሰግናለሁ። በሚቀጥለው እንገናኝ።,Thank you. See you next time.
+B01,እንጀምር።,Let's start.
+B02,ዛሬ አዲስ ነገር እንማራለን።,Today we will learn something new.
+B03,በመጀመሪያ፣,"First,"
+B04,ቀጥሎ፣,"Next,"
+B05,በመጨረሻ፣,"Finally,"
+B06,ይህ በጣም አስፈላጊ ነው።,This is very important.
+B07,ይህንን አስታውሱ።,Remember this.
+B08,ለምሳሌ፣,"For example,"
+B09,እንደምታዩት፣,"As you can see,"
+B10,ስክሪኑን ተመልከቱ።,Look at the screen.
+B11,ኮዱን ጻፉ።,Write the code.
+B12,ኮዱን አስኪዱት።,Run the code.
+B13,ፋይሉን አስቀምጡ።,Save the file.
+B14,ስህተት ካያችሁ፣ አይጨነቁ።,"If you see an error, don't worry."
+B15,እንደገና ሞክሩ።,Try again.
+B16,ጥሩ ሥራ!,Good job!
+B17,ጥያቄ አለዎት?,Do you have a question?
+B18,እናለማምድ።,Let's practise.
+B19,ይህንን በራሳችሁ ሞክሩ።,Try this yourselves.
+B20,በሚቀጥለው ትምህርት እንገናኝ።,See you in the next lesson.
+B21,ይህ ትምህርት ተጠናቀቀ።,This lesson is finished.
+B22,ምደባውን አጠናቅቁ።,Complete the assignment.
+B23,እርዳታ ከፈለጋችሁ ያግኙን።,Ask if you need help.
+B24,አመሰግናለሁ።,Thank you.
+B25,ሰላም፣ እንኳን ደህና መጣችሁ።,"Hello, and welcome."

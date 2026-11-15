@@ -1,0 +1,6 @@
+# INT-05, NFR-SUS-03: API dependencies. Versions stay unpinned until the first lock.
+fastapi
+uvicorn[standard]
+sqlmodel
+python-dotenv
+python-multipart

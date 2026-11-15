@@ -1,0 +1,9 @@
+{
+  "high": 0.35,
+  "low": 0.15,
+  "sustain": 0.3,
+  "lead": 0.15,
+  "tail": 0.25,
+  "date": "2026-11-15",
+  "method": "per-clip ends only; floor p10, peak p90; high = floor + 0.35*(peak-floor); low = floor + 0.15*(peak-floor); onset stays above low for 0.30s; lead 0.15s; tail 0.25s"
+}

@@ -1,0 +1,29 @@
+---
+description: LE HULUM project rules
+alwaysApply: true
+---
+# LE HULUM (ለሁሉም) — "Ear to the deaf. Eye for the blind."
+Digital Bridge Accessibility Hackathon 2026, Track 2. Requirements: docs/le-hulum-srs.tex (IDs FR-*, NFR-*, INT-*).
+
+## What we build
+A plug-in module, not an app: module/db-player.js defines <db-player> (and later <db-job-card>), plus a FastAPI server in api/. Lessons are video OR text.
+
+## Hard rules
+- Vanilla JS web components (ES modules), no framework, no build step. Shadow DOM for all CSS. Player core < 60 KB gzip; features lazy-loaded.
+- Never modify savanna/ except adding our script tag and our element. No globals, no changes to window, document.body or host elements.
+- Configure only via attributes: src, for, captions, sign, describe, lang, api, lesson-id, theme. Talk to the host only via CustomEvent('db-player:*', {bubbles:true, composed:true}).
+- Host look via var(--bs-primary), var(--bs-body-font-family), var(--bs-body-color) with fallbacks.
+- All user-facing text in module/i18n/en.json and am.json. No sentences in code. Amharic always complete and accurate.
+- WCAG 2.2 AA is a pass/fail gate:
+  - Real <button>/<input>/<a>/<dialog> only. Every control has a name.
+  - Full keyboard use. Shortcuts only when focus is inside the player, off in text fields, can be disabled.
+  - :focus-visible 3px outline; targets >= 44px; contrast 4.5:1 text, 3:1 UI; rem units; reflow at 320px and 400% zoom.
+  - Announce state changes in an aria-live="polite" region. Dialogs use <dialog>.showModal(); focus returns to the opener.
+  - Every drag has button alternatives. No autoplay. Respect prefers-reduced-motion and prefers-contrast.
+  - lang="am" on Amharic text; Noto Sans Ethiopic; Amharic line-height 1.7; no uppercase or letter-spacing on Amharic.
+  - Labels and their fields stay in the same shadow root.
+- Captions: read WebVTT cues ourselves (track.mode='hidden' + cuechange) and render in our own element.
+- Network: preload="none"; service worker needs HTTPS.
+- Privacy: learner settings live in localStorage only; never sent to a server or employer. No API keys in browser code.
+- Backend: FastAPI under /api/v1, JSON, 201 / 400 {"error": "..."} / 404, Swagger at /docs, SQLite + files, every AI step behind api/providers with a no-AI fallback, secrets in .env.
+- Test data only. Small readable files (< 200 lines). First line comment in each file lists the requirement IDs it implements.

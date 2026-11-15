@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+Ethiopic:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E5DC}a{color:#0A6B4E}a:hover{color:#1C1B18}</style>
+</helmet>
+<div style="padding:64px;display:flex;flex-direction:column;gap:80px;font-family:'Atkinson Hyperlegible','Noto Sans Ethiopic',sans-serif;color:#1C1B18">
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:900px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px">LE HULUM · design tokens + component specs</span>
+    <h1 style="margin:0;font-size:48px;line-height:1.1">Tokens and components</h1>
+    <p style="margin:0;font-size:20px;line-height:1.5;color:#57534A;text-wrap:pretty">All values map 1:1 to CSS custom properties prefixed <span style="font-family:'JetBrains Mono'">--lh-</span>, scoped to the &lt;db-player&gt; shadow root. Theme is set with <span style="font-family:'JetBrains Mono'">theme="light|dark|contrast"</span> or follows <span style="font-family:'JetBrains Mono'">prefers-color-scheme</span> and <span style="font-family:'JetBrains Mono'">prefers-contrast: more</span>. Contrast ratios are computed against the pair shown.</p>
+  </header>
+
+  <!-- COLOURS -->
+  <section id="T1" style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">T1</span><span style="font-size:24px;font-weight:700">Colour per theme</span></div>
+    <div style="display:grid;grid-template-columns:repeat(3,440px);gap:24px">
+      <sc-for list="{{ themes }}" as="th" hint-placeholder-count="3">
+        <div style="{{ th.card }}">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><h2 style="margin:0;font-size:24px">{{ th.name }}</h2><span style="font-family:'JetBrains Mono';font-size:13px">{{ th.attr }}</span></div>
+          <div style="display:flex;flex-direction:column">
+            <sc-for list="{{ th.rows }}" as="r" hint-placeholder-count="12">
+              <div style="{{ r.rowStyle }}">
+                <span style="{{ r.swatch }}"><span style="{{ r.sample }}">Aa</span></span>
+                <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-family:'JetBrains Mono';font-size:13px;font-weight:600">{{ r.token }}</span><span style="font-family:'JetBrains Mono';font-size:13px">{{ r.hex }} · {{ r.pair }}</span></span>
+                <span style="font-family:'JetBrains Mono';font-size:14px;font-weight:600;text-align:right;white-space:nowrap">{{ r.ratio }}<span style="display:block;font-size:12px;font-weight:400">{{ r.pass }}</span></span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:stretch">
+      <div style="width:440px;padding:20px;background:#000000;color:#FFFFFF;border-radius:12px;display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:18px;font-weight:700">Captions (all themes)</span>
+        <span style="font-family:'JetBrains Mono';font-size:13px">--lh-cap-bg #000000 @ 88% · --lh-cap-text #FFFFFF 21:1 · --lh-cap-speaker #FFE38A 16.6:1</span>
+        <span style="font-size:24px;line-height:1.4"><span style="color:#FFE38A;font-weight:700">[Teacher]</span> Max two lines, 42 characters per line.</span>
+      </div>
+      <div style="flex:1;min-width:360px;padding:20px;background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.5">
+        <span style="font-size:18px;font-weight:700">Rules that colour never carries alone</span>
+        <span>Selected / pressed: fill + ✓ glyph or “On” text + aria-pressed.</span>
+        <span>Current line / sentence: highlight + 3–4 px ink bar + “Now playing” label.</span>
+        <span>Valid / Not valid: ✓ circle vs ✕ square, solid vs dashed border, the words themselves.</span>
+        <span>Uncertain caption word: dotted underline + boxed “?”.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="T2" style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">T2</span><span style="font-size:24px;font-weight:700">Type scale</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:24px;max-width:1368px">
+      <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:8px 24px">
+        <sc-for list="{{ type }}" as="ty" hint-placeholder-count="8">
+          <div style="display:grid;grid-template-columns:200px minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:baseline;padding:14px 0;border-bottom:1px solid #D9D3C7">
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-family:'JetBrains Mono';font-size:13px;font-weight:600">{{ ty.token }}</span><span style="font-family:'JetBrains Mono';font-size:13px;color:#57534A">{{ ty.spec }}</span></span>
+            <span style="{{ ty.latin }}">{{ ty.en }}</span>
+            <span lang="am" style="{{ ty.eth }}">{{ ty.am }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.5">
+          <span style="font-size:18px;font-weight:700">Families</span>
+          <span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-font-latin</span><br>Atkinson Hyperlegible, system-ui</span>
+          <span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-font-ethiopic</span><br><span style="font-family:'Noto Sans Ethiopic'">Noto Sans Ethiopic</span>, Abyssinica SIL, Nyala</span>
+          <span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-font-code</span><br><span style="font-family:'JetBrains Mono'">JetBrains Mono</span>, ui-monospace</span>
+        </div>
+        <div style="background:#FFFFFF;border:2px solid #1C1B18;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:8px;font-size:16px;line-height:1.5">
+          <span style="font-size:18px;font-weight:700">Ethiopic rules</span>
+          <span>Apply via <span style="font-family:'JetBrains Mono';font-size:14px">:lang(am)</span>. Never <span style="font-family:'JetBrains Mono';font-size:14px">text-transform</span>, never <span style="font-family:'JetBrains Mono';font-size:14px">letter-spacing</span>.</span>
+          <span>Line height +0.15 over Latin (body 1.7–1.8). Body minimum 16 px. Weight 400/600 only; avoid 700+ below 18 px.</span>
+          <span>Break lines at the word space or ፣ ። only.</span>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5">
+          <span style="font-size:18px;font-weight:700">Caption sizes</span>
+          <span style="font-family:'JetBrains Mono';font-size:14px">S 20 · M 26 · L 32 · XL 40 px (laptop)</span>
+          <span style="font-family:'JetBrains Mono';font-size:14px">S 16 · M 19 · L 22 · XL 26 px (≤480 px)</span>
+          <span>Sizes in rem so 200–400% zoom scales them.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPACE / RADIUS / FOCUS -->
+  <section id="T3" style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">T3</span><span style="font-size:24px;font-weight:700">Spacing, radius, size, focus</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,330px);gap:24px">
+      <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:18px;font-weight:700">Spacing · 4 px base</span>
+        <sc-for list="{{ space }}" as="s" hint-placeholder-count="10">
+          <div style="display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:center"><span style="font-family:'JetBrains Mono';font-size:13px">{{ s.token }}</span><span style="{{ s.bar }}"></span></div>
+        </sc-for>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:18px;font-weight:700">Radius</span>
+        <div style="display:flex;align-items:center;gap:14px"><span style="width:56px;height:56px;border:2px solid #1C1B18;border-radius:4px"></span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-radius-sm 4px<br>tags, inline chips</span></div>
+        <div style="display:flex;align-items:center;gap:14px"><span style="width:56px;height:56px;border:2px solid #1C1B18;border-radius:8px"></span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-radius-md 8px<br>buttons, inputs</span></div>
+        <div style="display:flex;align-items:center;gap:14px"><span style="width:56px;height:56px;border:2px solid #1C1B18;border-radius:12px"></span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-radius-lg 12px<br>cards, panels, dialogs</span></div>
+        <div style="display:flex;align-items:center;gap:14px"><span style="width:56px;height:32px;border:2px solid #1C1B18;border-radius:999px"></span><span style="font-family:'JetBrains Mono';font-size:13px">--lh-radius-pill 999px<br>badges, switches</span></div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;font-size:16px;line-height:1.5">
+        <span style="font-size:18px;font-weight:700">Size</span>
+        <span style="font-family:'JetBrains Mono';font-size:13px;line-height:1.8">--lh-target-min 44px<br>--lh-target-comfy 48px<br>--lh-target-primary 52px<br>--lh-bar-btn 56px tall<br>--lh-border-w 1px (2px selected)<br>--lh-sign-min 160×213<br>--lh-sign-max 50% of player</span>
+        <div style="position:relative;width:44px;height:44px;border:1px dashed #1C1B18;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:12px">44</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;font-size:16px;line-height:1.5">
+        <span style="font-size:18px;font-weight:700">Focus ring</span>
+        <span style="font-family:'JetBrains Mono';font-size:13px;line-height:1.6">box-shadow: 0 0 0 2px var(--lh-bg), 0 0 0 5px var(--lh-focus);<br>outline: 2px solid transparent;</span>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <span style="padding:14px;background:#FAF8F3;border-radius:8px"><button style="min-height:44px;padding:0 14px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 15px 'Atkinson Hyperlegible';color:#1C1B18;box-shadow:0 0 0 2px #FAF8F3,0 0 0 5px #1C1B18">Light</button></span>
+          <span style="padding:14px;background:#14130F;border-radius:8px"><button style="min-height:44px;padding:0 14px;border-radius:8px;background:#1E1C18;border:1px solid #8C8678;font:400 15px 'Atkinson Hyperlegible';color:#F3F0E8;box-shadow:0 0 0 2px #14130F,0 0 0 5px #FFD54A">Dark</button></span>
+          <span style="padding:14px;background:#000000;border-radius:8px"><button style="min-height:44px;padding:0 14px;border-radius:8px;background:#000;border:2px solid #FFF;font:400 15px 'Atkinson Hyperlegible';color:#FFF;box-shadow:0 0 0 2px #000,0 0 0 5px #00E5FF">HC</button></span>
+        </div>
+        <span>3 px ring, 2 px gap. Use :focus-visible. Ring is never clipped: panels use overflow: clip with 6 px inner padding.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section id="C1" style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">C1</span><span style="font-size:24px;font-weight:700">Components · light theme shown; tokens swap per theme</span></div>
+    <div style="display:grid;grid-template-columns:repeat(2,680px);gap:24px">
+      <!-- Button -->
+      <div style="background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font-size:22px">Button</h2>
+        <div style="display:grid;grid-template-columns:100px repeat(4,1fr);gap:10px;align-items:center;font-size:14px">
+          <span></span><span style="color:#57534A">Default</span><span style="color:#57534A">Hover</span><span style="color:#57534A">Focus</span><span style="color:#57534A">Disabled</span>
+          <span style="font-weight:700">Primary</span>
+          <button style="min-height:48px;border-radius:8px;background:#0A6B4E;color:#FFF;border:0;font:700 16px 'Atkinson Hyperlegible'">Apply</button>
+          <button style="min-height:48px;border-radius:8px;background:#085A41;color:#FFF;border:0;font:700 16px 'Atkinson Hyperlegible';text-decoration:underline;text-underline-offset:3px">Apply</button>
+          <button style="min-height:48px;border-radius:8px;background:#0A6B4E;color:#FFF;border:0;font:700 16px 'Atkinson Hyperlegible';box-shadow:0 0 0 2px #FAF8F3,0 0 0 5px #1C1B18">Apply</button>
+          <button disabled style="min-height:48px;border-radius:8px;background:#F1EDE4;color:#57534A;border:1px dashed #8A8478;font:700 16px 'Atkinson Hyperlegible'">Apply</button>
+          <span style="font-weight:700">Secondary</span>
+          <button style="min-height:48px;border-radius:8px;background:#FFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">Copy code</button>
+          <button style="min-height:48px;border-radius:8px;background:#F1EDE4;color:#1C1B18;border:1px solid #1C1B18;font:400 16px 'Atkinson Hyperlegible'">Copy code</button>
+          <button style="min-height:48px;border-radius:8px;background:#FFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';box-shadow:0 0 0 2px #FAF8F3,0 0 0 5px #1C1B18">Copy code</button>
+          <button disabled style="min-height:48px;border-radius:8px;background:#F1EDE4;color:#57534A;border:1px dashed #8A8478;font:400 16px 'Atkinson Hyperlegible'">Copy code</button>
+          <span style="font-weight:700">Toggle</span>
+          <button aria-pressed="false" style="min-height:48px;border-radius:8px;background:#FFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">Sign</button>
+          <button aria-pressed="true" style="min-height:48px;border-radius:8px;background:#0A6B4E;color:#FFF;border:0;font:700 16px 'Atkinson Hyperlegible'">✓ Sign</button>
+          <button aria-pressed="true" style="min-height:48px;border-radius:8px;background:#0A6B4E;color:#FFF;border:0;font:700 16px 'Atkinson Hyperlegible';box-shadow:0 0 0 2px #FAF8F3,0 0 0 5px #1C1B18">✓ Sign</button>
+          <span style="color:#57534A">off / on / focus</span>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#57534A">min-height 44 (48 default, 52 primary CTA) · padding-inline 16–24 · radius-md · label 16/700 primary, 16/400 secondary · glyph optional, label required · danger variant: --lh-danger text + border.</p>
+      </div>
+      <!-- Toggle + slider -->
+      <div style="background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:20px">
+        <h2 style="margin:0;font-size:22px">Switch and slider</h2>
+        <div style="display:flex;gap:32px;flex-wrap:wrap">
+          <button role="switch" aria-checked="false" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:52px;height:32px;border-radius:999px;background:#FFF;border:2px solid #8A8478;box-sizing:border-box;display:flex;align-items:center;padding:3px"><span style="width:22px;height:22px;border-radius:50%;background:#57534A"></span></span>Mono · Off</button>
+          <button role="switch" aria-checked="true" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;font:700 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:52px;height:32px;border-radius:999px;background:#0A6B4E;border:2px solid #0A6B4E;box-sizing:border-box;display:flex;align-items:center;justify-content:flex-end;padding:3px"><span style="width:22px;height:22px;border-radius:50%;background:#FFF;display:flex;align-items:center;justify-content:center;font-size:13px;color:#0A6B4E">✓</span></span>Shortcuts · On</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:700">Volume boost</span>
+          <div style="display:flex;align-items:center;gap:12px"><div role="slider" style="flex:1;position:relative;height:44px;display:flex;align-items:center"><div style="width:100%;height:6px;border-radius:3px;background:#D9D3C7;border:1px solid #8A8478"></div><div style="position:absolute;left:0;width:50%;height:6px;border-radius:3px;background:#0A6B4E"></div><div style="position:absolute;left:50%;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#0A6B4E;border:3px solid #FFF;box-shadow:0 0 0 1px #0A6B4E,0 0 0 4px #FAF8F3,0 0 0 7px #1C1B18"></div></div><span style="font-family:'JetBrains Mono';font-size:14px">150%</span></div></div>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#57534A">Switch: track 52×32, knob 22, hit area ≥44 including label; state word (On/Off) always visible; knob gets ✓ when on. Slider: track 6 px with 1 px --lh-border, thumb 24 (hit 44), value text beside; arrow keys ±step, Page keys ±10%. Fixed choices (100/150/200%, Off/Clear/Extra clear) use a segmented control instead.</p>
+      </div>
+      <!-- Dialog -->
+      <div style="background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font-size:22px">Dialog</h2>
+        <div style="background:rgba(28,27,24,.55);border-radius:8px;padding:24px;display:flex;justify-content:center">
+          <div role="dialog" style="width:100%;max-width:420px;background:#FFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:0 12px 32px rgba(0,0,0,.25)">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h3 style="margin:0;font-size:22px">Title</h3><button style="min-height:44px;padding:0 14px;border-radius:8px;background:#FFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">✕ Close</button></div>
+            <p style="margin:0;font-size:16px;line-height:1.5">Body text. Content scrolls inside; header and actions stay.</p>
+            <div style="display:flex;gap:8px;justify-content:flex-end"><button style="min-height:44px;padding:0 16px;border-radius:8px;background:#FFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Cancel</button><button style="min-height:44px;padding:0 16px;border-radius:8px;background:#0A6B4E;color:#FFF;border:0;font:700 16px 'Atkinson Hyperlegible'">Confirm</button></div>
+          </div>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#57534A">Native &lt;dialog&gt; with showModal(). max-width 560 (settings 1040), width calc(100% − 32px), max-height 90dvh · scrim rgba(28,27,24,.55) · Close is a labelled button, Esc closes, focus returns to the trigger · on ≤480 px becomes a full-height sheet.</p>
+      </div>
+      <!-- Badge + card + panel -->
+      <div style="background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font-size:22px">Badge, card, panel</h2>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;background:#0A6B4E;color:#FFF">Recommended</span>
+          <span style="font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;background:#FFF;color:#1C1B18;border:1px solid #1C1B18">Automatic sign (beta)</span>
+          <span style="font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;background:#0A6B4E;color:#FFF">✓ Saved on this phone</span>
+          <span style="font-size:14px;font-weight:700;padding:4px 10px;border-radius:999px;background:#FFF;color:#B3261E;border:1px dashed #B3261E">✕ Not valid</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="background:#FFF;border:1px solid #8A8478;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:6px"><span style="font-size:18px;font-weight:700">Card</span><span style="font-size:15px;line-height:1.45">surface · 1 px border · radius-lg · padding 16–24 · whole card is not a link; one primary action inside.</span></div>
+          <div style="background:#FFF;border:1px solid #8A8478;border-radius:12px;display:flex;flex-direction:column"><div style="display:flex;justify-content:space-between;align-items:center;padding:8px 8px 8px 16px;border-bottom:1px solid #D9D3C7"><span style="font-size:18px;font-weight:700">Panel</span><button style="min-height:44px;padding:0 12px;border-radius:8px;background:#FFF;border:1px solid #8A8478;font:400 15px 'Atkinson Hyperlegible';color:#1C1B18">✕ Close</button></div><span style="padding:12px 16px;font-size:15px;line-height:1.45">aside + aria-label · 380 px beside video ≥ 900 px, below video under that.</span></div>
+        </div>
+        <p style="margin:0;font-size:15px;line-height:1.5;color:#57534A">Badge: 14/700, padding 4×10, pill; it is status text, never a button. Pair a glyph with every status badge.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CSS -->
+  <section id="C2" style="display:flex;flex-direction:column;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">C2</span><span style="font-size:24px;font-weight:700">CSS custom properties</span></div>
+    <pre style="margin:0;max-width:1368px;padding:24px 28px;background:#1C1B18;color:#F3F0E8;border-radius:12px;font:400 14px/1.7 'JetBrains Mono',monospace;white-space:pre-wrap">{{ css }}</pre>
+    <p style="margin:0;max-width:900px;font-size:16px;line-height:1.5;color:#57534A">Responsive: the player is a container (container-type: inline-size). Below 480 px the bar switches to the compact set plus “More”; below 900 px side panels stack under the video. Everything reflows at 320 px and 400% zoom with no horizontal scroll; code blocks wrap.</p>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const lum = h => { const c=[1,3,5].map(i=>parseInt(h.substr(i,2),16)/255).map(v=>v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)); return .2126*c[0]+.7152*c[1]+.0722*c[2]; };
+    const cr = (a,b) => { const x=lum(a),y=lum(b); return (Math.max(x,y)+.05)/(Math.min(x,y)+.05); };
+    const names = ['bg','surface','surface-2','text','text-muted','border','accent','on-accent','highlight','on-highlight','danger','focus'];
+    const T = {
+      light:{name:'Light',attr:'theme="light"',v:['#FAF8F3','#FFFFFF','#F1EDE4','#1C1B18','#57534A','#8A8478','#0A6B4E','#FFFFFF','#FFE38A','#1C1B18','#B3261E','#1C1B18']},
+      dark:{name:'Dark',attr:'theme="dark"',v:['#14130F','#1E1C18','#2A2721','#F3F0E8','#BDB7AA','#8C8678','#62D6AA','#0B2219','#F5D76E','#14130F','#FF8A80','#FFD54A']},
+      hc:{name:'High contrast',attr:'theme="contrast"',v:['#000000','#000000','#000000','#FFFFFF','#FFFFFF','#FFFFFF','#FFFF00','#000000','#FFFF00','#000000','#FF8A80','#00E5FF']},
+    };
+    const pairOf = {bg:'text',surface:'text','surface-2':'text',text:'bg','text-muted':'surface',border:'surface',accent:'bg','on-accent':'accent',highlight:'on-highlight','on-highlight':'highlight',danger:'surface',focus:'bg'};
+    const need = k => (k==='border'||k==='focus'||k==='accent')?3:4.5;
+    const themes = Object.values(T).map(t => {
+      const get = k => t.v[names.indexOf(k)];
+      const bg = get('bg'), text = get('text'), bd = get('border');
+      return {
+        name:t.name, attr:t.attr,
+        card:`background:${bg};color:${text};border:${t.name==='High contrast'?'2px':'1px'} solid ${bd};border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px`,
+        rows: names.map(k => { const hex=get(k), p=pairOf[k], ph=get(p), r=cr(hex,ph);
+          return { token:'--lh-'+k, hex, pair:'on '+p, ratio:r.toFixed(1)+':1', pass:(r>=need(k)?'✓ ':'✕ ')+(need(k)===3?'≥3 UI':'≥4.5 AA'),
+            rowStyle:`display:grid;grid-template-columns:52px minmax(0,1fr) auto;gap:12px;align-items:center;padding:8px 0;border-top:1px solid ${bd}`,
+            swatch:`width:52px;height:40px;border-radius:6px;background:${hex};border:1px solid ${bd};display:flex;align-items:center;justify-content:center`,
+            sample:`font-weight:700;font-size:15px;color:${ph}` }; })
+      };
+    });
+    const type = [
+      ['--lh-display','64/1.05 · 700','Ear to the deaf.','ለሁሉም','font-size:48px;line-height:1.05;font-weight:700','font-family:Noto Sans Ethiopic;font-size:40px;line-height:1.3;font-weight:600'],
+      ['--lh-h1','40/1.15 · 700','Your first variable','የመጀመሪያ ተለዋዋጭዎ','font-size:40px;line-height:1.15;font-weight:700','font-family:Noto Sans Ethiopic;font-size:34px;line-height:1.45;font-weight:600'],
+      ['--lh-h2','28/1.2 · 700','How do you want to learn?','እንዴት መማር ይፈልጋሉ?','font-size:28px;line-height:1.2;font-weight:700','font-family:Noto Sans Ethiopic;font-size:26px;line-height:1.5;font-weight:600'],
+      ['--lh-h3','22/1.3 · 700','Transcript','ግልባጭ','font-size:22px;line-height:1.3;font-weight:700','font-family:Noto Sans Ethiopic;font-size:21px;line-height:1.55;font-weight:600'],
+      ['--lh-body-lg','20/1.6 · 400','A variable is a name that holds a value.','ተለዋዋጭ እሴትን የሚይዝ ስም ነው።','font-size:20px;line-height:1.6','font-family:Noto Sans Ethiopic;font-size:19px;line-height:1.8'],
+      ['--lh-body','17/1.55 · 400','Choose one or more.','አንድ ወይም ከዚያ በላይ ይምረጡ።','font-size:17px;line-height:1.55','font-family:Noto Sans Ethiopic;font-size:17px;line-height:1.75'],
+      ['--lh-small','15/1.45 · 400','About 40 seconds left','40 ሰከንድ ገደማ ቀርቷል','font-size:15px;line-height:1.45','font-family:Noto Sans Ethiopic;font-size:16px;line-height:1.7'],
+      ['--lh-label','13/1.2 · 400','Player bar labels only','ፍጥነት','font-size:13px;line-height:1.2','font-family:Noto Sans Ethiopic;font-size:13px;line-height:1.4'],
+    ].map(([token,spec,en,am,latin,eth]) => ({token,spec,en,am,latin,eth}));
+    const space = [4,8,12,16,20,24,32,40,48,64].map((n,i) => ({token:'--lh-space-'+(i+1)+' '+n, bar:`height:12px;width:${n*3}px;background:#0A6B4E;border-radius:2px`}));
+    const blk = (sel,t) => `${sel} {\n` + names.map((k,i)=>`  --lh-${k}: ${t.v[i]};`).join('\n') + '\n}';
+    const css = `:host, db-player {\n  --lh-font-latin: "Atkinson Hyperlegible", system-ui, sans-serif;\n  --lh-font-ethiopic: "Noto Sans Ethiopic", "Abyssinica SIL", Nyala, sans-serif;\n  --lh-font-code: "JetBrains Mono", ui-monospace, monospace;\n  --lh-space-1: .25rem; --lh-space-2: .5rem; --lh-space-3: .75rem; --lh-space-4: 1rem; --lh-space-5: 1.25rem;\n  --lh-space-6: 1.5rem; --lh-space-7: 2rem; --lh-space-8: 2.5rem; --lh-space-9: 3rem; --lh-space-10: 4rem;\n  --lh-radius-sm: 4px; --lh-radius-md: 8px; --lh-radius-lg: 12px; --lh-radius-pill: 999px;\n  --lh-target-min: 44px; --lh-target-comfy: 48px; --lh-target-primary: 52px;\n  --lh-focus-ring: 0 0 0 2px var(--lh-bg), 0 0 0 5px var(--lh-focus);\n  --lh-cap-bg: rgb(0 0 0 / .88); --lh-cap-text: #FFFFFF; --lh-cap-speaker: #FFE38A;\n}\n${blk(':host, :host([theme="light"])',T.light)}\n${blk(':host([theme="dark"])',T.dark)}\n${blk(':host([theme="contrast"])',T.hc)}\n:host :lang(am) { font-family: var(--lh-font-ethiopic); text-transform: none; letter-spacing: 0; line-height: calc(var(--lh-lh, 1.55) + .15); }\n:host :focus-visible { outline: 2px solid transparent; box-shadow: var(--lh-focus-ring); }`;
+    return { themes, type, space, css };
+  }
+}
+</script>
+</body>
+</html>

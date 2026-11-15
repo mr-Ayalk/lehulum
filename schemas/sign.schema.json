@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://le-hulum.local/schemas/sign.schema.json",
+  "title": "sign.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "lesson", "lang", "segments"],
+  "properties": {
+    "version": { "const": 1 },
+    "lesson": { "type": "string" },
+    "lang": { "type": "string" },
+    "segments": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/segment" }
+    }
+  },
+  "$defs": {
+    "segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cue", "start", "end", "source"],
+      "properties": {
+        "cue": { "type": "string" },
+        "start": { "type": "number", "minimum": 0 },
+        "end": { "type": "number", "minimum": 0 },
+        "source": { "enum": ["memory", "engine", "none"] },
+        "src": { "type": "string" },
+        "from": { "type": "number", "minimum": 0 },
+        "to": { "type": "number", "minimum": 0 },
+        "duration": { "type": "number", "minimum": 0 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "playlist": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["src", "from", "to"],
+            "properties": {
+              "src": { "type": "string" },
+              "from": { "type": "number", "minimum": 0 },
+              "to": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      },
+      "oneOf": [
+        { "properties": { "source": { "const": "memory" } }, "required": ["src", "from", "to", "duration"], "not": { "required": ["playlist"] } },
+        { "properties": { "source": { "const": "engine" } }, "required": ["playlist", "duration"] },
+        { "properties": { "source": { "const": "none" } }, "not": { "anyOf": [{ "required": ["src"] }, { "required": ["playlist"] }] } }
+      ]
+    }
+  }
+}

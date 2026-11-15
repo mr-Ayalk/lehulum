@@ -1,0 +1,21 @@
+id,text_am,text_en,gloss,nonmanual,rules_applied,confidence,status,source
+E01,ዛሬ ስለ ኮድ እንማራለን።,Today we learn about code.,TODAY WE LEARN CODE,,time-first; drop-preposition(ስለ); S-V-O,high,generated-unverified,Haji 2017 §2.6
+E02,ፋይሉን አስቀምጡ።,Save the file.,SAVE FILE,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E03,ኮምፕዩተሩን ክፈቱ።,Open the computer.,OPEN COMPUTER,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E04,ስህተቱን ፈልጉ።,Find the error.,FIND ERROR,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E05,ይህ ጥያቄ አስፈላጊ ነው።,This question is important.,QUESTION IX IMPORTANT,,demonstrative-as-index; adjective-after-noun; drop-copula(ነው),medium,generated-unverified,Haji 2017 §2.6
+E06,ቁጥሩን ቀይሩ።,Change the number.,CHANGE NUMBER,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E07,ስማችሁን ጻፉ።,Write your name.,WRITE POSS-YOU-PL NAME,,imperative-no-subject; V-O; possessive-palm,low,generated-unverified,Haji 2017 §2.6
+E08,ኮዱ አልሰራም።,The code did not work.,CODE WORK NOT,neg (head shake),negation-at-end; S-V,high,generated-unverified,Haji 2017 §2.6
+E09,ፋይሉን አስቀምጣችኋል?,Did you save the file?,YOU-PL SAVE FILE,q-yn (eyebrows up; lean forward),yes-no-question-same-order; S-V-O,medium,generated-unverified,Haji 2017 §2.6
+E10,ነገ ስለ ፋንክሽን እንማራለን።,Tomorrow we learn about functions.,TOMORROW WE LEARN FUNCTION,,time-first; drop-preposition(ስለ); S-V-O,high,generated-unverified,Haji 2017 §2.6
+E11,ተማሪዎች ጥያቄ አላቸው?,Do the students have questions?,STUDENT MANY HAVE QUESTION,q-yn (eyebrows up; lean forward),plural-with-MANY; yes-no-question-same-order; S-V-O,medium,generated-unverified,Haji 2017 §2.6
+E12,መምህሩ ኮዱን ያሳያል።,The teacher shows the code.,TEACHER SHOW CODE,,S-V-O (topic-comment),high,generated-unverified,Haji 2017 §2.6
+E13,ዌብሳይቱን ክፈቱ።,Open the website.,OPEN WEBSITE,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E14,የይለፍ ቃላችሁን አትርሱ።,Don't forget your password.,FORGET POSS-YOU-PL PASSWORD NOT,neg (head shake),imperative-no-subject; V-O; negation-at-end,low,generated-unverified,Haji 2017 §2.6
+E15,አፕኑን ጫኑ።,Install the app.,INSTALL APP,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E16,ሁለት ቁጥሮችን ደምሩ።,Add two numbers.,ADD NUMBER TWO,,imperative-no-subject; V-O; modifier-after-noun; no-plural-with-numeral,low,generated-unverified,Haji 2017 §2.6
+E17,መስመሩን ሰርዙ።,Delete the line.,DELETE LINE,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+E18,እንደገና ሞክሩ።,Try again.,TRY AGAIN,,adverb-after-verb,high,generated-unverified,Haji 2017 §2.6
+E19,ኮርሱን ካጠናቀቃችሁ በኋላ ሰርተፊኬት ታገኛላችሁ።,"After you finish the course, you get a certificate.",YOU-PL FINISH COURSE AFTER | YOU-PL GET CERTIFICATE,,time-clause-first; pause-between-clauses; S-V-O,low,generated-unverified,Haji 2017 §2.6
+E20,ለሥራ ማመልከት ትችላላችሁ።,You can apply for a job.,YOU-PL APPLY JOB CAN,,drop-preposition(ለ); S-V-O; modal-after-verb (like adverb),low,generated-unverified,Haji 2017 §2.6

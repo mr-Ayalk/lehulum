@@ -1,0 +1,67 @@
+# EthSL word-order rules for the LE HULUM engine (api/ethsl/rules.yaml)
+# Source: A. J. Haji, "Translation of Continuous Signs in Ethiopian Sign
+# Language to Amharic Text", MSc thesis, Addis Ababa University, 2017,
+# section 2.6 (EthSL Grammar), citing ENAD "BERTAT" (1997).
+# Status: generated-unverified. To be checked with the Deaf co-designer.
+# Rules are applied in this order. Each rule records a reason string.
+
+version: 1
+status: generated-unverified
+
+gloss_notation:
+  words: "English capitals, one per sign (SAVE FILE)"
+  fingerspelling: "FS-WORD for names and words with no sign (FS-PYTHON)"
+  index: "IX = point (this/that, he/she/it)"
+  pronouns: [I, YOU, YOU-PL, WE, HE, SHE, THEY]
+  possessive: "POSS-<pronoun>, signed with the open palm (POSS-YOU-PL)"
+  plural: "NOUN MANY, or the noun repeated"
+  clause_break: "| = short pause between clauses (EthSL has no sign for 'and')"
+  nonmanual_column: "neg = head shake; q-yn = eyebrows up and lean forward; q-wh = eyebrows down, lean in, hold the last sign"
+
+rules:
+  - id: drop-copula
+    what: "Drop the copula ነው / ናቸው / ነበር."
+  - id: drop-preposition
+    what: "Drop prepositions shown by context: ስለ, ከ, በ, ለ, ላይ, ውስጥ. Keep ወደ (direction) as a sign."
+    paper: "§2.6 h"
+  - id: time-first
+    what: "Move time words and time clauses (ዛሬ, ነገ, ትላንትና, አሁን, ጠዋት, ... በኋላ, ... በፊት) to the start of the sentence."
+    paper: "§2.6 j"
+  - id: subject-verb-object
+    what: "Topic-comment order with the subject as topic: SUBJECT VERB OBJECT (Amharic is S-O-V)."
+    example: "አበበ በሶ በላ -> ABEBE EAT BESSO"
+    paper: "§2.6 l"
+  - id: imperative-no-subject
+    what: "Commands (2nd person imperative) have no subject sign: VERB OBJECT."
+    note: "Our inference, not stated in the paper. Verify."
+  - id: pronoun-from-verb
+    what: "Amharic verbs carry the subject in the ending (እንማራለን = we learn). Sign the subject pronoun explicitly before the verb (WE LEARN)."
+    paper: "§2.6 d (inflecting verbs: ሰጠ -> HE GIVE)"
+  - id: adjective-after-noun
+    what: "Adjectives and numbers follow the noun (ቀይ ውሻ -> DOG RED; ሁለት ቁጥሮች -> NUMBER TWO)."
+    paper: "§2.6 e (numbers after noun is our inference)"
+  - id: adverb-after-verb
+    what: "Adverbs follow the verb (እንደገና ሞክሩ -> TRY AGAIN). Modals like ይችላል follow the verb too (our inference)."
+    paper: "§2.6 e"
+  - id: plural-many
+    what: "Plural nouns: NOUN MANY (or repeat the noun). Not used when a number is present."
+    paper: "§2.6 a"
+  - id: demonstrative-index
+    what: "ይህ / ያ (this/that) becomes IX after the noun."
+    note: "Our inference from indexing (§2.6 b). Verify."
+  - id: possessive-palm
+    what: "Possessive endings (-ችሁ, -ህ, -ሽ, -ዬ, -ችን) become POSS-<pronoun> before the noun."
+    note: "Paper gives the signs (§2.6 c) but not their position. Verify."
+  - id: negation-at-end
+    what: "Negative verbs (prefix አል-/አት-/አይ- with -ም) become VERB ... NOT at the very end, plus nonmanual 'neg' (head shake)."
+    paper: "§2.6 i"
+  - id: question-yes-no
+    what: "Yes/no questions keep statement order; add nonmanual 'q-yn'. No extra sign."
+    paper: "§2.6 k"
+  - id: question-wh
+    what: "WH words (ምን, የት, መቼ, እንዴት, ለምን, ማን) move to the end; add nonmanual 'q-wh'."
+    example: "መቼ ትመጣለህ? -> YOU COME WHEN"
+    paper: "§2.6 k"
+  - id: clause-pause
+    what: "Two clauses are joined by a short pause '|', never by an AND sign."
+    paper: "§2.6 f"

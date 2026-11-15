@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+Ethiopic:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E5DC}a{color:#0A6B4E}a:hover{color:#1C1B18}</style>
+</helmet>
+<div style="padding:64px;display:flex;flex-direction:column;gap:96px;font-family:'Atkinson Hyperlegible','Noto Sans Ethiopic',sans-serif;color:#1C1B18">
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:900px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px">LE HULUM · demo website</span>
+    <h1 style="margin:0;font-size:48px;line-height:1.1">Demo pages 1–4 + certificate</h1>
+    <p style="margin:0;font-size:20px;line-height:1.5;color:#57534A;text-wrap:pretty">Laptop at 1280 px, mobile at 360 px. The demo site uses the light theme; the plug-in parts (player, toolbar, cards) carry their own tokens so they sit cleanly in any host.</p>
+  </header>
+
+  <!-- 1 HOME -->
+  <section id="1" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">1</span><span style="font-size:20px;font-weight:700">Home · laptop</span></div>
+      <div style="width:1280px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" active="home" hint-size="100%,69px"></dc-import>
+        <main style="padding:72px 80px 64px;display:flex;flex-direction:column;gap:64px">
+          <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:64px;align-items:end">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <span style="font-size:17px;color:#57534A">Open-source accessibility plug-in for online learning in Ethiopia</span>
+              <h1 style="margin:0;font-size:64px;line-height:1.05;text-wrap:balance">Ear to the deaf. Eye for the blind.</h1>
+              <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:30px;line-height:1.6;font-weight:600">ለመስማት ለተሳናቸው ጆሮ፣ ለማየት ለተሳናቸው ዓይን።</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <p style="margin:0;font-size:20px;line-height:1.55;text-wrap:pretty">LE HULUM adds Ethiopian Sign Language, captions, audio description and a low-data mode to any video or text lesson, in Amharic and English. Add it to your site with one script tag.</p>
+              <div style="display:flex;gap:12px;flex-wrap:wrap">
+                <a href="#" style="min-height:52px;display:flex;align-items:center;padding:0 24px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:18px">▶ Try the video lesson</a>
+                <a href="#" style="min-height:52px;display:flex;align-items:center;padding:0 24px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;text-decoration:none;font-size:18px">Read the API docs</a>
+              </div>
+            </div>
+          </div>
+          <nav aria-label="Demo pages" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:12px;background:#FFFFFF;border:1px solid #8A8478;text-decoration:none;color:#1C1B18;min-height:150px"><span style="font-family:'JetBrains Mono';font-size:14px;color:#57534A">01</span><span style="font-size:22px;font-weight:700">Video lesson →</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:17px;line-height:1.6">የቪዲዮ ትምህርት</span><span style="font-size:16px;color:#57534A;line-height:1.45">The player with sign, captions and transcript.</span></a>
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:12px;background:#FFFFFF;border:1px solid #8A8478;text-decoration:none;color:#1C1B18;min-height:150px"><span style="font-family:'JetBrains Mono';font-size:14px;color:#57534A">02</span><span style="font-size:22px;font-weight:700">Text lesson →</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:17px;line-height:1.6">የጽሑፍ ትምህርት</span><span style="font-size:16px;color:#57534A;line-height:1.45">Written lesson with Sign, Listen and Translate.</span></a>
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:12px;background:#FFFFFF;border:1px solid #8A8478;text-decoration:none;color:#1C1B18;min-height:150px"><span style="font-family:'JetBrains Mono';font-size:14px;color:#57534A">03</span><span style="font-size:22px;font-weight:700">Jobs →</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:17px;line-height:1.6">ሥራዎች</span><span style="font-size:16px;color:#57534A;line-height:1.45">Accessible job cards and certificates.</span></a>
+            <a href="#" style="display:flex;flex-direction:column;gap:8px;padding:24px;border-radius:12px;background:#FFFFFF;border:1px solid #8A8478;text-decoration:none;color:#1C1B18;min-height:150px"><span style="font-family:'JetBrains Mono';font-size:14px;color:#57534A">04</span><span style="font-size:22px;font-weight:700">API docs →</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:17px;line-height:1.6">API ሰነዶች</span><span style="font-size:16px;color:#57534A;line-height:1.45">Attributes, events and theming.</span></a>
+          </nav>
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:64px;padding-top:40px;border-top:1px solid #D9D3C7">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <h2 style="margin:0;font-size:32px">How to install</h2>
+              <p style="margin:0;font-size:18px;line-height:1.55;color:#57534A">Add the script once, then use &lt;db-player&gt; wherever you show a lesson. It follows your page’s light or dark theme.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <pre aria-label="Install code" style="margin:0;padding:20px 24px;background:#1C1B18;color:#F3F0E8;border-radius:10px;font:400 16px/1.75 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">&lt;script type="module" src="https://cdn.lehulum.org/db-player.js"&gt;&lt;/script&gt;
+
+&lt;db-player src="lesson.mp4" lang="am" sign="auto"&gt;&lt;/db-player&gt;</pre>
+              <div style="display:flex;gap:12px;align-items:center"><button style="min-height:44px;padding:0 18px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:700 16px 'Atkinson Hyperlegible'">Copy code</button><span style="font-size:16px;color:#57534A">MIT licence · works on any site</span></div>
+            </div>
+          </div>
+        </main>
+        <footer style="padding:24px 80px;border-top:1px solid #D9D3C7;display:flex;justify-content:space-between;font-size:16px;color:#57534A"><span>Built for the Digital Bridge Accessibility Hackathon (ALX) · first used on Savanna</span><a href="#" style="min-height:44px;display:flex;align-items:center">Source code</a></footer>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">1</span><span style="font-size:20px;font-weight:700">Home · mobile</span></div>
+      <div style="width:360px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" mobile="{{ true }}" hint-size="100%,61px"></dc-import>
+        <main style="padding:28px 16px;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <h1 style="margin:0;font-size:38px;line-height:1.1">Ear to the deaf. Eye for the blind.</h1>
+            <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:21px;line-height:1.65;font-weight:600">ለመስማት ለተሳናቸው ጆሮ፣ ለማየት ለተሳናቸው ዓይን።</p>
+            <p style="margin:0;font-size:17px;line-height:1.55">Sign language, captions, audio description and low-data lessons, in Amharic and English.</p>
+            <a href="#" style="min-height:52px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#0A6B4E;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:18px">▶ Try the video lesson</a>
+          </div>
+          <nav aria-label="Demo pages" style="display:flex;flex-direction:column;border-top:1px solid #8A8478">
+            <a href="#" style="min-height:56px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #8A8478;text-decoration:none;color:#1C1B18;font-size:18px;font-weight:700">Video lesson <span aria-hidden="true">→</span></a>
+            <a href="#" style="min-height:56px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #8A8478;text-decoration:none;color:#1C1B18;font-size:18px;font-weight:700">Text lesson <span aria-hidden="true">→</span></a>
+            <a href="#" style="min-height:56px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #8A8478;text-decoration:none;color:#1C1B18;font-size:18px;font-weight:700">Jobs <span aria-hidden="true">→</span></a>
+            <a href="#" style="min-height:56px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #8A8478;text-decoration:none;color:#1C1B18;font-size:18px;font-weight:700">API docs <span aria-hidden="true">→</span></a>
+          </nav>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <h2 style="margin:0;font-size:24px">How to install</h2>
+            <pre style="margin:0;padding:14px;background:#1C1B18;color:#F3F0E8;border-radius:8px;font:400 14px/1.7 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">&lt;script type="module" src="https://cdn.lehulum.org/db-player.js"&gt;&lt;/script&gt;</pre>
+            <button style="align-self:flex-start;min-height:44px;padding:0 18px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:700 16px 'Atkinson Hyperlegible'">Copy code</button>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 VIDEO LESSON -->
+  <section id="2" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">2</span><span style="font-size:20px;font-weight:700">Video lesson · laptop</span></div>
+      <div style="width:1280px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" active="video" hint-size="100%,69px"></dc-import>
+        <main style="padding:40px 80px 64px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px">
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <nav aria-label="Breadcrumb" style="font-size:16px;color:#57534A">Savanna demo › Python basics › Lesson 1</nav>
+            <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:40px;line-height:1.15">Python: Your first variable</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:26px;line-height:1.6;font-weight:600">ፓይተን፡ የመጀመሪያ ተለዋዋጭዎ</p></div>
+            <div style="border-radius:12px;overflow:hidden;background:#14130F">
+              <div style="position:relative;height:480px;background:repeating-linear-gradient(135deg,#24221D 0 12px,#1C1A16 12px 24px);display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#BDB7AA;background:#14130F;padding:6px 10px">lesson video</span>
+                <div style="position:absolute;right:12px;top:12px;width:180px;height:240px;border:2px solid #F3F0E8;border-radius:8px;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:flex-end"><span style="background:#14130F;color:#F3F0E8;font-size:13px;padding:4px 8px;width:100%">Automatic sign (beta)</span></div>
+                <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);max-width:640px;background:rgba(0,0,0,.88);color:#FFFFFF;padding:8px 16px;border-radius:6px;font-size:24px;line-height:1.4;text-align:center"><span style="color:#FFE38A;font-weight:700">[Teacher]</span> A variable is a name that holds a value.</div>
+              </div>
+              <dc-import name="PlayerControls" sign="{{ true }}" time="0:06" pct="{{ 3 }}" hint-size="100%,130px"></dc-import>
+            </div>
+            <p style="margin:0;font-size:18px;line-height:1.6;max-width:680px">In this 3-minute lesson you create a variable called name, store the text “Abebe” in it, and print it.</p>
+          </div>
+          <aside style="display:flex;flex-direction:column;gap:16px;padding-top:116px">
+            <h2 style="margin:0;font-size:20px">Chapters</h2>
+            <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid #D9D3C7">
+              <li><a href="#" aria-current="true" style="min-height:52px;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 12px;border-bottom:1px solid #D9D3C7;background:#FFE38A;color:#1C1B18;text-decoration:none;font-weight:700;font-size:16px;border-left:4px solid #1C1B18">▶ What is a variable?<span style="font-family:'JetBrains Mono';font-weight:400;font-size:14px">0:00</span></a></li>
+              <li><a href="#" style="min-height:52px;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid #D9D3C7;color:#1C1B18;text-decoration:none;font-size:16px">Your first variable<span style="font-family:'JetBrains Mono';font-size:14px">0:18</span></a></li>
+              <li><a href="#" style="min-height:52px;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid #D9D3C7;color:#1C1B18;text-decoration:none;font-size:16px">Printing the value<span style="font-family:'JetBrains Mono';font-size:14px">0:42</span></a></li>
+            </ol>
+            <a href="#" style="min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;color:#1C1B18;text-decoration:none;font-size:16px">Read as text lesson →</a>
+            <a href="#" style="min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;color:#1C1B18;text-decoration:none;font-size:16px">↓ Download light lesson (1.5 MB)</a>
+          </aside>
+        </main>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">2</span><span style="font-size:20px;font-weight:700">Video lesson · mobile</span></div>
+      <div style="width:360px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" mobile="{{ true }}" active="video" hint-size="100%,61px"></dc-import>
+        <div style="padding:20px 16px 12px;display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:26px;line-height:1.2">Python: Your first variable</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:19px;line-height:1.6;font-weight:600">ፓይተን፡ የመጀመሪያ ተለዋዋጭዎ</p></div>
+        <div style="background:#14130F">
+          <div style="position:relative;height:203px;background:repeating-linear-gradient(135deg,#24221D 0 10px,#1C1A16 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono';font-size:13px;color:#BDB7AA;background:#14130F;padding:4px 8px">lesson video</span><div style="position:absolute;right:8px;top:8px;width:80px;height:107px;border:2px solid #F3F0E8;border-radius:6px;background:repeating-linear-gradient(135deg,#2A2721 0 8px,#211F1A 8px 16px)"></div></div>
+          <div style="background:#000;color:#FFF;padding:10px 14px;font-size:18px;line-height:1.45"><span style="color:#FFE38A;font-weight:700">[Teacher]</span> A variable is a name that holds a value.</div>
+          <dc-import name="PlayerControls" compact="{{ true }}" sign="{{ true }}" time="0:06" pct="{{ 3 }}" hint-size="100%,130px"></dc-import>
+        </div>
+        <div style="padding:20px 16px;display:flex;flex-direction:column;gap:12px">
+          <h2 style="margin:0;font-size:20px">Chapters</h2>
+          <a href="#" style="min-height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 12px;background:#FFE38A;border-left:4px solid #1C1B18;color:#1C1B18;text-decoration:none;font-weight:700">▶ What is a variable?<span style="font-family:'JetBrains Mono';font-weight:400;font-size:14px">0:00</span></a>
+          <a href="#" style="min-height:52px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:1px solid #D9D3C7;color:#1C1B18;text-decoration:none">Your first variable<span style="font-family:'JetBrains Mono';font-size:14px">0:18</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 TEXT LESSON -->
+  <section id="3" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">3</span><span style="font-size:20px;font-weight:700">Text lesson · laptop · Sign + Listen on, sentence 3 active</span></div>
+      <div style="width:1280px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" active="text" hint-size="100%,69px"></dc-import>
+        <main style="padding:40px 80px 64px;display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:48px">
+          <article style="display:flex;flex-direction:column;gap:24px;max-width:720px">
+            <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:40px;line-height:1.15">Python: Your first variable</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:26px;line-height:1.6;font-weight:600">ፓይተን፡ የመጀመሪያ ተለዋዋጭዎ</p></div>
+            <div role="toolbar" aria-label="LE HULUM" style="position:sticky;top:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:8px;background:#FFFFFF;border:1px solid #8A8478;border-radius:12px">
+              <button aria-pressed="true" style="min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;border:0;font:700 17px 'Atkinson Hyperlegible'"><span>✓ Sign</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:15px;font-weight:600">ምልክት</span></button>
+              <button aria-pressed="true" style="min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;border:0;font:700 17px 'Atkinson Hyperlegible';box-shadow:0 0 0 2px #FFFFFF,0 0 0 5px #1C1B18"><span>❚❚ Listen</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:15px;font-weight:600">አዳምጥ</span></button>
+              <button aria-pressed="false" style="min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 17px 'Atkinson Hyperlegible'"><span>Translate</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:15px">ተርጉም</span></button>
+              <button style="min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 17px 'Atkinson Hyperlegible'"><span>↓ Download</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:15px">አውርድ</span></button>
+            </div>
+            <div role="status" style="font-size:16px;color:#57534A;display:flex;gap:16px;align-items:center"><span>Reading sentence 3 of 7 · speed 1×</span><button style="min-height:44px;padding:0 14px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">← Previous sentence</button><button style="min-height:44px;padding:0 14px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Next sentence →</button></div>
+            <h2 style="margin:8px 0 0;font-size:26px">What is a variable?</h2>
+            <p style="margin:0;font-size:20px;line-height:1.7">A variable is a name that holds a value. Think of it as a box with a label on it. <mark aria-current="true" style="background:#FFE38A;color:#1C1B18;padding:2px 0;box-shadow:0 3px 0 #1C1B18;border-radius:2px">In Python, you make a variable by writing a name, an equals sign and a value.</mark></p>
+            <pre aria-label="Code line 1" style="margin:0;padding:16px 20px;background:#1C1B18;color:#F3F0E8;border-radius:8px;font:400 18px/1.6 'JetBrains Mono',monospace">name = "Abebe"</pre>
+            <p style="margin:0;font-size:20px;line-height:1.7">This line stores the text “Abebe” in a variable called name. To see the value, use print:</p>
+            <pre aria-label="Code line 2" style="margin:0;padding:16px 20px;background:#1C1B18;color:#F3F0E8;border-radius:8px;font:400 18px/1.6 'JetBrains Mono',monospace">print(name)</pre>
+            <p style="margin:0;font-size:20px;line-height:1.7">Python shows Abebe on the screen.</p>
+          </article>
+          <aside aria-label="Sign window" style="display:flex;flex-direction:column;gap:8px;padding-top:120px">
+            <div style="border:2px solid #1C1B18;border-radius:10px;overflow:hidden;background:#14130F;color:#F3F0E8">
+              <div style="height:340px;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono';font-size:13px;background:#14130F;padding:4px 8px">signer · sentence 3</span></div>
+              <div style="padding:8px 12px;font-size:14px;display:flex;justify-content:space-between"><span>Automatic sign (beta)</span><span>EthSL</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+              <button style="min-height:44px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 15px 'Atkinson Hyperlegible';color:#1C1B18">▲ Clear</button>
+              <button style="min-height:44px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 15px 'Atkinson Hyperlegible';color:#1C1B18">▼ Not clear</button>
+            </div>
+          </aside>
+        </main>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">3</span><span style="font-size:20px;font-weight:700">Text lesson · mobile · Amharic</span></div>
+      <div lang="am" style="width:360px;background:#FAF8F3;border-radius:12px;overflow:hidden;font-family:'Noto Sans Ethiopic','Atkinson Hyperlegible'">
+        <dc-import name="SiteHeader" mobile="{{ true }}" lang="am" active="text" hint-size="100%,61px"></dc-import>
+        <div style="padding:20px 16px;display:flex;flex-direction:column;gap:16px">
+          <h1 style="margin:0;font-size:24px;line-height:1.5">ፓይተን፡ የመጀመሪያ ተለዋዋጭዎ</h1>
+          <div role="toolbar" style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:4px;background:#FFFFFF;border:1px solid #8A8478;border-radius:10px">
+            <button aria-pressed="true" style="min-height:56px;border-radius:6px;background:#0A6B4E;color:#FFF;border:0;font:700 15px 'Noto Sans Ethiopic';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">✓</span>ምልክት</button>
+            <button aria-pressed="true" style="min-height:56px;border-radius:6px;background:#0A6B4E;color:#FFF;border:0;font:700 15px 'Noto Sans Ethiopic';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">❚❚</span>አዳምጥ</button>
+            <button style="min-height:56px;border-radius:6px;background:#FFF;color:#1C1B18;border:1px solid #8A8478;font:400 15px 'Noto Sans Ethiopic';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">⇄</span>ተርጉም</button>
+            <button style="min-height:56px;border-radius:6px;background:#FFF;color:#1C1B18;border:1px solid #8A8478;font:400 15px 'Noto Sans Ethiopic';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">↓</span>አውርድ</button>
+          </div>
+          <div style="display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start">
+            <div style="height:160px;border-radius:8px;border:2px solid #1C1B18;background:repeating-linear-gradient(135deg,#2A2721 0 8px,#211F1A 8px 16px);display:flex;align-items:flex-end"><span style="background:#14130F;color:#F3F0E8;font:400 12px 'JetBrains Mono';padding:3px 6px;width:100%;box-sizing:border-box">signer</span></div>
+            <p style="margin:0;font-size:18px;line-height:1.8">ተለዋዋጭ እሴትን የሚይዝ ስም ነው። <mark style="background:#FFE38A;color:#1C1B18;box-shadow:0 3px 0 #1C1B18">በፓይተን ውስጥ ስም፣ የእኩልነት ምልክት እና እሴት በመጻፍ ተለዋዋጭ ይፈጥራሉ።</mark></p>
+          </div>
+          <pre style="margin:0;padding:12px 14px;background:#1C1B18;color:#F3F0E8;border-radius:8px;font:400 16px/1.6 'JetBrains Mono',monospace">name = "Abebe"</pre>
+          <p style="margin:0;font-size:18px;line-height:1.8">ይህ መስመር “Abebe” የሚለውን ጽሑፍ name በሚባል ተለዋዋጭ ውስጥ ያስቀምጣል።</p>
+          <pre style="margin:0;padding:12px 14px;background:#1C1B18;color:#F3F0E8;border-radius:8px;font:400 16px/1.6 'JetBrains Mono',monospace">print(name)</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 JOBS -->
+  <section id="4" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">4</span><span style="font-size:20px;font-weight:700">Jobs · laptop · Listen playing on card 1</span></div>
+      <div style="width:1280px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" active="jobs" hint-size="100%,69px"></dc-import>
+        <main style="padding:40px 80px 64px;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;flex-direction:column;gap:4px"><h1 style="margin:0;font-size:40px">Jobs</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:24px;line-height:1.6;font-weight:600">ሥራዎች</p><p style="margin:4px 0 0;font-size:18px;color:#57534A">3 open roles · deadlines shown in Ethiopian and Gregorian calendars</p></div>
+          <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+            <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="3">
+              <li style="display:flex;flex-direction:column;gap:14px;padding:24px;background:#FFFFFF;border:1px solid #8A8478;border-radius:12px">
+                <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-size:22px;line-height:1.25">{{ j.title }}</h2><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:17px;line-height:1.6">{{ j.titleAm }}</span></div>
+                <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 12px;font-size:16px;line-height:1.45">
+                  <dt style="color:#57534A">Company</dt><dd style="margin:0;font-weight:700">{{ j.company }}</dd>
+                  <dt style="color:#57534A">Location</dt><dd style="margin:0">{{ j.location }}</dd>
+                  <dt style="color:#57534A">Deadline</dt><dd style="margin:0;display:flex;flex-direction:column"><span lang="am" style="font-family:'Noto Sans Ethiopic';font-weight:600">{{ j.dlEt }}</span><span>{{ j.dlGr }}</span></dd>
+                </dl>
+                <p style="margin:0;font-size:16px;line-height:1.55;flex:1">{{ j.summary }}</p>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                    <button aria-pressed="{{ j.playing }}" style="min-height:48px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">{{ j.listenLabel }}</button>
+                    <button style="min-height:48px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">✋ Signed summary</button>
+                  </div>
+                  <a href="#" style="min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#0A6B4E;color:#FFFFFF;text-decoration:none;font-weight:700;font-size:17px">Apply <span style="position:absolute;width:1px;height:1px;overflow:hidden">for {{ j.title }}</span></a>
+                </div>
+              </li>
+            </sc-for>
+          </ul>
+        </main>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">4</span><span style="font-size:20px;font-weight:700">Jobs · mobile</span></div>
+      <div style="width:360px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" mobile="{{ true }}" active="jobs" hint-size="100%,61px"></dc-import>
+        <div style="padding:20px 16px;display:flex;flex-direction:column;gap:16px">
+          <h1 style="margin:0;font-size:30px">Jobs · <span lang="am" style="font-family:'Noto Sans Ethiopic'">ሥራዎች</span></h1>
+          <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="3">
+            <article style="display:flex;flex-direction:column;gap:10px;padding:16px;background:#FFFFFF;border:1px solid #8A8478;border-radius:12px">
+              <h2 style="margin:0;font-size:20px;line-height:1.3">{{ j.title }}</h2>
+              <span style="font-size:16px"><strong>{{ j.company }}</strong> · {{ j.location }}</span>
+              <span style="font-size:15px;display:flex;flex-direction:column"><span style="color:#57534A">Deadline</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-weight:600">{{ j.dlEt }}</span><span>{{ j.dlGr }}</span></span>
+              <p style="margin:0;font-size:16px;line-height:1.5">{{ j.summary }}</p>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <button style="min-height:48px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 15px 'Atkinson Hyperlegible'">{{ j.listenLabel }}</button>
+                <a href="#" style="min-height:48px;display:flex;align-items:center;justify-content:center;border-radius:8px;background:#0A6B4E;color:#FFFFFF;text-decoration:none;font-weight:700">Apply</a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4b CERTIFICATE -->
+  <section id="4b" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">4b</span><span style="font-size:20px;font-weight:700">Certificate + verify · laptop</span></div>
+      <div style="width:1280px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" active="jobs" hint-size="100%,69px"></dc-import>
+        <main style="padding:40px 80px 64px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px;align-items:start">
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <h1 style="margin:0;font-size:36px">Certificate</h1>
+            <div style="background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:40px;display:flex;flex-direction:column;gap:20px;position:relative">
+              <div style="position:absolute;inset:10px;border:2px solid #0A6B4E;border-radius:6px;pointer-events:none"></div>
+              <span style="font-size:16px;color:#57534A">LE HULUM · Savanna demo</span>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:18px">This certifies that</span><span style="font-size:36px;font-weight:700">Hana Tesfaye</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:24px;font-weight:600;line-height:1.6">ሐና ተስፋዬ</span></div>
+              <span style="font-size:18px;line-height:1.5">completed <strong>Python basics</strong> (5 lessons) with sign, caption and audio access.</span>
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px">
+                <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:16px">
+                  <dt style="color:#57534A">Issued</dt><dd style="margin:0"><span lang="am" style="font-family:'Noto Sans Ethiopic'">ኅዳር 6, 2019 ዓ.ም.</span> · 15 Nov 2026</dd>
+                  <dt style="color:#57534A">ID</dt><dd style="margin:0;font-family:'JetBrains Mono'">LH-2026-0417-K9</dd>
+                </dl>
+                <div style="width:120px;height:120px;flex:none;border:1px solid #1C1B18;background:repeating-linear-gradient(45deg,#ECE7DD 0 6px,#FFFFFF 6px 12px);display:flex;align-items:center;justify-content:center"><span style="font:400 12px 'JetBrains Mono';background:#FFF;padding:2px 4px">QR code</span></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px"><button style="min-height:48px;padding:0 20px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">↓ Download PDF</button><button style="min-height:48px;padding:0 20px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Copy verify link</button></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:20px;padding-top:60px">
+            <h2 style="margin:0;font-size:26px">Verify a certificate</h2>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label for="cid" style="font-size:16px;font-weight:700">Certificate ID</label>
+              <div style="display:flex;gap:8px"><input id="cid" value="LH-2026-0417-K9" style="flex:1;min-width:0;min-height:48px;padding:0 14px;border-radius:8px;border:1px solid #8A8478;background:#FFFFFF;font:400 17px 'JetBrains Mono';color:#1C1B18"><button style="min-height:48px;padding:0 20px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;border:0;font:700 17px 'Atkinson Hyperlegible'">Verify</button></div>
+              <span style="font-size:15px;color:#57534A">Or scan the QR code with your phone camera.</span>
+            </div>
+            <div role="status" style="display:flex;gap:14px;padding:18px;border-radius:10px;background:#FFFFFF;border:2px solid #0A6B4E">
+              <span aria-hidden="true" style="flex:none;width:36px;height:36px;border-radius:50%;background:#0A6B4E;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px">✓</span>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-weight:700">Valid <span lang="am" style="font-family:'Noto Sans Ethiopic'">· ትክክለኛ</span></span><span style="font-size:16px;line-height:1.5">Issued to Hana Tesfaye for Python basics on 15 Nov 2026. Not changed since.</span></div>
+            </div>
+            <span style="font-size:15px;color:#57534A">Example of a failed check:</span>
+            <div role="status" style="display:flex;gap:14px;padding:18px;border-radius:10px;background:#FFFFFF;border:2px dashed #B3261E">
+              <span aria-hidden="true" style="flex:none;width:36px;height:36px;border-radius:6px;background:#B3261E;color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px">✕</span>
+              <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-weight:700;color:#B3261E">Not valid <span lang="am" style="font-family:'Noto Sans Ethiopic'">· ትክክል ያልሆነ</span></span><span style="font-size:16px;line-height:1.5">No certificate has the ID LH-2026-9999-X0. Check the ID and try again.</span></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">4b</span><span style="font-size:20px;font-weight:700">Verify result · mobile (after QR scan)</span></div>
+      <div style="width:360px;background:#FAF8F3;border-radius:12px;overflow:hidden">
+        <dc-import name="SiteHeader" mobile="{{ true }}" hint-size="100%,61px"></dc-import>
+        <div style="padding:24px 16px;display:flex;flex-direction:column;gap:16px">
+          <h1 style="margin:0;font-size:26px">Certificate check</h1>
+          <div role="status" style="display:flex;flex-direction:column;gap:10px;padding:18px;border-radius:10px;background:#FFFFFF;border:2px solid #0A6B4E">
+            <span style="display:flex;gap:10px;align-items:center;font-size:24px;font-weight:700"><span aria-hidden="true" style="width:36px;height:36px;border-radius:50%;background:#0A6B4E;color:#FFF;display:flex;align-items:center;justify-content:center;font-size:20px">✓</span>Valid</span>
+            <span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:20px;font-weight:600">ትክክለኛ ሰርተፍኬት</span>
+            <dl style="margin:0;display:flex;flex-direction:column;gap:6px;font-size:16px"><dt style="color:#57534A">Name</dt><dd style="margin:0;font-weight:700">Hana Tesfaye · <span lang="am" style="font-family:'Noto Sans Ethiopic'">ሐና ተስፋዬ</span></dd><dt style="color:#57534A">Course</dt><dd style="margin:0">Python basics</dd><dt style="color:#57534A">ID</dt><dd style="margin:0;font-family:'JetBrains Mono';font-size:15px">LH-2026-0417-K9</dd></dl>
+          </div>
+          <button style="min-height:48px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Check another ID</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { jobs: [
+      { title:'Junior Python Developer', titleAm:'ጀማሪ የፓይተን ገንቢ', company:'Abay Digital Works', location:'Addis Ababa · remote possible',
+        dlEt:'ኅዳር 22, 2019 ዓ.ም.', dlGr:'1 December 2026', summary:'Build small web tools with a friendly team. Screen reader and EthSL interpreter support provided.', playing:'true', listenLabel:'❚❚ Pause summary' },
+      { title:'Customer Support Agent (Amharic and English)', titleAm:'የደንበኞች አገልግሎት ሠራተኛ', company:'Gojo Connect', location:'Hawassa',
+        dlEt:'ታኅሣሥ 6, 2019 ዓ.ም.', dlGr:'15 December 2026', summary:'Answer customer messages by chat and email. Text-only role, no phone calls.', playing:'false', listenLabel:'▶ Listen to summary' },
+      { title:'Data Entry Assistant', titleAm:'የመረጃ ማስገቢያ ረዳት', company:'Lake Tana Agritech', location:'Bahir Dar',
+        dlEt:'ጥር 2, 2019 ዓ.ም.', dlGr:'10 January 2027', summary:'Enter harvest data into spreadsheets. Training given in sign and in writing.', playing:'false', listenLabel:'▶ Listen to summary' },
+    ]};
+  }
+}
+</script>
+</body>
+</html>

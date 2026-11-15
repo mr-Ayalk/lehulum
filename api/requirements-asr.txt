@@ -1,0 +1,12 @@
+# FR-HOH-08, NFR-SUS-01: Heavy ASR libraries. Installed only with WITH_ASR=1.
+# faster-whisper is the English engine (CPU int8). uroman romanises Ethiopic
+# when a Latin CTC aligner is used.
+faster-whisper
+uroman
+# The Amharic stack below needs several GB (torch, a 1.3 GiB CTC checkpoint,
+# transformers). Uncomment on a machine with the disk and RAM:
+# omnilingual-asr
+# torch
+# torchaudio
+# transformers
+# sentencepiece

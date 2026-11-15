@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Ethiopic:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="./lehulum-data.js"></script>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#D9D4C9}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--fc,#1C1B18);outline-offset:2px}
+[data-player] :focus-visible{outline-color:var(--pfc,#FFD54A)}
+a{color:var(--ac,#0A6B4E);text-underline-offset:3px}
+a:hover{color:var(--tx,#1C1B18)}
+:lang(am){letter-spacing:0;text-transform:none}
+input[type=range]{accent-color:var(--ac,#0A6B4E)}
+</style>
+</helmet>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ false }}">
+<div role="region" aria-label="Prototype controls" style="background:#1C1B18;color:#FAF8F3;font-family:'Atkinson Hyperlegible',sans-serif;font-size:15px;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center">
+  <strong style="font-size:15px">Prototype controls</strong>
+  <sc-for list="{{ demoGroups }}" as="g" hint-placeholder-count="2">
+    <div role="group" aria-label="{{ g.label }}" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <span style="color:#D9D3C7">{{ g.label }}</span>
+      <sc-for list="{{ g.items }}" as="o" hint-placeholder-count="2">
+        <button aria-pressed="{{ o.pressed }}" onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button>
+      </sc-for>
+    </div>
+  </sc-for>
+  <button onClick="{{ resetSetup }}" style="min-height:44px;padding:0 12px;border-radius:8px;background:transparent;color:#FAF8F3;border:1px solid #8C8678;font-size:15px">Reset first-time setup</button>
+</div>
+<div style="{{ frameOuter }}">
+<div ref="{{ scrollRef }}" style="{{ frameInner }}">
+<div ref="{{ rootRef }}" lang="{{ lang }}" style="{{ rootStyle }}">
+  <a href="#lh-main" style="position:absolute;left:-9999px;top:8px;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);z-index:50;background:var(--tx);color:var(--bg);padding:10px 14px;border-radius:8px;white-space:nowrap" style-focus="left:8px;width:auto;height:auto;overflow:visible;clip-path:none">{{ t.skipTo }}</a>
+  <div aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">{{ announce }}</div>
+
+  <header style="position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--ln)">
+    <div style="max-width:1200px;margin:0 auto;padding:8px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <a href="#" onClick="{{ goHome }}" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--tx);min-height:44px;min-width:0">
+        <span aria-hidden="true" style="width:34px;height:34px;border-radius:9px;background:var(--ac);display:flex;align-items:center;justify-content:center"><span style="width:12px;height:12px;border-radius:50%;background:var(--bg)"></span></span>
+        <span style="display:flex;flex-direction:column;line-height:1.1"><span style="font-weight:700;font-size:18px;letter-spacing:.04em">LE HULUM</span><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:14px">ለሁሉም</span></span>
+      </a>
+      <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+        <nav aria-label="Main" style="display:flex;gap:2px;flex-wrap:wrap;margin-left:8px">
+          <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+            <a href="#" aria-current="{{ n.current }}" onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</a>
+          </sc-for>
+        </nav>
+      </sc-if>
+      <div style="margin-left:auto;display:flex;gap:6px;min-width:0">
+        <button onClick="{{ toggleLang }}" lang="{{ otherLangCode }}" style="min-height:44px;min-width:44px;padding:0 10px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:15px;font-weight:600">{{ langShort }}</button>
+        <button onClick="{{ cycleTheme }}" aria-label="{{ themeAria }}" title="{{ themeAria }}" style="min-height:44px;min-width:44px;padding:0 10px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:15px;display:flex;align-items:center;justify-content:center;gap:6px"><span aria-hidden="true" style="width:18px;height:18px;border-radius:50%;border:2px solid var(--tx);background:linear-gradient(90deg,var(--tx) 50%,var(--bg) 50%);flex:none"></span><span>{{ themeShort }}</span></button>
+        <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+          <button aria-expanded="{{ menuStr }}" aria-controls="lh-menu" onClick="{{ toggleMenu }}" style="min-height:44px;padding:0 12px;border-radius:8px;background:var(--tx);color:var(--bg);border:0;font-size:15px;font-weight:700;white-space:nowrap">☰ {{ t.menu }}</button>
+        </sc-if>
+      </div>
+    </div>
+    <sc-if value="{{ menuShown }}" hint-placeholder-val="{{ false }}">
+      <nav id="lh-menu" aria-label="Main" style="display:flex;flex-direction:column;padding:4px 16px 12px;border-top:1px solid var(--ln)">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+          <a href="#" aria-current="{{ n.current }}" onClick="{{ n.onClick }}" style="{{ n.mStyle }}">{{ n.label }}<span aria-hidden="true">→</span></a>
+        </sc-for>
+      </nav>
+    </sc-if>
+  </header>
+
+  <main id="lh-main" tabindex="-1" style="{{ mainStyle }}">
+
+  <!-- HOME -->
+  <sc-if value="{{ pHome }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:56px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:32px 64px;align-items:end;padding-top:24px">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <span style="font-size:17px;color:var(--mu)">{{ home.kicker }}</span>
+          <h1 style="margin:0;font-size:clamp(38px,6vw,64px);line-height:1.05;text-wrap:balance">Ear to the deaf. Eye for the blind.</h1>
+          <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic',sans-serif;font-size:clamp(21px,2.6vw,30px);line-height:1.6;font-weight:600">ለመስማት ለተሳናቸው ጆሮ፣ ለማየት ለተሳናቸው ዓይን።</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <p style="margin:0;font-size:19px;line-height:1.6;text-wrap:pretty">{{ home.intro }}</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="#" onClick="{{ goVideo }}" style="min-height:52px;display:flex;align-items:center;gap:8px;padding:0 24px;border-radius:8px;background:var(--ac);color:var(--oa);text-decoration:none;font-weight:700;font-size:18px">▶ {{ home.cta }}</a>
+            <a href="#" onClick="{{ goDocs }}" style="min-height:52px;display:flex;align-items:center;padding:0 24px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);text-decoration:none;font-size:18px">{{ home.cta2 }}</a>
+          </div>
+        </div>
+      </div>
+      <nav aria-label="Demo pages" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:16px">
+        <sc-for list="{{ homeCards }}" as="c" hint-placeholder-count="5">
+          <a href="#" onClick="{{ c.onClick }}" style="display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:12px;background:var(--sf);border:1px solid var(--bd);text-decoration:none;color:var(--tx);min-height:150px" style-hover="border-color:var(--tx);box-shadow:inset 0 0 0 1px var(--tx)">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--mu)">{{ c.n }}</span>
+            <span style="font-size:21px;font-weight:700">{{ c.title }} →</span>
+            <span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:17px;line-height:1.6">{{ c.am }}</span>
+            <span style="font-size:16px;color:var(--mu);line-height:1.45">{{ c.desc }}</span>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:24px 64px;padding-top:40px;border-top:1px solid var(--ln)">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <h2 style="margin:0;font-size:30px">{{ home.installT }}</h2>
+          <p style="margin:0;font-size:18px;line-height:1.55;color:var(--mu)">{{ home.installD }}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;min-width:0">
+          <pre aria-label="Install code" style="margin:0;padding:20px 22px;background:var(--cd);color:var(--ct);border:1px solid var(--bd);border-radius:10px;font:400 15px/1.75 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">{{ installCode }}</pre>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button onClick="{{ copyInstall }}" style="min-height:44px;padding:0 18px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px;font-weight:700">{{ installCopyLabel }}</button><span style="font-size:16px;color:var(--mu)">MIT · Amharic + English · light, dark, high contrast</span></div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- VIDEO -->
+  <sc-if value="{{ pVideo }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <nav aria-label="Breadcrumb" style="font-size:16px;color:var(--mu)">Savanna demo › Python basics › Lesson 1</nav>
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px">
+        <div style="display:flex;flex-direction:column;gap:2px"><h1 style="margin:0;font-size:clamp(28px,4vw,40px);line-height:1.15">Python: Your first variable</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic',sans-serif;font-size:clamp(19px,2.4vw,26px);line-height:1.6;font-weight:600">ፓይተን፡ የመጀመሪያ ተለዋዋጭዎ</p></div>
+        <sc-if value="{{ saved }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:6px;font-size:15px;font-weight:700;padding:6px 12px;border-radius:999px;background:var(--ac);color:var(--oa)">✓ {{ t.saved }}</span></sc-if>
+      </div>
+      <div style="{{ videoGrid }}">
+        <div style="min-width:0">
+          <div ref="{{ playerRef }}" style="{{ playerStyle }}">
+
+            <sc-if value="{{ showOnboard }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" style="padding:clamp(20px,4vw,40px);display:flex;flex-direction:column;gap:24px;color:var(--pt)">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
+                  <div style="display:flex;flex-direction:column;gap:6px">
+                    <h2 id="lh-ob" style="margin:0;font-size:clamp(24px,3.4vw,34px);line-height:1.3">{{ t.howLearn }}</h2>
+                    <p style="margin:0;font-size:17px;line-height:1.5;color:var(--pm)">{{ t.chooseMore }}</p>
+                  </div>
+                  <button onClick="{{ toggleLang }}" lang="{{ otherLangCode }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:16px;font-weight:600">{{ t.otherLang }}</button>
+                </div>
+                <div role="group" aria-labelledby="lh-ob" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
+                  <sc-for list="{{ obChoices }}" as="c" hint-placeholder-count="4">
+                    <button role="checkbox" aria-checked="{{ c.checked }}" onClick="{{ c.onClick }}" style="{{ c.style }}">
+                      <span style="display:flex;justify-content:space-between;align-items:center;width:100%"><span aria-hidden="true" style="{{ c.box }}">{{ c.tick }}</span><span style="font-size:14px;font-weight:700">{{ c.state }}</span></span>
+                      <span style="font-size:23px;font-weight:700">{{ c.title }}</span>
+                      <span lang="{{ c.subLang }}" style="font-size:17px">{{ c.sub }}</span>
+                      <span style="font-size:15px;line-height:1.45;color:var(--pm)">{{ c.desc }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                  <button onClick="{{ obStart }}" style="min-height:52px;padding:0 28px;border-radius:8px;background:var(--pa);color:var(--po);border:0;font-size:18px;font-weight:700">{{ t.start }}</button>
+                  <button onClick="{{ obDefaults }}" style="min-height:52px;padding:0 22px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:17px">{{ t.defaults }}</button>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showOffline }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" role="status" style="padding:32px;display:flex;flex-direction:column;gap:12px;color:var(--pt);min-height:280px;justify-content:center">
+                <span style="font-size:24px;font-weight:700">⊘ {{ t.offline }}</span>
+                <p style="margin:0;font-size:17px;line-height:1.55;color:var(--pm);max-width:560px">{{ t.offlineD }}</p>
+                <a href="#" onClick="{{ goText }}" style="color:var(--pa);font-size:17px;min-height:44px;display:flex;align-items:center">{{ t.text }} →</a>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showFormat }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" style="padding:clamp(16px,4vw,36px);display:flex;flex-direction:column;gap:16px;color:var(--pt)">
+                <span role="status" style="align-self:flex-start;display:flex;gap:8px;align-items:center;padding:8px 12px;border-radius:8px;border:1px solid var(--pd);font-size:15px"><span aria-hidden="true" style="font-weight:700">▁▃</span>{{ t.slow }}</span>
+                <h2 id="lh-fmt" style="margin:0;font-size:clamp(22px,3vw,30px);line-height:1.3">{{ t.howWatch }}</h2>
+                <div role="radiogroup" aria-labelledby="lh-fmt" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px">
+                  <sc-for list="{{ fmtOpts }}" as="f" hint-placeholder-count="3">
+                    <button role="radio" aria-checked="{{ f.checked }}" onClick="{{ f.onClick }}" style="{{ f.style }}">
+                      <span aria-hidden="true" style="{{ f.dot }}"><span style="{{ f.dotIn }}"></span></span>
+                      <span style="display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:left"><span style="font-size:19px;font-weight:700">{{ f.title }}</span><span style="font-size:15px;line-height:1.4;color:var(--pm)">{{ f.desc }}</span><sc-if value="{{ f.rec }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--pa);color:var(--po)">{{ t.rec }}</span></sc-if></span>
+                      <span style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;white-space:nowrap">{{ f.size }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ dlActive }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:10px;border:1px solid var(--pd)">
+                    <span style="font-size:17px;font-weight:700">{{ t.downloading }}</span>
+                    <div role="progressbar" aria-label="{{ t.downloading }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ dlPct }}" style="height:16px;border-radius:999px;border:1px solid var(--pd);overflow:hidden;background:var(--p2)"><div style="{{ dlBar }}"></div></div>
+                    <div style="display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:15px"><span style="font-weight:700">{{ dlPct }}%</span><span style="font-family:'JetBrains Mono',monospace">{{ dlText }}</span></div>
+                    <span style="font-size:15px;color:var(--pm)">{{ t.keepUsing }}</span>
+                    <button onClick="{{ dlCancel }}" style="align-self:flex-start;min-height:44px;padding:0 16px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:16px">✕ {{ t.cancel }}</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ savedInChooser }}" hint-placeholder-val="{{ false }}">
+                  <div role="status" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px;border-radius:10px;border:2px solid var(--pa)">
+                    <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:17px;font-weight:700">✓ {{ t.saved }}</span><span style="font-size:15px;color:var(--pm)">Python: Your first variable · 1.5 MB</span></span>
+                    <button onClick="{{ dlDelete }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:15px">{{ t.del }}</button>
+                  </div>
+                </sc-if>
+                <div style="display:flex;gap:12px;flex-wrap:wrap">
+                  <button onClick="{{ fmtWatch }}" style="min-height:52px;padding:0 26px;border-radius:8px;background:var(--pa);color:var(--po);border:0;font-size:18px;font-weight:700">{{ t.watchNow }}</button>
+                  <sc-if value="{{ canDl }}" hint-placeholder-val="{{ true }}"><button onClick="{{ dlStart }}" style="min-height:52px;padding:0 20px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:17px">↓ {{ t.dlLater }}</button></sc-if>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showTextOnly }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" style="padding:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;color:var(--pt)">
+                <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:19px;font-weight:700">{{ t.textO }} · 50 KB</span><span style="font-size:15px;color:var(--pm)">{{ t.textOD }}</span></span>
+                <button onClick="{{ fmtChange }}" style="min-height:44px;padding:0 16px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:16px">{{ t.change }}</button>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showStage }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" ref="{{ stageRef }}" style="{{ stageStyle }}">
+                <div aria-hidden="true" style="{{ lessonCell }}">
+                  <sc-if value="{{ sceneTitle }}" hint-placeholder-val="{{ true }}">
+                    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4cqw;background:#1E1D19;color:#F3F0E8;text-align:center;padding:4cqw">
+                      <span style="font-size:2.4cqw;color:#BDB7AA;font-family:'JetBrains Mono',monospace">Python basics · Lesson 1</span>
+                      <span style="font-size:6.4cqw;font-weight:700;line-height:1.1">Your first variable</span>
+                      <span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:4cqw;line-height:1.5">የመጀመሪያ ተለዋዋጭዎ</span>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ sceneEditor }}" hint-placeholder-val="{{ false }}">
+                    <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:#1B1A17;font-family:'JetBrains Mono',monospace;color:#F3F0E8">
+                      <div style="display:flex;padding:1.2cqw 2cqw 0;background:#24221D;font-size:2.2cqw"><span style="background:#1B1A17;padding:.8cqw 2cqw;border-radius:.8cqw .8cqw 0 0">hello.py</span></div>
+                      <div style="flex:1;padding:3cqw;display:flex;flex-direction:column;gap:1.4cqw;font-size:4.4cqw;line-height:1.3">
+                        <div style="display:flex;gap:3cqw"><span style="color:#8C8678">1</span><sc-if value="{{ l1 }}" hint-placeholder-val="{{ false }}"><span>name <span style="color:#BDB7AA">=</span> <span style="color:#F5D76E">"Abebe"</span></span></sc-if></div>
+                        <div style="display:flex;gap:3cqw"><span style="color:#8C8678">2</span><sc-if value="{{ l2 }}" hint-placeholder-val="{{ false }}"><span><span style="color:#62D6AA">print</span>(name)</span></sc-if></div>
+                      </div>
+                      <div style="height:30%;border-top:1px solid #3A3730;background:#121110;padding:2cqw 3cqw;font-size:3cqw;display:flex;flex-direction:column;gap:1cqw">
+                        <span style="color:#8C8678">TERMINAL</span>
+                        <sc-if value="{{ out }}" hint-placeholder-val="{{ false }}"><span>$ python hello.py</span><span style="font-weight:600;color:#62D6AA">Abebe</span></sc-if>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ fmtBadge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;left:2cqw;top:2cqw;font-family:'Atkinson Hyperlegible',sans-serif;font-size:max(12px,1.8cqw);background:#14130F;color:#F3F0E8;border:1px solid #8C8678;padding:.6cqw 1.4cqw;border-radius:6px">{{ fmtBadgeText }}</span></sc-if>
+                </div>
+
+                <sc-if value="{{ signShown }}" hint-placeholder-val="{{ false }}">
+                  <div ref="{{ signRef }}" role="region" aria-label="{{ t.signWin }}" style="{{ signCell }}">
+                    <sc-if value="{{ signFloat }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;gap:4px;padding:4px;background:var(--pb);border-bottom:1px solid var(--pd);flex:none">
+                        <button onPointerDown="{{ dragStart }}" onKeyDown="{{ moveKey }}" aria-label="{{ moveAria }}" title="{{ moveAria }}" style="flex:1;min-width:44px;min-height:44px;border-radius:6px;background:var(--p2);color:var(--pt);border:1px solid var(--pd);font-size:13px;font-weight:700;cursor:grab;touch-action:none">⠿ {{ t.move }}</button>
+                        <button aria-expanded="{{ signOptsStr }}" onClick="{{ toggleSignOpts }}" style="{{ signOptsBtn }}">{{ t.options }}</button>
+                      </div>
+                    </sc-if>
+                    <div style="{{ signVideo }}">
+                      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#F3F0E8;background:#14130F;padding:3px 6px;border-radius:4px">EthSL signer</span>
+                      <div style="position:absolute;left:0;right:0;bottom:0;padding:6px;display:flex;flex-wrap:wrap;gap:3px 5px;justify-content:center;background:rgba(14,13,10,.88)">
+                        <sc-for list="{{ glossWords }}" as="w" hint-placeholder-count="4"><span style="{{ w.style }}">{{ w.text }}</span></sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ firstWide }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ sideCol }}">
+                    <button onClick="{{ swapToLesson }}" style="min-height:48px;border-radius:8px;background:var(--pb);color:var(--pt);border:1px solid var(--pd);font-size:16px;font-weight:700">⇄ {{ t.swap }}</button>
+                    <sc-if value="{{ waiting }}" hint-placeholder-val="{{ false }}">
+                      <div role="status" style="display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:8px;background:var(--p2);border:2px solid var(--pfc);color:var(--pt)">
+                        <span style="display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700"><span aria-hidden="true" style="display:flex;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--pfc)"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--pfc);opacity:.6"></span><span style="width:8px;height:8px;border-radius:50%;background:var(--pfc);opacity:.3"></span></span>{{ t.waiting }}</span>
+                        <span style="font-size:15px;line-height:1.45;color:var(--pm)">{{ t.waitingD }}</span>
+                        <button onClick="{{ dontWait }}" style="align-self:flex-start;min-height:44px;padding:0 14px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:15px">{{ t.dontWait }}</button>
+                      </div>
+                    </sc-if>
+                    <span style="font-size:14px;color:var(--pt);background:var(--pb);padding:6px 8px;border-radius:6px;border:1px solid var(--pd)">{{ t.autoSign }} · EthSL</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ firstCompact }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ swapToLesson }}" style="{{ swapCompact }}">⇄ {{ t.swap }}</button>
+                </sc-if>
+
+                <sc-if value="{{ bigPlay }}" hint-placeholder-val="{{ false }}">
+                  <button onClick="{{ togglePlay }}" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;min-height:56px;padding:0 26px;border-radius:999px;background:var(--pa);color:var(--po);border:0;font-size:19px;font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,.4)">▶ {{ t.playLesson }}</button>
+                </sc-if>
+
+                <sc-if value="{{ capOver }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ capWrap }}"><div style="{{ capBox }}"><span style="{{ capSpeaker }}">[{{ speaker }}]</span> <sc-for list="{{ capParts }}" as="p" hint-placeholder-count="1"><sc-if value="{{ p.plain }}" hint-placeholder-val="{{ true }}">{{ p.text }}</sc-if><sc-if value="{{ p.unc }}" hint-placeholder-val="{{ false }}"><span style="text-decoration:underline dotted 2px;text-underline-offset:5px">{{ p.text }}</span><span aria-hidden="true" style="font-size:.6em;vertical-align:super;font-weight:700;border:1px solid currentColor;border-radius:4px;padding:0 4px;margin-left:3px">?</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"> (uncertain word)</span></sc-if></sc-for></div></div>
+                </sc-if>
+
+                <sc-if value="{{ adOver }}" hint-placeholder-val="{{ false }}">
+                  <div role="status" style="position:absolute;left:3%;right:3%;bottom:4%;z-index:6;background:#000;color:#FFF;border:3px solid var(--pfc);border-radius:8px;padding:clamp(12px,2vw,20px);display:flex;flex-direction:column;gap:10px">
+                    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center"><span style="font-size:17px;font-weight:700;color:var(--pfc)">◉ {{ t.adLabel }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px">{{ timeText }}</span></div>
+                    <p style="margin:0;font-size:clamp(18px,2.4vw,26px);line-height:1.45">{{ adText }}</p>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap"><button data-autofocus-ad="" onClick="{{ adSkip }}" style="min-height:48px;padding:0 18px;border-radius:8px;background:var(--pfc);color:#000;border:0;font-size:16px;font-weight:700">{{ t.skip }}</button><button onClick="{{ adReplay }}" style="min-height:48px;padding:0 18px;border-radius:8px;background:#000;color:#FFF;border:2px solid #FFF;font-size:16px">↺ {{ t.replay }}</button></div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ waitCompact }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" role="status" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:10px 14px;background:var(--p2);border-top:2px solid var(--pfc);border-bottom:2px solid var(--pfc);color:var(--pt)"><span aria-hidden="true" style="width:10px;height:10px;border-radius:50%;background:var(--pfc)"></span><span style="font-size:17px;font-weight:700;flex:1">{{ t.waiting }}</span><button onClick="{{ dontWait }}" style="min-height:44px;padding:0 12px;border-radius:8px;background:transparent;color:var(--pt);border:1px solid var(--pd);font-size:15px">{{ t.dontWait }}</button></div>
+            </sc-if>
+
+            <sc-if value="{{ adBelow }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" role="status" style="background:#000;color:#FFF;border-top:3px solid var(--pfc);padding:14px;display:flex;flex-direction:column;gap:10px">
+                <span style="font-size:15px;font-weight:700;color:var(--pfc)">◉ {{ t.adLabel }}</span>
+                <p style="margin:0;font-size:18px;line-height:1.5">{{ adText }}</p>
+                <div style="display:flex;gap:8px;flex-wrap:wrap"><button onClick="{{ adSkip }}" style="min-height:48px;padding:0 16px;border-radius:8px;background:var(--pfc);color:#000;border:0;font-size:16px;font-weight:700">{{ t.skip }}</button><button onClick="{{ adReplay }}" style="min-height:48px;padding:0 16px;border-radius:8px;background:#000;color:#FFF;border:2px solid #FFF;font-size:16px">↺ {{ t.replay }}</button></div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ capBelow }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ capBelowBox }}"><span style="{{ capSpeaker }}">[{{ speaker }}]</span> <sc-for list="{{ capParts }}" as="p" hint-placeholder-count="1"><sc-if value="{{ p.plain }}" hint-placeholder-val="{{ true }}">{{ p.text }}</sc-if><sc-if value="{{ p.unc }}" hint-placeholder-val="{{ false }}"><span style="text-decoration:underline dotted 2px;text-underline-offset:5px">{{ p.text }}</span><span aria-hidden="true" style="font-size:.6em;vertical-align:super;font-weight:700;border:1px solid currentColor;border-radius:4px;padding:0 4px;margin-left:3px">?</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"> (uncertain word)</span></sc-if></sc-for></div>
+            </sc-if>
+
+            <sc-if value="{{ signOptsShown }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" role="group" aria-label="{{ t.signWin }}" style="display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;background:var(--p2);border-top:1px solid var(--pd);color:var(--pt);align-items:center">
+                <sc-for list="{{ signOptBtns }}" as="b" hint-placeholder-count="8"><button aria-pressed="{{ b.pressed }}" onClick="{{ b.onClick }}" style="{{ b.style }}">{{ b.label }}</button></sc-for>
+                <span style="flex-basis:100%;height:0"></span>
+                <sc-if value="{{ fbAsk }}" hint-placeholder-val="{{ true }}">
+                  <span style="font-size:15px">{{ t.wasClear }}</span>
+                  <button onClick="{{ fbUp }}" style="min-height:44px;padding:0 12px;border-radius:6px;background:var(--pb);color:var(--pt);border:1px solid var(--pd);font-size:14px">▲ {{ t.yesClear }}</button>
+                  <button onClick="{{ fbDown }}" style="min-height:44px;padding:0 12px;border-radius:6px;background:var(--pb);color:var(--pt);border:1px solid var(--pd);font-size:14px">▼ {{ t.notClear }}</button>
+                </sc-if>
+                <sc-if value="{{ fbDone }}" hint-placeholder-val="{{ false }}"><span role="status" style="font-size:15px;min-height:44px;display:flex;align-items:center">✓ {{ t.thanks }}</span></sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showBar }}" hint-placeholder-val="{{ false }}">
+              <div data-player="" role="group" aria-label="Player controls" style="display:flex;flex-direction:column;gap:6px;padding:8px 10px 10px;background:var(--pb);color:var(--pt);border-top:1px solid var(--pd)">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:40px">{{ timeText }}</span>
+                  <div role="slider" tabindex="0" aria-label="{{ t.seek }}" aria-valuemin="0" aria-valuemax="60" aria-valuenow="{{ tRound }}" aria-valuetext="{{ seekText }}" onKeyDown="{{ seekKey }}" onPointerDown="{{ seekDown }}" style="flex:1;height:44px;position:relative;display:flex;align-items:center;cursor:pointer;touch-action:none;border-radius:6px">
+                    <div style="height:6px;width:100%;border-radius:3px;background:var(--p2);border:1px solid var(--pd)"></div>
+                    <div style="{{ seekFill }}"></div>
+                    <sc-for list="{{ chTicks }}" as="c" hint-placeholder-count="2"><span aria-hidden="true" style="{{ c.style }}"></span></sc-for>
+                    <div style="{{ seekThumb }}"></div>
+                  </div>
+                  <span style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:40px;text-align:right">1:00</span>
+                </div>
+                <div style="display:flex;gap:4px;justify-content:space-between">
+                  <sc-for list="{{ ctls }}" as="b" hint-placeholder-count="8">
+                    <button aria-pressed="{{ b.pressed }}" aria-expanded="{{ b.expanded }}" aria-keyshortcuts="{{ b.key }}" onClick="{{ b.onClick }}" style="{{ b.style }}">
+                      <span aria-hidden="true" style="font-size:15px;line-height:1;font-weight:700;height:18px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace">{{ b.glyph }}</span>
+                      <span style="font-size:13px;line-height:1.2;white-space:nowrap">{{ b.label }}</span>
+                      <span aria-hidden="true" style="{{ b.bar }}"></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <sc-if value="{{ moreShown }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding-top:6px;border-top:1px solid var(--pd)">
+                    <sc-for list="{{ moreCtls }}" as="b" hint-placeholder-count="6">
+                      <button aria-pressed="{{ b.pressed }}" onClick="{{ b.onClick }}" style="{{ b.style }}">
+                        <span aria-hidden="true" style="font-size:15px;line-height:1;font-weight:700;height:18px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace">{{ b.glyph }}</span>
+                        <span style="font-size:13px;line-height:1.2;white-space:nowrap">{{ b.label }}</span>
+                        <span aria-hidden="true" style="{{ b.bar }}"></span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <!-- PLAYER DIALOGS -->
+            <sc-if value="{{ dSettings }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ scrimClose }}" style="position:fixed;inset:0;z-index:100;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:12px">
+                <div role="dialog" aria-modal="true" aria-labelledby="lh-set-t" onClick="{{ stop }}" style="width:100%;max-width:960px;max-height:100%;overflow:auto;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;display:flex;flex-direction:column">
+                  <div style="position:sticky;top:0;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--ln);background:var(--sf)">
+                    <h2 id="lh-set-t" style="margin:0;font-size:26px">{{ t.settings }}</h2>
+                    <div style="display:flex;gap:8px"><button onClick="{{ resetSettings }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">{{ t.reset }}</button><button data-autofocus="" onClick="{{ closeDialog }}" style="min-height:44px;padding:0 16px;border-radius:8px;background:var(--ac);color:var(--oa);border:0;font-size:16px;font-weight:700">✕ {{ t.done }}</button></div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1px;background:var(--ln)">
+                    <section aria-labelledby="lh-s1" style="background:var(--bg);padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+                      <h3 id="lh-s1" style="margin:0;font-size:21px">{{ t.capT }}</h3>
+                      <sc-for list="{{ capGroups }}" as="g" hint-placeholder-count="4">
+                        <div role="group" aria-label="{{ g.label }}" style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:700">{{ g.label }}</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3"><button aria-pressed="{{ o.pressed }}" onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for></div></div>
+                      </sc-for>
+                      <div style="{{ capPreview }}"><span style="{{ capSpeaker }}">[{{ speaker }}]</span> {{ capPreviewText }}</div>
+                    </section>
+                    <section aria-labelledby="lh-s2" style="background:var(--bg);padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+                      <h3 id="lh-s2" style="margin:0;font-size:21px">{{ t.hearing }}</h3>
+                      <sc-for list="{{ hearGroups }}" as="g" hint-placeholder-count="2">
+                        <div role="group" aria-label="{{ g.label }}" style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:700">{{ g.label }}</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ g.opts }}" as="o" hint-placeholder-count="3"><button aria-pressed="{{ o.pressed }}" onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for></div></div>
+                      </sc-for>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-size:16px;font-weight:700">{{ t.mono }}</span><button role="switch" aria-checked="{{ swMono.checked }}" onClick="{{ swMono.onClick }}" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;font-size:16px;color:var(--tx)"><span style="{{ swMono.track }}"><span style="{{ swMono.knob }}">{{ swMono.glyph }}</span></span>{{ swMono.text }}</button></div>
+                      <label style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">{{ t.balance }}</span><span style="display:flex;align-items:center;gap:10px"><span style="font-size:15px">{{ t.leftE }}</span><input type="range" min="-100" max="100" step="10" value="{{ hearBal }}" onChange="{{ onBal }}" aria-valuetext="{{ balText }}" style="flex:1;height:44px;min-width:0"><span style="font-size:15px">{{ t.rightE }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:64px;text-align:right">{{ balText }}</span></span></label>
+                    </section>
+                    <section aria-labelledby="lh-s3" style="background:var(--bg);padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+                      <h3 id="lh-s3" style="margin:0;font-size:21px">{{ t.adT }}</h3>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="font-size:16px;font-weight:700">{{ t.adOn }}</span><button role="switch" aria-checked="{{ swAd.checked }}" onClick="{{ swAd.onClick }}" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;font-size:16px;color:var(--tx)"><span style="{{ swAd.track }}"><span style="{{ swAd.knob }}">{{ swAd.glyph }}</span></span>{{ swAd.text }}</button></div>
+                      <div role="group" aria-label="{{ t.readWith }}" style="display:flex;flex-direction:column;gap:6px"><span style="font-size:16px;font-weight:700">{{ t.readWith }}</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ segAdMode }}" as="o" hint-placeholder-count="2"><button aria-pressed="{{ o.pressed }}" onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for></div></div>
+                      <label style="display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:700">{{ t.adVol }}</span><span style="display:flex;align-items:center;gap:10px"><input type="range" min="0" max="100" step="5" value="{{ adVol }}" onChange="{{ onAdVol }}" style="flex:1;height:44px;min-width:0"><span style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:48px;text-align:right">{{ adVol }}%</span></span></label>
+                    </section>
+                    <section aria-labelledby="lh-s4" style="background:var(--bg);padding:18px 20px;display:flex;flex-direction:column;gap:14px">
+                      <h3 id="lh-s4" style="margin:0;font-size:21px">{{ t.displayT }}</h3>
+                      <div role="group" aria-label="{{ t.displayT }}" style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ segTheme }}" as="o" hint-placeholder-count="3"><button aria-pressed="{{ o.pressed }}" onClick="{{ o.onClick }}" style="{{ o.style }}">{{ o.label }}</button></sc-for></div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><span style="display:flex;flex-direction:column"><span style="font-size:16px;font-weight:700">{{ t.shortcuts }}</span><span style="font-size:15px;color:var(--mu)">{{ t.shortcutsD }}</span></span><button role="switch" aria-checked="{{ swKeys.checked }}" onClick="{{ swKeys.onClick }}" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0;font-size:16px;color:var(--tx);flex:none"><span style="{{ swKeys.track }}"><span style="{{ swKeys.knob }}">{{ swKeys.glyph }}</span></span>{{ swKeys.text }}</button></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ dKeys }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ scrimClose }}" style="position:fixed;inset:0;z-index:100;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:12px">
+                <div role="dialog" aria-modal="true" aria-labelledby="lh-keys-t" onClick="{{ stop }}" style="width:100%;max-width:520px;max-height:100%;overflow:auto;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 id="lh-keys-t" style="margin:0;font-size:24px">{{ t.keysT }}</h2><button data-autofocus="" onClick="{{ closeDialog }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">✕ {{ t.close }}</button></div>
+                  <sc-if value="{{ keysOff }}" hint-placeholder-val="{{ false }}"><p role="status" style="margin:0;padding:10px 12px;border:1px dashed var(--bd);border-radius:8px;font-size:15px">{{ t.shortcuts }}: {{ t.off }}</p></sc-if>
+                  <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;align-items:center;font-size:16px">
+                    <sc-for list="{{ keyList }}" as="k" hint-placeholder-count="8"><dt style="display:flex;gap:4px"><sc-for list="{{ k.keys }}" as="kk" hint-placeholder-count="1"><kbd style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:32px;text-align:center;padding:4px 8px;border:1px solid var(--bd);border-bottom-width:3px;border-radius:6px;background:var(--sf)">{{ kk }}</kbd></sc-for></dt><dd style="margin:0">{{ k.label }}</dd></sc-for>
+                  </dl>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ dGloss }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ scrimClose }}" style="position:fixed;inset:0;z-index:100;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:12px">
+                <div role="dialog" aria-modal="true" aria-labelledby="lh-gl-t" onClick="{{ stop }}" style="width:100%;max-width:440px;max-height:100%;overflow:auto;background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px">
+                  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+                    <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;color:var(--mu)">{{ t.glossary }}</span><h2 id="lh-gl-t" lang="en" style="margin:0;font-size:28px">{{ gl.en }}</h2><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:22px;line-height:1.6">{{ gl.am }}</span></div>
+                    <button data-autofocus="" onClick="{{ closeDialog }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px;flex:none">✕ {{ t.close }}</button>
+                  </div>
+                  <div style="position:relative;aspect-ratio:4/3;border-radius:8px;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:center;justify-content:center">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F3F0E8;background:#14130F;padding:4px 8px;border-radius:4px">EthSL sign: {{ gl.g }}</span>
+                    <span style="position:absolute;top:8px;left:8px;background:#000;color:#FFF;font-size:13px;padding:4px 8px;border-radius:4px">{{ loopState }}</span>
+                  </div>
+                  <p lang="en" style="margin:0;font-size:17px;line-height:1.5">{{ gl.dEn }}</p>
+                  <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic',sans-serif;font-size:17px;line-height:1.7">{{ gl.dAm }}</p>
+                  <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <button aria-pressed="{{ loopPausedStr }}" onClick="{{ toggleLoop }}" style="flex:1;min-height:44px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">{{ loopBtn }}</button>
+                    <button aria-pressed="{{ loopSlowStr }}" onClick="{{ toggleSlow }}" style="{{ slowBtnStyle }}">{{ slowLabel }}</button>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <sc-if value="{{ showPanels }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+            <sc-if value="{{ txShown }}" hint-placeholder-val="{{ false }}">
+              <aside aria-labelledby="lh-tx-t" style="{{ panelStyle }}">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 8px 8px 18px;border-bottom:1px solid var(--ln);flex:none">
+                  <h2 id="lh-tx-t" style="margin:0;font-size:21px">{{ t.transcript }}</h2>
+                  <sc-if value="{{ panelClosable }}" hint-placeholder-val="{{ true }}"><button onClick="{{ closePanel }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">✕ {{ t.close }}</button></sc-if>
+                </div>
+                <div ref="{{ txRef }}" style="position:relative;overflow:auto;padding:6px 10px 16px;display:flex;flex-direction:column;gap:2px;flex:1;min-height:0">
+                  <sc-for list="{{ tx }}" as="c" hint-placeholder-count="3">
+                    <h3 style="margin:12px 0 2px;font-size:16px"><button onClick="{{ c.onClick }}" style="width:100%;min-height:44px;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 10px;background:transparent;border:0;border-radius:6px;font-weight:700;text-align:left;color:var(--tx)"><span>{{ c.n }}. {{ c.title }}</span><span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:13px;color:var(--mu)">{{ c.time }}</span></button></h3>
+                    <sc-for list="{{ c.lines }}" as="l" hint-placeholder-count="3">
+                      <div style="display:flex;flex-direction:column;gap:4px">
+                        <button data-cur="{{ l.cur }}" aria-current="{{ l.aria }}" onClick="{{ l.onClick }}" style="{{ l.style }}"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;padding-top:3px">{{ l.time }}</span><span><sc-if value="{{ l.curB }}" hint-placeholder-val="{{ false }}"><span style="display:block;font-size:13px;font-weight:700">▶ {{ t.nowPlaying }}</span></sc-if>{{ l.text }}</span></button>
+                        <sc-if value="{{ l.hasTerms }}" hint-placeholder-val="{{ false }}"><div style="display:flex;flex-wrap:wrap;gap:6px;padding:0 0 4px 66px"><sc-for list="{{ l.terms }}" as="tm" hint-placeholder-count="1"><button aria-haspopup="dialog" onClick="{{ tm.onClick }}" style="min-height:44px;padding:0 12px;border-radius:999px;background:var(--sf);color:var(--ac);border:1px solid var(--ac);font-size:15px;font-weight:700">SL · {{ tm.label }}</button></sc-for></div></sc-if>
+                      </div>
+                    </sc-for>
+                  </sc-for>
+                </div>
+              </aside>
+            </sc-if>
+            <sc-if value="{{ scrShown }}" hint-placeholder-val="{{ false }}">
+              <aside aria-labelledby="lh-scr-t" style="{{ panelStyleScr }}">
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 id="lh-scr-t" style="margin:0;font-size:21px">{{ t.screen }}</h2><sc-if value="{{ panelClosable }}" hint-placeholder-val="{{ true }}"><button onClick="{{ closePanel }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">✕ {{ t.close }}</button></sc-if></div>
+                <h3 style="margin:0;font-size:17px;font-weight:400;color:var(--mu)">{{ t.onScreenAt }} <span style="font-family:'JetBrains Mono',monospace;color:var(--tx);font-weight:600">{{ timeText }}</span></h3>
+                <p style="margin:0;font-size:17px;line-height:1.5">{{ scrDesc }}</p>
+                <sc-if value="{{ hasCode }}" hint-placeholder-val="{{ false }}">
+                  <pre aria-label="{{ codeAria }}" style="margin:0;padding:14px 16px;background:var(--cd);color:var(--ct);border:1px solid var(--bd);border-radius:8px;font:400 16px/1.7 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere"><sc-for list="{{ codeLines }}" as="cl" hint-placeholder-count="2"><span style="display:block"><span aria-hidden="true" style="opacity:.6;margin-right:12px">{{ cl.n }}</span>{{ cl.c }}</span></sc-for></pre>
+                  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button onClick="{{ copyCode }}" style="min-height:48px;padding:0 20px;border-radius:8px;background:var(--ac);color:var(--oa);border:0;font-size:17px;font-weight:700">{{ t.copy }}</button><sc-if value="{{ copied }}" hint-placeholder-val="{{ false }}"><span role="status" style="font-size:16px">✓ {{ t.copied }}</span></sc-if></div>
+                </sc-if>
+              </aside>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px 48px;padding-top:8px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h2 style="margin:0;font-size:20px">{{ t.chapters }}</h2>
+          <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;border-top:1px solid var(--ln)">
+            <sc-for list="{{ chList }}" as="c" hint-placeholder-count="3"><li><button aria-current="{{ c.aria }}" onClick="{{ c.onClick }}" style="{{ c.style }}"><span>{{ c.label }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:400">{{ c.time }}</span></button></li></sc-for>
+          </ol>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <p style="margin:0;font-size:18px;line-height:1.6">{{ videoAbout }}</p>
+          <a href="#" onClick="{{ goText }}" style="font-size:17px;min-height:44px;display:flex;align-items:center">{{ t.text }} →</a>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- TEXT LESSON -->
+  <sc-if value="{{ pText }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ textGrid }}">
+      <article style="display:flex;flex-direction:column;gap:22px;min-width:0;max-width:760px">
+        <div style="display:flex;flex-direction:column;gap:2px"><h1 style="margin:0;font-size:clamp(28px,4vw,40px);line-height:1.15">Python: Your first variable</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic',sans-serif;font-size:clamp(19px,2.4vw,26px);line-height:1.6;font-weight:600">ፓይተን፡ የመጀመሪያ ተለዋዋጭዎ</p></div>
+        <div role="toolbar" aria-label="LE HULUM" style="position:sticky;top:64px;z-index:5;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px;background:var(--sf);border:1px solid var(--bd);border-radius:12px">
+          <sc-for list="{{ tbBtns }}" as="b" hint-placeholder-count="4">
+            <button aria-pressed="{{ b.pressed }}" onClick="{{ b.onClick }}" style="{{ b.style }}"><span lang="en">{{ b.en }}</span><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:15px">{{ b.am }}</span></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ tlRunning }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:16px">
+            <span role="status" style="color:var(--mu);margin-right:8px">{{ tlStatus }}</span>
+            <button onClick="{{ tlPrev }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">← {{ t.prev }}</button>
+            <button onClick="{{ tlNext }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">{{ t.next }} →</button>
+            <button onClick="{{ tlStop }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px">■ {{ t.stop }}</button>
+          </div>
+        </sc-if>
+        <sc-if value="{{ tlDlActive }}" hint-placeholder-val="{{ false }}">
+          <div role="progressbar" aria-label="{{ t.downloading }}" aria-valuenow="{{ tlDlPct }}" aria-valuemin="0" aria-valuemax="100" style="height:12px;border-radius:999px;border:1px solid var(--bd);overflow:hidden;background:var(--sf)"><div style="{{ tlDlBar }}"></div></div>
+        </sc-if>
+        <sc-if value="{{ tlSaved }}" hint-placeholder-val="{{ false }}"><span role="status" style="align-self:flex-start;font-size:15px;font-weight:700;padding:5px 12px;border-radius:999px;background:var(--ac);color:var(--oa)">✓ {{ t.saved }} · 50 KB</span></sc-if>
+        <div lang="{{ tlLang }}" style="display:flex;flex-direction:column;gap:20px">
+          <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="5">
+            <sc-if value="{{ b.isH }}" hint-placeholder-val="{{ false }}"><h2 style="margin:8px 0 0;font-size:26px;line-height:1.35">{{ b.h }}</h2></sc-if>
+            <sc-if value="{{ b.isP }}" hint-placeholder-val="{{ true }}"><p style="{{ b.pStyle }}"><sc-for list="{{ b.sents }}" as="s" hint-placeholder-count="2"><span data-sent="{{ s.i }}" aria-current="{{ s.aria }}" onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.text }}</span> </sc-for></p></sc-if>
+            <sc-if value="{{ b.isCode }}" hint-placeholder-val="{{ false }}"><pre lang="en" style="margin:0;padding:16px 20px;background:var(--cd);color:var(--ct);border:1px solid var(--bd);border-radius:8px;font:400 18px/1.6 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">{{ b.code }}</pre></sc-if>
+          </sc-for>
+        </div>
+      </article>
+      <sc-if value="{{ tlSignWide }}" hint-placeholder-val="{{ false }}">
+        <aside aria-label="{{ t.signWin }}" style="position:sticky;top:150px;align-self:start;display:flex;flex-direction:column;gap:8px">
+          <div style="border:2px solid var(--tx);border-radius:10px;overflow:hidden;background:#14130F;color:#F3F0E8">
+            <div style="position:relative;aspect-ratio:3/4;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#14130F;padding:3px 6px;border-radius:4px">EthSL signer</span><span style="position:absolute;left:0;right:0;bottom:0;padding:8px;background:rgba(14,13,10,.9);font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center">{{ tlGloss }}</span></div>
+            <div style="padding:8px 12px;font-size:14px;display:flex;justify-content:space-between;gap:8px"><span>{{ t.autoSign }}</span><span>{{ tlSentLabel }}</span></div>
+          </div>
+        </aside>
+      </sc-if>
+      <sc-if value="{{ tlSignNarrow }}" hint-placeholder-val="{{ false }}">
+        <div role="region" aria-label="{{ t.signWin }}" style="position:fixed;right:12px;bottom:12px;z-index:40;width:132px;border:2px solid var(--tx);border-radius:10px;overflow:hidden;background:#14130F;color:#F3F0E8;box-shadow:0 8px 24px rgba(0,0,0,.35)">
+          <div style="position:relative;aspect-ratio:3/4;background:repeating-linear-gradient(135deg,#2A2721 0 8px,#211F1A 8px 16px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;background:#14130F;padding:2px 4px">EthSL</span><span style="position:absolute;left:0;right:0;bottom:0;padding:4px;background:rgba(14,13,10,.9);font-family:'JetBrains Mono',monospace;font-size:10px;text-align:center;line-height:1.3">{{ tlGloss }}</span></div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- JOBS -->
+  <sc-if value="{{ pJobs }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <div style="display:flex;flex-direction:column;gap:2px"><h1 style="margin:0;font-size:clamp(30px,4vw,40px)">{{ jobsTitle }}</h1><p style="margin:4px 0 0;font-size:17px;color:var(--mu)">{{ jobsSub }}</p></div>
+      <ul style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px">
+        <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="3">
+          <li style="display:flex;flex-direction:column;gap:14px;padding:22px;background:var(--sf);border:1px solid var(--bd);border-radius:12px">
+            <div style="display:flex;flex-direction:column;gap:2px"><h2 style="margin:0;font-size:21px;line-height:1.3">{{ j.title }}</h2><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:17px;line-height:1.6">{{ j.titleAm }}</span></div>
+            <dl style="margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 12px;font-size:16px;line-height:1.45">
+              <dt style="color:var(--mu)">{{ t.company }}</dt><dd style="margin:0;font-weight:700">{{ j.company }}</dd>
+              <dt style="color:var(--mu)">{{ t.location }}</dt><dd style="margin:0">{{ j.loc }}</dd>
+              <dt style="color:var(--mu)">{{ t.deadline }}</dt><dd style="margin:0;display:flex;flex-direction:column"><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-weight:600">{{ j.dlEt }}</span><span lang="en">{{ j.dlGr }}</span></dd>
+            </dl>
+            <p style="margin:0;font-size:16px;line-height:1.55;flex:1">{{ j.summary }}</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,130px),1fr));gap:8px">
+              <button aria-pressed="{{ j.playing }}" onClick="{{ j.onListen }}" style="{{ j.listenStyle }}">{{ j.listenLabel }}</button>
+              <button aria-haspopup="dialog" onClick="{{ j.onSign }}" style="min-height:48px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:15px">SL · {{ t.signedSum }}</button>
+            </div>
+            <button aria-haspopup="dialog" onClick="{{ j.onApply }}" style="min-height:50px;border-radius:8px;background:var(--ac);color:var(--oa);border:0;font-size:17px;font-weight:700">{{ t.apply }}<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">: {{ j.title }}</span></button>
+          </li>
+        </sc-for>
+      </ul>
+      <a href="#" onClick="{{ goCert }}" style="font-size:17px;min-height:44px;display:flex;align-items:center">{{ t.cert }} →</a>
+    </div>
+  </sc-if>
+
+  <!-- CERTIFICATE -->
+  <sc-if value="{{ pCert }}" hint-placeholder-val="{{ false }}">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:40px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:16px;min-width:0">
+        <h1 style="margin:0;font-size:clamp(30px,4vw,38px)">{{ t.cert }}</h1>
+        <div style="background:var(--sf);border:1px solid var(--bd);border-radius:12px;padding:clamp(20px,4vw,40px);display:flex;flex-direction:column;gap:18px;position:relative">
+          <div aria-hidden="true" style="position:absolute;inset:10px;border:2px solid var(--ac);border-radius:6px;pointer-events:none"></div>
+          <span style="font-size:16px;color:var(--mu)">LE HULUM · Savanna demo</span>
+          <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:18px">This certifies that</span><span style="font-size:clamp(28px,4vw,36px);font-weight:700">Hana Tesfaye</span><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-size:24px;font-weight:600;line-height:1.6">ሐና ተስፋዬ</span></div>
+          <span style="font-size:18px;line-height:1.5">completed <strong>Python basics</strong> (5 lessons) with sign, caption and audio access.</span>
+          <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+            <dl style="margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:16px">
+              <dt style="color:var(--mu)">Issued</dt><dd style="margin:0"><span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif">ኅዳር 6, 2019 ዓ.ም.</span> · 15 Nov 2026</dd>
+              <dt style="color:var(--mu)">ID</dt><dd style="margin:0;font-family:'JetBrains Mono',monospace">LH-2026-0417-K9</dd>
+            </dl>
+            <div role="img" aria-label="QR code linking to the verify page" style="width:112px;height:112px;flex:none;border:1px solid var(--tx);background:repeating-linear-gradient(45deg,var(--s2) 0 6px,var(--sf) 6px 12px);display:flex;align-items:center;justify-content:center"><span style="font:400 12px 'JetBrains Mono',monospace;background:var(--sf);padding:2px 4px">QR code</span></div>
+          </div>
+        </div>
+      </div>
+      <form onSubmit="{{ certSubmit }}" style="display:flex;flex-direction:column;gap:16px;padding-top:8px">
+        <h2 style="margin:0;font-size:26px">{{ t.verify }}</h2>
+        <label for="lh-cid" style="font-size:16px;font-weight:700">{{ t.certId }}</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="lh-cid" value="{{ certId }}" onChange="{{ onCertId }}" autocomplete="off" spellcheck="false" style="flex:1 1 220px;min-width:0;min-height:48px;padding:0 14px;border-radius:8px;border:1px solid var(--bd);background:var(--sf);font-family:'JetBrains Mono',monospace;font-size:17px;color:var(--tx)"><button type="submit" style="min-height:48px;padding:0 22px;border-radius:8px;background:var(--ac);color:var(--oa);border:0;font-size:17px;font-weight:700">{{ t.verify }}</button></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;font-size:15px"><span style="color:var(--mu);align-self:center">Try:</span><button type="button" onClick="{{ tryValid }}" style="min-height:44px;padding:0 12px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:14px">LH-2026-0417-K9</button><button type="button" onClick="{{ tryInvalid }}" style="min-height:44px;padding:0 12px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-family:'JetBrains Mono',monospace;font-size:14px">LH-2026-9999-X0</button></div>
+        <div role="status" aria-live="polite" style="display:flex;flex-direction:column">
+          <sc-if value="{{ certValid }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:14px;padding:18px;border-radius:10px;background:var(--sf);border:2px solid var(--ac)"><span aria-hidden="true" style="flex:none;width:36px;height:36px;border-radius:50%;background:var(--ac);color:var(--oa);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px">✓</span><div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-weight:700">{{ t.valid }} <span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-weight:600">· ትክክለኛ</span></span><span style="font-size:16px;line-height:1.5">Issued to Hana Tesfaye for Python basics on 15 Nov 2026. Not changed since it was issued.</span></div></div>
+          </sc-if>
+          <sc-if value="{{ certInvalid }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:14px;padding:18px;border-radius:10px;background:var(--sf);border:2px dashed var(--dg)"><span aria-hidden="true" style="flex:none;width:36px;height:36px;border-radius:6px;background:var(--dg);color:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px">✕</span><div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:22px;font-weight:700;color:var(--dg)">{{ t.invalid }} <span lang="am" style="font-family:'Noto Sans Ethiopic',sans-serif;font-weight:600">· ትክክል ያልሆነ</span></span><span style="font-size:16px;line-height:1.5">No certificate has the ID {{ certChecked }}. Check the ID and try again.</span></div></div>
+          </sc-if>
+        </div>
+      </form>
+    </div>
+  </sc-if>
+
+  <!-- DOCS -->
+  <sc-if value="{{ pDocs }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:28px;max-width:860px">
+      <div style="display:flex;flex-direction:column;gap:2px"><h1 style="margin:0;font-size:clamp(30px,4vw,40px)">API docs</h1><p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic',sans-serif;font-size:22px;line-height:1.6;font-weight:600">API ሰነዶች</p></div>
+      <section style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font-size:24px">1. Install</h2><pre lang="en" style="margin:0;padding:18px 20px;background:var(--cd);color:var(--ct);border:1px solid var(--bd);border-radius:10px;font:400 15px/1.75 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">{{ installCode }}</pre></section>
+      <section style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font-size:24px">2. Attributes</h2>
+        <dl style="margin:0;display:flex;flex-direction:column;border-top:1px solid var(--ln)">
+          <sc-for list="{{ apiAttrs }}" as="a" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:4px 20px;padding:12px 0;border-bottom:1px solid var(--ln)"><dt style="font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600">{{ a.k }}</dt><dd style="margin:0;font-size:16px;line-height:1.5">{{ a.v }}</dd></div></sc-for>
+        </dl>
+      </section>
+      <section style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font-size:24px">3. Events</h2><pre lang="en" style="margin:0;padding:18px 20px;background:var(--cd);color:var(--ct);border:1px solid var(--bd);border-radius:10px;font:400 15px/1.75 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">{{ apiEvents }}</pre></section>
+      <section style="display:flex;flex-direction:column;gap:10px"><h2 style="margin:0;font-size:24px">4. Theming</h2><p style="margin:0;font-size:17px;line-height:1.55">Override any token on the element. The player keeps contrast at WCAG 2.2 AA in all three built-in themes.</p><pre lang="en" style="margin:0;padding:18px 20px;background:var(--cd);color:var(--ct);border:1px solid var(--bd);border-radius:10px;font:400 15px/1.75 'JetBrains Mono',monospace;white-space:pre-wrap;overflow-wrap:anywhere">{{ apiTheme }}</pre></section>
+    </div>
+  </sc-if>
+  </main>
+
+  <footer style="border-top:1px solid var(--ln)"><div style="max-width:1200px;margin:0 auto;padding:20px 16px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;align-items:center;font-size:15px;color:var(--mu)"><span>Built for the Digital Bridge Accessibility Hackathon (ALX) · first used on Savanna</span><a href="#" onClick="{{ goDocs }}" style="min-height:44px;display:flex;align-items:center">Open source · MIT</a></div></footer>
+
+  <!-- PAGE DIALOGS -->
+  <sc-if value="{{ dJobSign }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ scrimClose }}" style="position:fixed;inset:0;z-index:100;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:12px">
+      <div role="dialog" aria-modal="true" aria-labelledby="lh-js-t" onClick="{{ stop }}" style="width:100%;max-width:440px;max-height:100%;overflow:auto;background:var(--sf);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;color:var(--mu)">{{ t.signedSum }}</span><h2 id="lh-js-t" style="margin:0;font-size:22px;line-height:1.3">{{ job.title }}</h2></div><button data-autofocus="" onClick="{{ closeDialog }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px;flex:none">✕ {{ t.close }}</button></div>
+        <div style="position:relative;aspect-ratio:4/3;border-radius:8px;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F3F0E8;background:#14130F;padding:4px 8px;border-radius:4px">EthSL signer</span><span style="position:absolute;left:0;right:0;bottom:0;padding:8px;background:rgba(14,13,10,.9);color:#F3F0E8;font-family:'JetBrains Mono',monospace;font-size:13px;text-align:center">{{ job.g }}</span></div>
+        <p style="margin:0;font-size:16px;line-height:1.55">{{ job.summary }}</p>
+        <span style="font-size:14px;color:var(--mu)">{{ t.autoSign }}</span>
+      </div>
+    </div>
+  </sc-if>
+  <sc-if value="{{ dApply }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ scrimClose }}" style="position:fixed;inset:0;z-index:100;background:var(--scrim);display:flex;align-items:center;justify-content:center;padding:12px">
+      <div role="dialog" aria-modal="true" aria-labelledby="lh-ap-t" onClick="{{ stop }}" style="width:100%;max-width:520px;max-height:100%;overflow:auto;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;color:var(--mu)">{{ t.apply }} · {{ job.company }}</span><h2 id="lh-ap-t" style="margin:0;font-size:22px;line-height:1.3">{{ job.title }}</h2></div><button data-autofocus="" onClick="{{ closeDialog }}" style="min-height:44px;padding:0 14px;border-radius:8px;background:var(--sf);color:var(--tx);border:1px solid var(--bd);font-size:16px;flex:none">✕ {{ t.close }}</button></div>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div role="status" style="display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:10px;border:2px solid var(--ac);background:var(--sf)"><span style="font-size:20px;font-weight:700">✓ Application sent</span><span style="font-size:16px;line-height:1.5">{{ sentText }}</span><span style="font-family:'JetBrains Mono',monospace;font-size:14px">Ref. {{ sentRef }}</span></div>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ applySubmit }}" novalidate="" style="display:flex;flex-direction:column;gap:14px">
+            <sc-if value="{{ hasErrs }}" hint-placeholder-val="{{ false }}"><div role="alert" style="padding:12px 14px;border-radius:8px;border:2px solid var(--dg);font-size:16px"><strong style="color:var(--dg)">✕ Please fix {{ errCount }}:</strong> {{ errSummary }}</div></sc-if>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="lh-f-name" style="font-size:16px;font-weight:700">Full name</label><input id="lh-f-name" value="{{ form.name }}" onChange="{{ onName }}" autocomplete="name" aria-invalid="{{ errNameB }}" aria-describedby="lh-f-name-e" style="{{ nameStyle }}"><sc-if value="{{ errName }}" hint-placeholder-val="{{ false }}"><span id="lh-f-name-e" style="font-size:15px;color:var(--dg);font-weight:700">✕ {{ errName }}</span></sc-if></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="lh-f-phone" style="font-size:16px;font-weight:700">Phone number</label><span id="lh-f-phone-h" style="font-size:15px;color:var(--mu)">Ethiopian mobile, for example 0911 234 567</span><input id="lh-f-phone" type="tel" inputmode="tel" value="{{ form.phone }}" onChange="{{ onPhone }}" autocomplete="tel" aria-invalid="{{ errPhoneB }}" aria-describedby="lh-f-phone-h lh-f-phone-e" style="{{ phoneStyle }}"><sc-if value="{{ errPhone }}" hint-placeholder-val="{{ false }}"><span id="lh-f-phone-e" style="font-size:15px;color:var(--dg);font-weight:700">✕ {{ errPhone }}</span></sc-if></div>
+            <fieldset style="margin:0;padding:0;border:0;display:flex;flex-direction:column;gap:4px"><legend style="font-size:16px;font-weight:700;padding:0;margin-bottom:6px">How should the employer contact you?</legend>
+              <sc-for list="{{ contactOpts }}" as="c" hint-placeholder-count="3"><label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:16px;cursor:pointer"><input type="radio" name="lh-contact" checked="{{ c.checked }}" onChange="{{ c.onChange }}" style="width:22px;height:22px;accent-color:var(--ac);margin:0">{{ c.label }}</label></sc-for>
+            </fieldset>
+            <div style="display:flex;flex-direction:column;gap:6px"><label for="lh-f-needs" style="font-size:16px;font-weight:700">Access needs for the interview (optional)</label><textarea id="lh-f-needs" rows="3" value="{{ form.needs }}" onChange="{{ onNeeds }}" style="min-height:88px;padding:10px 14px;border-radius:8px;border:1px solid var(--bd);background:var(--sf);font-size:16px;color:var(--tx);resize:vertical"></textarea></div>
+            <button type="submit" style="min-height:52px;border-radius:8px;background:var(--ac);color:var(--oa);border:0;font-size:18px;font-weight:700">Send application</button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const KEY = 'lehulum-proto-v1';
+const fmt = s => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const DEF_SET = { cap:{ size:'M', color:'white', bg:'black', pos:'over' }, hear:{ clear:'clear', boost:150, mono:false, bal:0 }, adOn:false, adMode:'voice', adVol:80, shortcuts:true };
+
+class Component extends DCLogic {
+  state = {
+    page:'home', lang:'en', theme:'light', view:'full', net:'normal', menu:false, w:1200, pw:960, fs:false,
+    onboard:true, choices:{ sign:true, listen:false, read:true, save:false },
+    t:0, playing:false, speed:1, cc:true, signMode:'float', lastSign:'float', panel:null, more:false, dialog:null,
+    glossTerm:'variable', loopPaused:false, loopSlow:false,
+    corner:'tr', pos:null, size:1, see:false, signOpts:false, fb:null,
+    waiting:false, waited:{}, ad:null, adPlayed:{},
+    ...JSON.parse(JSON.stringify(DEF_SET)),
+    format:null, fmtPick:'light', dl:null, saved:false, copied:false, instCopied:false, announce:'',
+    tl:{ sign:false, listen:false, tr:false, idx:-1 }, tlDl:null, tlSaved:false,
+    jobListen:null, job:0, form:{ name:'', phone:'', contact:'sms', needs:'' }, errs:{}, sent:null,
+    certId:'LH-2026-0417-K9', cert:null, certChecked:''
+  };
+
+  ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(es => {
+    for (const e of es) {
+      const w = Math.round(e.contentRect.width);
+      if (e.target === this.rootEl && Math.abs(w - this.state.w) > 2) this.setState({ w });
+      if (e.target === this.playerEl && Math.abs(w - this.state.pw) > 2) this.setState({ pw: w });
+    }
+  }) : null;
+  rootRef = el => { if (el === this.rootEl) return; if (this.rootEl && this.ro) this.ro.unobserve(this.rootEl); this.rootEl = el; if (el && this.ro) this.ro.observe(el); };
+  playerRef = el => { if (el === this.playerEl) return; if (this.playerEl && this.ro) this.ro.unobserve(this.playerEl); this.playerEl = el; if (el && this.ro) this.ro.observe(el); };
+  scrollRef = el => { this.scrollEl = el; };
+  stageRef = el => { this.stageEl = el; };
+  signRef = el => { this.signEl = el; };
+  txRef = el => { this.txEl = el; };
+  adRun = 0; tlRunId = 0;
+
+  componentDidMount() {
+    try {
+      const st = JSON.parse(localStorage.getItem(KEY) || '{}');
+      const pick = {};
+      ['lang','theme','saved','tlSaved','cap','hear','adOn','adMode','adVol','shortcuts','signMode','lastSign','size','see','corner','cc'].forEach(k => { if (st[k] !== undefined) pick[k] = st[k]; });
+      if (st.onboarded) pick.onboard = false;
+      this.setState(pick);
+    } catch (e) {}
+    if (!window.LH) this.waitLH = setInterval(() => { if (window.LH) { clearInterval(this.waitLH); this.forceUpdate(); } }, 50);
+    this.iv = setInterval(() => this.tick(), 250);
+    document.addEventListener('keydown', this.onKey);
+    document.addEventListener('fullscreenchange', this.onFs);
+    try { window.speechSynthesis && window.speechSynthesis.getVoices(); } catch (e) {}
+  }
+  componentWillUnmount() {
+    clearInterval(this.iv); clearInterval(this.waitLH); clearInterval(this.dlIv); clearInterval(this.tlDlIv);
+    document.removeEventListener('keydown', this.onKey); document.removeEventListener('fullscreenchange', this.onFs);
+    this.stopSpeech(); if (this.ro) this.ro.disconnect();
+  }
+  componentDidUpdate(pp, ps) {
+    const s = this.state;
+    if (s.dialog && s.dialog !== ps.dialog) {
+      let n = 0;
+      const tryFocus = () => { const el = document.querySelector('[role="dialog"] [data-autofocus]'); if (el) { el.focus(); if (document.activeElement === el) return; } if (++n < 20) setTimeout(tryFocus, 50); };
+      requestAnimationFrame(tryFocus);
+    }
+    const LH = window.LH;
+    if (LH && this.txEl) {
+      const ci = LH.CUES.findIndex(c => s.t >= c.s && s.t < c.e);
+      if (ci !== this._ci) { this._ci = ci; const cur = this.txEl.querySelector('[data-cur="true"]'); if (cur) this.txEl.scrollTop = Math.max(0, cur.parentNode.offsetTop - 60); }
+    }
+    const p = JSON.stringify({ lang:s.lang, theme:s.theme, saved:s.saved, tlSaved:s.tlSaved, cap:s.cap, hear:s.hear, adOn:s.adOn, adMode:s.adMode, adVol:s.adVol, shortcuts:s.shortcuts, signMode:s.signMode, lastSign:s.lastSign, size:s.size, see:s.see, corner:s.corner, cc:s.cc, onboarded:!s.onboard });
+    if (p !== this._persist) { this._persist = p; try { localStorage.setItem(KEY, p); } catch (e) {} }
+  }
+
+  stopSpeech() { try { window.speechSynthesis && window.speechSynthesis.cancel(); } catch (e) {} }
+  speak(text, lang, onEnd, vol) {
+    let done = false;
+    const fin = () => { if (done) return; done = true; clearTimeout(tm); onEnd && onEnd(); };
+    const tm = setTimeout(fin, Math.max(2600, text.length * (lang === 'am' ? 110 : 85)));
+    try {
+      const ss = window.speechSynthesis; if (!ss) return;
+      ss.cancel();
+      if (lang === 'am' && !ss.getVoices().some(v => /^am/i.test(v.lang))) return;
+      const u = new SpeechSynthesisUtterance(text); u.lang = lang === 'am' ? 'am-ET' : 'en-US'; u.volume = vol == null ? 1 : vol;
+      u.onend = fin; u.onerror = fin; ss.speak(u);
+    } catch (e) {}
+  }
+  say(msg) { this.setState({ announce: '' }, () => setTimeout(() => this.setState({ announce: msg }), 30)); }
+  tr(k) { const D = window.LH.D; return D[k] ? D[k][this.state.lang === 'am' ? 1 : 0] : k; }
+
+  tick() {
+    const s = this.state, LH = window.LH; if (!LH) return;
+    if (s.page !== 'video' || !s.playing || s.waiting || s.ad != null || s.onboard || s.dialog) return;
+    const nt = s.t + 0.25 * s.speed;
+    if (s.adOn) {
+      const i = LH.ADS.findIndex((a, k) => !s.adPlayed[k] && s.t < a.t + 0.01 && nt >= a.t);
+      if (i >= 0) { this.setState({ t: LH.ADS[i].t, ad: i, adPlayed: { ...s.adPlayed, [i]: true } }, () => this.playAd(i)); return; }
+    }
+    if (s.signMode === 'first') {
+      const i = LH.CUES.findIndex((c, k) => c.w && !s.waited[k] && s.t < c.e && nt >= c.e);
+      if (i >= 0) { this.setState({ t: LH.CUES[i].e - 0.01, waiting: true, waited: { ...s.waited, [i]: true } }); this.say(this.tr('waiting')); clearTimeout(this.wt); this.wt = setTimeout(() => this.setState({ waiting: false }), 2600); return; }
+    }
+    if (nt >= LH.DUR) { this.setState({ t: LH.DUR, playing: false }); this.say('Lesson finished'); return; }
+    this.setState({ t: nt });
+  }
+  playAd(i) {
+    const s = this.state, a = window.LH.ADS[i], text = a[s.lang] || a.en, run = ++this.adRun;
+    const end = () => { if (run === this.adRun) this.setState({ ad: null }); };
+    if (s.adMode === 'sr') { this.say(text); setTimeout(end, Math.max(3000, text.length * 75)); }
+    else this.speak(text, s.lang, end, s.adVol / 100);
+  }
+  adSkip = () => { this.adRun++; this.stopSpeech(); this.setState({ ad: null }); };
+  adReplay = () => { if (this.state.ad != null) this.playAd(this.state.ad); };
+  seek = v => {
+    const LH = window.LH, t = clamp(v, 0, LH.DUR), s = this.state;
+    const adPlayed = {}; LH.ADS.forEach((a, k) => { if (s.adPlayed[k] && a.t < t) adPlayed[k] = true; });
+    const waited = {}; LH.CUES.forEach((c, k) => { if (s.waited[k] && c.e <= t) waited[k] = true; });
+    if (s.ad != null) { this.adRun++; this.stopSpeech(); }
+    clearTimeout(this.wt);
+    this.setState({ t, adPlayed, waited, ad: null, waiting: false });
+  };
+  skip = d => { const nt = clamp(this.state.t + d, 0, 60); this.seek(nt); this.say((d < 0 ? 'Back ' : 'Forward ') + Math.abs(d) + ' seconds, ' + fmt(nt)); };
+  togglePlay = () => {
+    const s = this.state;
+    if (s.ad != null) this.adSkip();
+    if (!s.playing && s.t >= window.LH.DUR) this.seek(0);
+    this.setState({ playing: !s.playing }); this.say(s.playing ? this.tr('pause') : this.tr('play'));
+  };
+  cycleSpeed = () => { const L = [0.75, 1, 1.25, 1.5], i = L.indexOf(this.state.speed); const sp = L[(i + 1) % L.length]; this.setState({ speed: sp }); this.say(this.tr('speed') + ' ' + sp + '×'); };
+  toggleSign = () => { const s = this.state; if (s.signMode === 'off') this.setState({ signMode: s.lastSign || 'float' }); else this.setState({ signMode: 'off', lastSign: s.signMode, signOpts: false, waiting: false }); };
+  togglePanel = p => this.setState({ panel: this.state.panel === p ? null : p, more: false });
+  toggleFs = () => { try { if (document.fullscreenElement) document.exitFullscreen(); else if (this.playerEl && this.playerEl.requestFullscreen) this.playerEl.requestFullscreen(); } catch (e) {} };
+  onFs = () => this.setState({ fs: !!document.fullscreenElement && document.fullscreenElement === this.playerEl });
+  openDialog = d => { this.lastFocus = document.activeElement; this.setState({ dialog: d, more: false }); };
+  closeDialog = () => { const f = this.lastFocus; this.setState({ dialog: null }); setTimeout(() => { if (f && f.focus && document.contains(f)) f.focus(); }, 30); };
+
+  onKey = e => {
+    const s = this.state, tag = ((e.target && e.target.tagName) || '').toLowerCase();
+    if (e.key === 'Escape') { if (s.dialog) { this.closeDialog(); return; } if (s.more) { this.setState({ more: false }); return; } if (s.menu) { this.setState({ menu: false }); return; } }
+    if (s.page !== 'video' || !s.shortcuts || s.dialog || s.onboard || ['input','textarea','select'].includes(tag)) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key.toLowerCase(); let h = true;
+    if (k === 'k' || (k === ' ' && tag !== 'button' && tag !== 'a' && e.target.getAttribute('role') !== 'slider')) this.togglePlay();
+    else if (k === 'j') this.skip(-10); else if (k === 'l') this.skip(10);
+    else if (k === 'c') this.setState({ cc: !s.cc }); else if (k === 's') this.toggleSign();
+    else if (k === 't') this.togglePanel('transcript'); else if (k === 'o') this.togglePanel('screen');
+    else if (k === 'f') this.toggleFs(); else if (e.key === '?') this.openDialog('keys');
+    else h = false;
+    if (h) e.preventDefault();
+  };
+  seekKey = e => {
+    const m = { ArrowLeft:-5, ArrowRight:5, ArrowDown:-5, ArrowUp:5, PageDown:-10, PageUp:10 };
+    if (m[e.key] != null) { e.preventDefault(); e.stopPropagation(); this.seek(this.state.t + m[e.key]); }
+    else if (e.key === 'Home') { e.preventDefault(); this.seek(0); } else if (e.key === 'End') { e.preventDefault(); this.seek(window.LH.DUR); }
+  };
+  seekDown = e => {
+    const el = e.currentTarget, r = el.getBoundingClientRect();
+    const set = x => this.seek(clamp((x - r.left) / r.width, 0, 1) * window.LH.DUR);
+    set(e.clientX);
+    const mv = ev => set(ev.clientX), up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up);
+  };
+  dragStart = e => {
+    const el = this.signEl, st = this.stageEl; if (!el || !st) return;
+    e.preventDefault();
+    const r = el.getBoundingClientRect(), sr = st.getBoundingClientRect();
+    const d = { dx: e.clientX - r.left, dy: e.clientY - r.top, sr, w: r.width, h: r.height };
+    const mv = ev => this.setState({ pos: { x: clamp(ev.clientX - d.sr.left - d.dx, 0, d.sr.width - d.w), y: clamp(ev.clientY - d.sr.top - d.dy, 0, d.sr.height - d.h) } });
+    const up = () => { window.removeEventListener('pointermove', mv); window.removeEventListener('pointerup', up); };
+    window.addEventListener('pointermove', mv); window.addEventListener('pointerup', up);
+  };
+  moveKey = e => {
+    const m = { ArrowLeft:[-16,0], ArrowRight:[16,0], ArrowUp:[0,-16], ArrowDown:[0,16] }[e.key];
+    if (!m || !this.signEl || !this.stageEl) return;
+    e.preventDefault(); e.stopPropagation();
+    const el = this.signEl, st = this.stageEl;
+    this.setState({ pos: { x: clamp(el.offsetLeft + m[0], 0, st.clientWidth - el.offsetWidth), y: clamp(el.offsetTop + m[1], 0, st.clientHeight - el.offsetHeight) } });
+  };
+
+  go = p => e => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.stopSpeech(); this.adRun++; this.tlRunId++; clearTimeout(this.tlTimer); clearTimeout(this.wt);
+    this.setState({ page: p, menu: false, playing: false, ad: null, waiting: false, tl: { ...this.state.tl, listen: false, sign: false, idx: -1 }, jobListen: null, dialog: null, more: false });
+    if (this.scrollEl) this.scrollEl.scrollTop = 0;
+    try { window.scrollTo(0, 0); } catch (er) {}
+    setTimeout(() => { const m = document.getElementById('lh-main'); if (m) m.focus({ preventScroll: true }); }, 40);
+  };
+
+  dlStart = () => {
+    clearInterval(this.dlIv); this.setState({ dl: { pct: 0 } });
+    this.dlIv = setInterval(() => {
+      const d = this.state.dl; if (!d) { clearInterval(this.dlIv); return; }
+      const pct = Math.min(100, d.pct + 3);
+      if (pct >= 100) { clearInterval(this.dlIv); this.setState({ dl: null, saved: true }); this.say(this.tr('saved')); }
+      else this.setState({ dl: { pct } });
+    }, 150);
+  };
+  tlDownload = () => {
+    if (this.state.tlSaved || this.state.tlDl) return;
+    this.setState({ tlDl: { pct: 0 } });
+    this.tlDlIv = setInterval(() => {
+      const d = this.state.tlDl; if (!d) { clearInterval(this.tlDlIv); return; }
+      const pct = Math.min(100, d.pct + 20);
+      if (pct >= 100) { clearInterval(this.tlDlIv); this.setState({ tlDl: null, tlSaved: true }); this.say(this.tr('saved')); }
+      else this.setState({ tlDl: { pct } });
+    }, 160);
+  };
+
+  tlStep(i) {
+    const s = this.state, SENT = window.LH.SENT;
+    if (!(s.tl.listen || s.tl.sign)) return;
+    clearTimeout(this.tlTimer);
+    if (i >= SENT.length) { this.setState({ tl: { ...s.tl, listen: false, sign: false, idx: -1 } }); this.say('End of lesson'); return; }
+    if (i < 0) i = 0;
+    const run = ++this.tlRunId;
+    this.setState({ tl: { ...s.tl, idx: i } });
+    const next = () => { if (run === this.tlRunId) this.tlStep(i + 1); };
+    if (s.tl.listen) { const lang = s.tl.tr ? 'am' : 'en'; this.speak(SENT[i][lang], lang, next, 1); }
+    else this.tlTimer = setTimeout(next, 3800);
+  }
+  tlToggle(k) {
+    const tl = { ...this.state.tl, [k]: !this.state.tl[k] };
+    this.stopSpeech(); this.tlRunId++; clearTimeout(this.tlTimer);
+    if (k !== 'tr' && !tl.listen && !tl.sign) tl.idx = -1;
+    this.setState({ tl }, () => { if (tl.listen || tl.sign) this.tlStep(Math.max(0, this.state.tl.idx)); });
+  }
+
+  renderVals() {
+    const LH = window.LH;
+    if (!LH) return { ready: false };
+    const s = this.state, am = s.lang === 'am', L = am ? 1 : 0;
+    const t = {}; for (const k in LH.D) t[k] = LH.D[k][L];
+    const wide = s.w >= 1040, narrow = !wide;
+    const th = LH.TH[s.theme] || LH.TH.light;
+    const rootStyle = Object.keys(th).map(k => '--' + k + ':' + th[k]).join(';') + `;background:var(--bg);color:var(--tx);font-family:'Atkinson Hyperlegible','Noto Sans Ethiopic',sans-serif;line-height:${am ? 1.7 : 1.5};min-height:100%;position:relative;font-size:16px`;
+    const P = s.page;
+
+    const demoBtn = on => `min-height:44px;padding:0 12px;border-radius:8px;font-size:15px;border:1px solid ${on ? '#FAF8F3' : '#8C8678'};background:${on ? '#FAF8F3' : 'transparent'};color:${on ? '#1C1B18' : '#FAF8F3'};font-weight:${on ? 700 : 400}`;
+    const dg = (label, cur, opts, f) => ({ label, items: opts.map(([v, l]) => ({ label: (cur === v ? '✓ ' : '') + l, pressed: String(cur === v), style: demoBtn(cur === v), onClick: () => f(v) })) });
+    const demoGroups = [
+      dg('View', s.view, [['full','Full width'],['phone','Phone 360']], v => this.setState({ view: v })),
+      dg('Network', s.net, [['normal','Normal'],['slow','Slow 3G'],['offline','Offline']], v => this.setState({ net: v, format: null, playing: false }))
+    ];
+    const phone = s.view === 'phone';
+
+    const nav = ['home','video','text','jobs','cert','docs'].map(k => { const c = P === k; return {
+      label: t[k], current: c ? 'page' : undefined, onClick: this.go(k),
+      style: `min-height:44px;display:flex;align-items:center;padding:0 12px;border-radius:8px;font-size:16px;text-decoration:${c ? 'underline' : 'none'};text-decoration-thickness:3px;text-underline-offset:6px;font-weight:${c ? 700 : 400};color:var(--tx);background:${c ? 'var(--s2)' : 'transparent'};white-space:nowrap`,
+      mStyle: `min-height:52px;display:flex;align-items:center;justify-content:space-between;padding-left:10px;border-bottom:1px solid var(--ln);border-left:4px solid ${c ? 'var(--tx)' : 'transparent'};text-decoration:none;color:var(--tx);font-size:18px;font-weight:${c ? 700 : 400}` }; });
+    const themeNames = { light: t.light, dark: t.dark, contrast: t.contrast };
+
+    const CUES = LH.CUES, DUR = LH.DUR;
+    const ci = CUES.findIndex(c => s.t >= c.s && s.t < c.e);
+    const cue = ci >= 0 ? CUES[ci] : null;
+    const pw = s.pw || 960, compact = pw < 700;
+    const offline = s.net === 'offline';
+    const effFormat = offline ? (s.saved ? 'light' : null) : s.format;
+    const showOnboard = P === 'video' && s.onboard;
+    const showOffline = !s.onboard && offline && !s.saved;
+    const showFormat = !s.onboard && s.net === 'slow' && !s.format;
+    const main = !s.onboard && !showOffline && !showFormat;
+    const textOnly = main && effFormat === 'text';
+    const showStage = main && !textOnly;
+    const mode = s.signMode, first = mode === 'first', float = mode === 'float';
+    const firstWide = showStage && first && !compact, firstCompact = showStage && first && compact;
+    const aspect = first && compact ? '3 / 4' : '16 / 9';
+    const stageH = first && compact ? pw * 4 / 3 : pw * 9 / 16;
+
+    let lessonCell = 'position:absolute;inset:0;container-type:inline-size;background:#1E1D19';
+    let signCell = '';
+    if (first && !compact) {
+      lessonCell = 'position:absolute;right:16px;top:16px;width:38%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;container-type:inline-size;background:#1E1D19;border:1px solid var(--pd)';
+      signCell = 'position:absolute;left:16px;top:16px;bottom:16px;right:calc(38% + 32px);display:flex;flex-direction:column;border-radius:8px;overflow:hidden';
+    } else if (first) {
+      lessonCell = 'position:absolute;right:8px;top:8px;width:46%;aspect-ratio:16/9;border-radius:6px;overflow:hidden;container-type:inline-size;background:#1E1D19;border:2px solid var(--pt);z-index:3';
+      signCell = 'position:absolute;inset:0;display:flex;flex-direction:column';
+    } else if (float) {
+      const base = [120, 170, 230][s.size];
+      const W = Math.round(Math.max(96, Math.min(base, (stageH - 16 - 52) * 0.75)));
+      const H = Math.round(W * 4 / 3 + 52);
+      const posCss = s.pos ? `left:${clamp(s.pos.x, 0, Math.max(0, pw - W - 4))}px;top:${clamp(s.pos.y, 0, Math.max(0, stageH - H))}px`
+        : { tl:'left:8px;top:8px', tr:'right:8px;top:8px', bl:'left:8px;bottom:8px', br:'right:8px;bottom:8px' }[s.corner];
+      signCell = `position:absolute;z-index:3;width:${W}px;height:${H}px;${posCss};display:flex;flex-direction:column;border:2px solid var(--pt);border-radius:10px;overflow:hidden;background:var(--pb);box-shadow:0 6px 20px rgba(0,0,0,.45)`;
+    }
+    const signVideo = `position:relative;flex:1;min-height:0;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:center;justify-content:center;opacity:${s.see && float ? 0.6 : 1}`;
+    const gw = cue ? cue.g.split(' ') : ['…'];
+    const gi = cue ? (s.waiting ? gw.length - 1 : Math.min(gw.length - 1, Math.floor((s.t - cue.s) / (cue.e - cue.s) * gw.length))) : -1;
+    const gsz = float ? 11 : 15;
+    const glossWords = gw.map((w, i) => ({ text: w, style: `font-family:'JetBrains Mono',monospace;font-size:${gsz}px;line-height:1.3;padding:1px 4px;border-radius:3px;${i === gi ? 'background:#F3F0E8;color:#14130F;font-weight:600' : 'color:#F3F0E8'}` }));
+
+    const capBase = { S:20, M:26, L:32, XL:40 }[s.cap.size] || 26;
+    const fsz = Math.round(capBase * clamp(pw / 1040, 0.62, 1));
+    const capCol = s.cap.color === 'yellow' ? '#FFE38A' : '#FFFFFF', spk = s.cap.color === 'yellow' ? '#FFFFFF' : '#FFE38A';
+    const capBg = s.cap.bg === 'black' ? 'rgba(0,0,0,.88)' : 'rgba(0,0,0,.6)';
+    const capOn = showStage && s.cc && !!cue && s.ad == null;
+    const capBelowMode = s.cap.pos === 'below' || first;
+    const raw = cue ? cue[s.lang] : '';
+    const capParts = (Array.isArray(raw) ? raw : [raw]).map(p => typeof p === 'string' ? { plain: true, unc: false, text: p } : { plain: false, unc: true, text: p.u });
+    const plainText = q => { const r = q[s.lang]; return Array.isArray(r) ? r.map(p => typeof p === 'string' ? p : p.u).join('') : r; };
+
+    const ctlStyle = (on, mini) => `flex:1 1 0;min-width:${mini ? 0 : compact ? 48 : 64}px;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 2px 4px;border-radius:8px;color:${on ? 'var(--po)' : 'var(--pt)'};background:${on ? 'var(--pa)' : 'transparent'};border:1px solid ${on ? 'var(--pa)' : 'transparent'}`;
+    const ctlBar = on => `height:3px;width:22px;border-radius:2px;background:${on ? 'var(--po)' : 'transparent'}`;
+    const C = {
+      play:{ g: s.playing ? '❚❚' : '▶\uFE0E', l: s.playing ? t.pause : t.play, f: this.togglePlay, k:'k Space' },
+      back:{ g:'↺', l:t.back, f:() => this.skip(-10), k:'j' },
+      fwd:{ g:'↻', l:t.fwd, f:() => this.skip(10), k:'l' },
+      speed:{ g: s.speed + '×', l:t.speed, f:this.cycleSpeed },
+      cc:{ g:'CC', l:t.captions, on:s.cc, f:() => this.setState({ cc: !this.state.cc }), k:'c' },
+      sign:{ g:'SL', l:t.sign, on: mode !== 'off', f:this.toggleSign, k:'s' },
+      tx:{ g:'≡', l:t.transcript, on: s.panel === 'transcript', f:() => this.togglePanel('transcript'), k:'t' },
+      scr:{ g:'</>', l:t.screen, on: s.panel === 'screen', f:() => this.togglePanel('screen'), k:'o' },
+      set:{ g:'⚙\uFE0E', l:t.settings, f:() => this.openDialog('settings') },
+      keys:{ g:'?', l:t.keys, f:() => this.openDialog('keys'), k:'?' },
+      full:{ g: s.fs ? '⤡' : '⤢', l:t.full, on: s.fs, f:this.toggleFs, k:'f' },
+      more:{ g:'⋯', l:t.more, on: s.more, f:() => this.setState({ more: !this.state.more }), exp:true }
+    };
+    const mk = (k, mini) => { const c = C[k]; const tog = c.on !== undefined && !c.exp; return { glyph:c.g, label:c.l, onClick:c.f, key:c.k, pressed: tog ? String(!!c.on) : undefined, expanded: c.exp ? String(!!c.on) : undefined, style: ctlStyle(!!c.on, mini), bar: ctlBar(!!c.on) }; };
+    const ctls = (compact ? ['play','back','fwd','cc','sign','more'] : ['play','back','fwd','speed','cc','sign','tx','scr','set','keys','full']).map(k => mk(k));
+    const moreCtls = ['speed','tx','scr','set','keys','full'].map(k => mk(k, true));
+    const pct = (s.t / DUR * 100).toFixed(2) + '%';
+
+    const seg = (cur, opts, f) => opts.map(([v, l]) => { const on = cur === v; return { label: (on ? '✓ ' : '') + l, pressed: String(on), onClick: () => f(v), style: `flex:1 1 auto;min-height:44px;padding:0 12px;border-radius:8px;font-size:16px;border:${on ? '2px solid var(--tx)' : '1px solid var(--bd)'};background:${on ? 'var(--tx)' : 'var(--sf)'};color:${on ? 'var(--bg)' : 'var(--tx)'};font-weight:${on ? 700 : 400}` }; });
+    const setCap = (k, v) => this.setState({ cap: { ...this.state.cap, [k]: v } });
+    const setHear = (k, v) => this.setState({ hear: { ...this.state.hear, [k]: v } });
+    const sw = (on, f) => ({ checked: String(on), onClick: f, glyph: on ? '✓' : '', text: on ? t.on : t.off,
+      track: `width:52px;height:32px;flex:none;border-radius:999px;padding:3px;display:flex;align-items:center;justify-content:${on ? 'flex-end' : 'flex-start'};background:${on ? 'var(--ac)' : 'var(--sf)'};border:2px solid ${on ? 'var(--ac)' : 'var(--bd)'}`,
+      knob: `width:22px;height:22px;border-radius:50%;background:${on ? 'var(--oa)' : 'var(--mu)'};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--ac)` });
+    const sizes = am ? ['ትንሽ','መካከለኛ','ትልቅ','በጣም ትልቅ'] : ['Small','Medium','Large','Extra large'];
+    const capGroups = [
+      { label:t.size, opts: seg(s.cap.size, [['S',sizes[0]],['M',sizes[1]],['L',sizes[2]],['XL',sizes[3]]], v => setCap('size', v)) },
+      { label:t.textColour, opts: seg(s.cap.color, [['white',t.white],['yellow',t.yellow]], v => setCap('color', v)) },
+      { label:t.background, opts: seg(s.cap.bg, [['black',t.black],['see',t.seeBg]], v => setCap('bg', v)) },
+      { label:t.position, opts: seg(s.cap.pos, [['over',t.over],['below',t.below]], v => setCap('pos', v)) }
+    ];
+    const hearGroups = [
+      { label:t.clearVoice, opts: seg(s.hear.clear, [['off',t.off],['clear',t.clear],['extra',t.extra]], v => setHear('clear', v)) },
+      { label:t.boost, opts: seg(s.hear.boost, [[100,'100%'],[150,'150%'],[200,'200%']], v => setHear('boost', v)) }
+    ];
+    const bal = s.hear.bal, balText = bal === 0 ? t.centre : (bal < 0 ? t.leftE + ' ' + (-bal) + '%' : t.rightE + ' ' + bal + '%');
+    const KL = [[['Space','K'], t.play + ' / ' + t.pause], [['J'], t.back], [['L'], t.fwd], [['←','→'], am ? '5 ሰከንድ ፈልግ (ቦታ ፈልግ ላይ)' : 'Seek 5 s (on the seek bar)'], [['C'], t.captions], [['S'], t.sign], [['T'], t.transcript], [['O'], t.screen], [['F'], t.full], [['?'], t.keysT], [['Esc'], t.close]];
+    const gl = LH.TERMS[s.glossTerm] || LH.TERMS.variable;
+
+    const curCh = LH.CH.reduce((a, c, i) => s.t >= c.t ? i : a, 0);
+    const lineStyle = cur => `display:grid;grid-template-columns:52px minmax(0,1fr);gap:8px;width:100%;text-align:left;min-height:44px;padding:8px 10px 8px 6px;border-radius:6px;font-size:16px;line-height:1.5;color:${cur ? 'var(--oh)' : 'var(--tx)'};background:${cur ? 'var(--hl)' : 'transparent'};border:0;border-left:4px solid ${cur ? 'var(--oh)' : 'transparent'}`;
+    const tx = LH.CH.map((c, chi) => ({ n: chi + 1, title: c[s.lang], time: fmt(c.t), onClick: () => this.seek(c.t),
+      lines: CUES.map((q, i) => ({ q, i })).filter(o => o.q.ch === chi).map(({ q, i }) => { const cur = i === ci; return {
+        time: fmt(q.s), text: plainText(q), cur: String(cur), aria: cur ? 'true' : undefined, curB: cur, style: lineStyle(cur), onClick: () => this.seek(q.s + 0.01),
+        hasTerms: !!(q.terms && q.terms.length), terms: (q.terms || []).map(k => ({ label: LH.TERMS[k][am ? 'am' : 'en'], onClick: () => { this.setState({ glossTerm: k, loopPaused: false, loopSlow: false }); this.openDialog('gloss'); } })) }; }) }));
+    const l1 = s.t >= 24, l2 = s.t >= 40, out = s.t >= 48;
+    const code = [].concat(l1 ? ['name = "Abebe"'] : [], l2 ? ['print(name)'] : []);
+    let scrDesc;
+    if (s.t < 17) scrDesc = am ? 'የርዕስ ስላይድ፦ “Python basics · Lesson 1 · Your first variable”።' : 'Title slide: “Python basics · Lesson 1 · Your first variable”.';
+    else if (!l1) scrDesc = am ? 'hello.py የሚባል ባዶ ፋይል ያለው የኮድ አርታኢ።' : 'An empty code editor with a file named hello.py.';
+    else scrDesc = (am ? `የኮድ አርታኢው hello.py ን በ${code.length} መስመር ያሳያል።` : `The code editor shows hello.py with ${code.length} line${code.length > 1 ? 's' : ''}:`) + (out ? (am ? ' ተርሚናሉ Abebe ያሳያል።' : ' The terminal shows the output: Abebe.') : '');
+    const txShown = P === 'video' && main && (s.panel === 'transcript' || textOnly);
+    const scrShown = P === 'video' && main && (s.panel === 'screen' || textOnly);
+    const showPanels = txShown || scrShown;
+    const besides = showPanels && s.w >= 1000;
+
+    const fmtCard = on => `display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:12px;align-items:start;padding:14px;border-radius:10px;text-align:left;min-height:44px;color:var(--pt);background:${on ? 'var(--p2)' : 'transparent'};border:${on ? '2px solid var(--pa)' : '1px solid var(--pd)'}`;
+    const fmtOpts = [['light', t.lightL, t.lightLD, '1.5 MB', true], ['video', t.videoO, t.videoOD, '15 MB', false], ['text', t.textO, t.textOD, '50 KB', false]].map(([v, title, desc, size, rec]) => { const on = s.fmtPick === v; return {
+      title, desc, size, rec, checked: String(on), onClick: () => this.setState({ fmtPick: v }), style: fmtCard(on),
+      dot: `width:24px;height:24px;border-radius:50%;border:2px solid ${on ? 'var(--pa)' : 'var(--pm)'};display:flex;align-items:center;justify-content:center;margin-top:2px`,
+      dotIn: `width:12px;height:12px;border-radius:50%;background:${on ? 'var(--pa)' : 'transparent'}` }; });
+    const dlPct = s.dl ? s.dl.pct : 0;
+
+    const obNames = { sign:['Sign','ምልክት'], listen:['Listen','አዳምጥ'], read:['Read','አንብብ'], save:['Save data','ዳታ ቆጥብ'] };
+    const obChoices = [['sign','signD'],['listen','listenD'],['read','readD'],['save','saveD']].map(([k, d]) => { const on = !!s.choices[k]; return {
+      checked: String(on), onClick: () => this.setState({ choices: { ...this.state.choices, [k]: !on } }),
+      title: obNames[k][L], sub: obNames[k][1 - L], subLang: am ? 'en' : 'am', desc: t[d], tick: on ? '✓' : '', state: on ? t.selected : t.notSelected,
+      style: `display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:18px;border-radius:12px;text-align:left;min-height:44px;color:var(--pt);background:${on ? 'var(--p2)' : 'transparent'};border:2px solid ${on ? 'var(--pa)' : 'var(--pd)'}`,
+      box: `width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:700;${on ? 'background:var(--pa);color:var(--po)' : 'border:2px solid var(--pm)'}` }; });
+
+    const optBtn = on => `min-height:44px;padding:0 12px;border-radius:6px;font-size:14px;background:${on ? 'var(--pt)' : 'var(--pb)'};color:${on ? 'var(--pb)' : 'var(--pt)'};border:1px solid ${on ? 'var(--pt)' : 'var(--pd)'};font-weight:${on ? 700 : 400}`;
+    const corner = k => ({ label: ({ tl:'↖ ', tr:'↗ ', bl:'↙ ', br:'↘ ' })[k] + t[k], pressed: String(!s.pos && s.corner === k), style: optBtn(!s.pos && s.corner === k), onClick: () => this.setState({ corner: k, pos: null }) });
+    const signOptBtns = [corner('tl'), corner('tr'), corner('bl'), corner('br'),
+      { label:'− ' + t.smaller, style: optBtn(false), onClick: () => this.setState({ size: Math.max(0, this.state.size - 1) }) },
+      { label:'+ ' + t.larger, style: optBtn(false), onClick: () => this.setState({ size: Math.min(2, this.state.size + 1) }) },
+      { label:(s.see ? '✓ ' : '') + t.see, pressed: String(s.see), style: optBtn(s.see), onClick: () => this.setState({ see: !this.state.see }) },
+      { label:'⇄ ' + t.signLarge, style: optBtn(false), onClick: () => this.setState({ signMode: 'first', lastSign: 'first', signOpts: false }) }];
+
+    const tl = s.tl, SENT = LH.SENT, tlLang = tl.tr ? 'am' : 'en';
+    const tbStyle = on => `min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;border-radius:8px;font-size:17px;padding:4px;background:${on ? 'var(--ac)' : 'var(--sf)'};color:${on ? 'var(--oa)' : 'var(--tx)'};border:1px solid ${on ? 'var(--ac)' : 'var(--bd)'};font-weight:${on ? 700 : 400}`;
+    const tbBtns = [
+      { en:(tl.sign ? '✓ ' : '') + 'Sign', am:'ምልክት', pressed:String(tl.sign), style: tbStyle(tl.sign), onClick: () => this.tlToggle('sign') },
+      { en:(tl.listen ? '❚❚ ' : '▶ ') + 'Listen', am:'አዳምጥ', pressed:String(tl.listen), style: tbStyle(tl.listen), onClick: () => this.tlToggle('listen') },
+      { en:(tl.tr ? '✓ ' : '') + 'Translate', am:'ተርጉም', pressed:String(tl.tr), style: tbStyle(tl.tr), onClick: () => { this.tlToggle('tr'); this.say(tl.tr ? t.showingEn : t.showingAm); } },
+      { en: s.tlSaved ? '✓ Saved' : s.tlDl ? 'Saving…' : '↓ Download', am: s.tlSaved ? 'ተቀምጧል' : 'አውርድ', style: tbStyle(s.tlSaved), onClick: this.tlDownload }
+    ];
+    const hl = 'background:var(--hl);color:var(--oh);box-shadow:0 3px 0 var(--oh);border-radius:2px;cursor:pointer;padding:1px 0';
+    const blocks = LH.BLOCKS.map(b => ({
+      isH: !!b.h, h: b.h ? b.h[tl.tr ? 1 : 0] : '', isP: !!b.p, isCode: !!b.code, code: b.code || '',
+      pStyle: `margin:0;font-size:${tl.tr ? 19 : 20}px;line-height:${tl.tr ? 1.9 : 1.7};text-wrap:pretty`,
+      sents: (b.p || []).map(i => ({ i: String(i), text: SENT[i][tlLang], aria: tl.idx === i ? 'true' : undefined, style: tl.idx === i ? hl : 'cursor:pointer',
+        onClick: () => { const cur = this.state.tl; if (cur.listen || cur.sign) { this.stopSpeech(); this.tlRunId++; this.tlStep(i); } else this.setState({ tl: { ...cur, idx: i } }); } }))
+    }));
+
+    const jobs = LH.JOBS.map((j, i) => { const on = s.jobListen === i; return {
+      title: j.title, titleAm: j.titleAm, company: j.company, loc: am ? j.locAm : j.location, dlEt: j.dlEt, dlGr: j.dlGr, summary: j[s.lang],
+      playing: String(on), listenLabel: (on ? '❚❚ ' + t.pauseSum : '▶ ' + t.listenSum),
+      listenStyle: `min-height:48px;border-radius:8px;font-size:15px;background:${on ? 'var(--ac)' : 'var(--sf)'};color:${on ? 'var(--oa)' : 'var(--tx)'};border:1px solid ${on ? 'var(--ac)' : 'var(--bd)'};font-weight:${on ? 700 : 400}`,
+      onListen: () => { if (this.state.jobListen === i) { this.stopSpeech(); this.setState({ jobListen: null }); return; } this.setState({ jobListen: i }); this.speak(j.title + '. ' + j.company + '. ' + j[this.state.lang], this.state.lang, () => { if (this.state.jobListen === i) this.setState({ jobListen: null }); }, 1); },
+      onSign: () => { this.setState({ job: i }); this.openDialog('jobsign'); },
+      onApply: () => { this.setState({ job: i, sent: null, errs: {} }); this.openDialog('apply'); } }; });
+    const J = LH.JOBS[s.job] || LH.JOBS[0];
+    const job = { title: J.title, company: J.company, g: J.g, summary: J[s.lang] };
+    const contacts = [['sms','SMS text message'],['email','Email'],['video','Video call with an EthSL interpreter']];
+    const inputStyle = err => `min-height:48px;padding:0 14px;border-radius:8px;border:${err ? '2px solid var(--dg)' : '1px solid var(--bd)'};background:var(--sf);font-size:17px;color:var(--tx);width:100%`;
+    const errList = Object.values(s.errs).filter(Boolean);
+    const installCode = LH.INSTALL;
+    const cards = [['video','01','የቪዲዮ ትምህርት',['The player with sign, captions and transcript.','ምልክት፣ ግርጌ ጽሑፍ እና ግልባጭ ያለው ማጫወቻ።']],['text','02','የጽሑፍ ትምህርት',['Written lesson with Sign, Listen and Translate.','ምልክት፣ አዳምጥ እና ተርጉም ያለው የጽሑፍ ትምህርት።']],['jobs','03','ሥራዎች',['Accessible job cards with signed summaries.','በምልክት ማጠቃለያ ያላቸው ተደራሽ የሥራ ካርዶች።']],['cert','04','ሰርተፍኬት',['Verifiable certificates with a QR code.','በQR ኮድ የሚረጋገጡ ሰርተፍኬቶች።']],['docs','05','API ሰነዶች',['Attributes, events and theming.','ባህሪያት፣ ክስተቶች እና ገጽታ።']]];
+
+    return {
+      ready: true, t, lang: s.lang, otherLangCode: am ? 'en' : 'am', announce: s.announce,
+      demoGroups, resetSetup: () => { clearInterval(this.dlIv); this.stopSpeech(); this.setState({ onboard: true, saved: false, tlSaved: false, format: null, dl: null, t: 0, playing: false, ad: null, adPlayed: {}, waited: {}, choices: { sign:true, listen:false, read:true, save:false }, page: 'video', panel: null, dialog: null }); },
+      frameOuter: phone ? 'width:376px;height:780px;margin:24px auto;border:8px solid #1C1B18;border-radius:32px;overflow:hidden;transform:translateZ(0);background:#000' : 'min-height:calc(100vh - 60px)',
+      frameInner: phone ? 'height:100%;overflow:auto' : 'min-height:inherit',
+      scrollRef: this.scrollRef, rootRef: this.rootRef, playerRef: this.playerRef, stageRef: this.stageRef, signRef: this.signRef, txRef: this.txRef,
+      rootStyle, wide, narrow, nav, menuStr: String(s.menu), menuShown: narrow && s.menu, toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      toggleLang: () => this.setState({ lang: this.state.lang === 'am' ? 'en' : 'am' }), cycleTheme: () => this.setState({ theme: { light:'dark', dark:'contrast', contrast:'light' }[this.state.theme] }),
+      themeShort: s.w < 640 ? '' : themeNames[s.theme], langShort: s.w < 640 ? (am ? 'EN' : 'አማ') : t.otherLang, themeAria: t.display + ': ' + themeNames[s.theme],
+      mainStyle: `display:block;max-width:1200px;margin:0 auto;padding:${narrow ? '20px 16px 40px' : '36px 24px 64px'};outline:none`,
+      goHome: this.go('home'), goVideo: this.go('video'), goText: this.go('text'), goDocs: this.go('docs'), goCert: this.go('cert'),
+      pHome: P === 'home', pVideo: P === 'video', pText: P === 'text', pJobs: P === 'jobs', pCert: P === 'cert', pDocs: P === 'docs',
+      home: am ? { kicker:'በኢትዮጵያ ለኦንላይን ትምህርት የተሠራ ክፍት ምንጭ የተደራሽነት ተሰኪ', intro:'ለሁሉም የኢትዮጵያ ምልክት ቋንቋ፣ የግርጌ ጽሑፍ፣ የድምፅ መግለጫ እና አነስተኛ ዳታ ሁነታን ለማንኛውም የቪዲዮ ወይም የጽሑፍ ትምህርት በአማርኛ እና በእንግሊዝኛ ያክላል። በአንድ የስክሪፕት መለያ ወደ ድረ ገጽዎ ያክሉት።', cta:'የቪዲዮ ትምህርቱን ይሞክሩ', cta2:'API ሰነዶችን ያንብቡ', installT:'እንዴት እንደሚጫን', installD:'ስክሪፕቱን አንድ ጊዜ ያክሉ፤ ከዚያ ትምህርት በሚያሳዩበት ቦታ ሁሉ <db-player> ይጠቀሙ። የገጽዎን ብሩህ ወይም ጨለማ ገጽታ ይከተላል።' }
+        : { kicker:'Open-source accessibility plug-in for online learning in Ethiopia', intro:'LE HULUM adds Ethiopian Sign Language, captions, audio description and a low-data mode to any video or text lesson, in Amharic and English. Add it to your site with one script tag.', cta:'Try the video lesson', cta2:'Read the API docs', installT:'How to install', installD:'Add the script once, then use <db-player> wherever you show a lesson. It follows your page’s light or dark theme.' },
+      homeCards: cards.map(([k, n, a, d]) => ({ n, title: LH.D[k][0], am: a, desc: d[L], onClick: this.go(k) })),
+      installCode, installCopyLabel: s.instCopied ? '✓ ' + t.copied : t.copy,
+      copyInstall: () => { try { navigator.clipboard.writeText(installCode); } catch (e) {} this.setState({ instCopied: true }); this.say(t.copied); setTimeout(() => this.setState({ instCopied: false }), 2500); },
+
+      saved: s.saved,
+      videoGrid: besides ? 'display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;align-items:start' : 'display:flex;flex-direction:column;gap:16px',
+      playerStyle: s.fs ? 'position:relative;background:var(--pb);color:var(--pt);display:flex;flex-direction:column;height:100%;width:100%' : 'position:relative;background:var(--pb);color:var(--pt);border-radius:12px;overflow:hidden;border:1px solid var(--pd)',
+      showOnboard, obChoices,
+      obStart: () => { const c = this.state.choices, any = c.sign || c.listen || c.read || c.save; const patch = { onboard: false };
+        if (any) Object.assign(patch, { signMode: c.sign ? 'float' : 'off', lastSign: 'float', adOn: !!c.listen, cc: c.read || !c.sign, panel: c.read ? 'transcript' : null, format: c.save ? 'light' : this.state.format });
+        this.setState(patch); this.say(t.start); },
+      obDefaults: () => this.setState({ onboard: false, signMode: 'off', cc: true, adOn: false, panel: null }),
+      showOffline, showFormat, fmtOpts, dlActive: !!s.dl, dlPct, dlBar: `height:100%;width:${dlPct}%;background:var(--pa)`,
+      dlText: (dlPct * 1.5 / 100).toFixed(1) + ' / 1.5 MB · ~' + Math.round((100 - dlPct) / 100 * 30) + ' s ' + t.left,
+      dlCancel: () => { clearInterval(this.dlIv); this.setState({ dl: null }); }, dlDelete: () => this.setState({ saved: false }),
+      savedInChooser: s.saved && !s.dl, canDl: !s.saved && !s.dl, dlStart: this.dlStart,
+      fmtWatch: () => this.setState({ format: this.state.fmtPick }), fmtChange: () => this.setState({ format: null, net: this.state.net === 'normal' ? 'slow' : this.state.net }),
+      showTextOnly: textOnly, showStage,
+      stageStyle: `position:relative;width:100%;${s.fs ? 'flex:1;min-height:0' : 'aspect-ratio:' + aspect};background:#1A1915;overflow:hidden`,
+      lessonCell, sceneTitle: s.t < 17, sceneEditor: s.t >= 17, l1, l2, out,
+      fmtBadge: showStage && effFormat === 'light', fmtBadgeText: offline ? t.offlineBadge : t.lightL + ' · 1.5 MB',
+      signShown: showStage && mode !== 'off', signCell, signFloat: float, signVideo, glossWords,
+      dragStart: this.dragStart, moveKey: this.moveKey, moveAria: t.move + ' (' + (am ? 'ቀስት ቁልፎች' : 'drag or use arrow keys') + ')',
+      signOptsStr: String(s.signOpts), toggleSignOpts: () => this.setState({ signOpts: !this.state.signOpts }),
+      signOptsBtn: `flex:1;min-width:44px;min-height:44px;border-radius:6px;font-size:13px;font-weight:700;background:${s.signOpts ? 'var(--pt)' : 'var(--p2)'};color:${s.signOpts ? 'var(--pb)' : 'var(--pt)'};border:1px solid var(--pd)`,
+      signOptsShown: showStage && float && s.signOpts, signOptBtns,
+      fbAsk: !s.fb, fbDone: !!s.fb, fbUp: () => { this.setState({ fb: 'up' }); this.say(t.thanks); }, fbDown: () => { this.setState({ fb: 'down' }); this.say(t.thanks); },
+      firstWide, firstCompact, sideCol: `position:absolute;right:16px;width:38%;top:${Math.round(16 + pw * 0.38 * 9 / 16 + 12)}px;bottom:16px;display:flex;flex-direction:column;gap:10px;overflow:auto`,
+      swapCompact: `position:absolute;right:8px;top:${Math.round(8 + pw * 0.46 * 9 / 16 + 8)}px;z-index:4;min-height:44px;padding:0 12px;border-radius:8px;background:var(--pb);color:var(--pt);border:1px solid var(--pd);font-size:14px;font-weight:700`,
+      swapToLesson: () => this.setState({ signMode: 'float', lastSign: 'float', waiting: false }),
+      waiting: s.waiting, waitCompact: showStage && s.waiting && first && compact, dontWait: () => { clearTimeout(this.wt); this.setState({ waiting: false }); },
+      bigPlay: showStage && !s.playing && s.t === 0 && s.ad == null, togglePlay: this.togglePlay,
+      capOver: capOn && !capBelowMode, capBelow: capOn && capBelowMode, capParts, speaker: am ? 'መምህር' : 'Teacher',
+      capWrap: 'position:absolute;left:0;right:0;bottom:5%;z-index:2;display:flex;justify-content:center;padding:0 4%;pointer-events:none',
+      capBox: `background:${capBg};color:${capCol};padding:.25em .6em;border-radius:6px;font-size:${fsz}px;line-height:1.35;text-align:center;max-width:34em;position:relative`,
+      capBelowBox: `background:#000;color:${capCol};padding:10px 16px;font-size:${fsz}px;line-height:1.4;text-align:center;min-height:calc(2.8em + 20px);position:relative`,
+      capSpeaker: `color:${spk};font-weight:700`,
+      capPreview: `background:${s.cap.bg === 'black' ? '#000' : '#4A4740'};color:${capCol};padding:10px 14px;border-radius:6px;font-size:${Math.round(capBase * 0.75)}px;line-height:1.4;text-align:center`,
+      capPreviewText: am ? 'የግርጌ ጽሑፍዎ ቅድመ እይታ።' : 'Preview of your captions.',
+      adOver: showStage && s.ad != null && !compact, adBelow: showStage && s.ad != null && compact,
+      adText: s.ad != null ? (LH.ADS[s.ad][s.lang] || LH.ADS[s.ad].en) : '', adSkip: this.adSkip, adReplay: this.adReplay,
+      showBar: showStage, timeText: fmt(s.t), tRound: Math.round(s.t), seekText: fmt(s.t) + ' / 1:00 · ' + LH.CH[curCh][s.lang],
+      seekKey: this.seekKey, seekDown: this.seekDown,
+      seekFill: `position:absolute;left:0;top:50%;height:6px;margin-top:-3px;width:${pct};border-radius:3px;background:var(--pa)`,
+      seekThumb: `position:absolute;left:${pct};top:50%;width:20px;height:20px;margin:-10px 0 0 -10px;border-radius:50%;background:var(--pt);border:3px solid var(--pa)`,
+      chTicks: LH.CH.slice(1).map(c => ({ style: `position:absolute;left:${(c.t / DUR * 100).toFixed(2)}%;top:50%;width:3px;height:14px;margin:-7px 0 0 -1px;background:var(--pt);border-radius:1px` })),
+      ctls, moreCtls, moreShown: compact && s.more,
+
+      dSettings: s.dialog === 'settings', dKeys: s.dialog === 'keys', dGloss: s.dialog === 'gloss', dJobSign: s.dialog === 'jobsign', dApply: s.dialog === 'apply',
+      scrimClose: e => { if (e.target === e.currentTarget) this.closeDialog(); }, stop: e => e.stopPropagation(), closeDialog: this.closeDialog,
+      resetSettings: () => this.setState(JSON.parse(JSON.stringify(DEF_SET))),
+      capGroups, hearGroups, swMono: sw(s.hear.mono, () => setHear('mono', !this.state.hear.mono)), hearBal: s.hear.bal, onBal: e => setHear('bal', Number(e.target.value)), balText,
+      swAd: sw(s.adOn, () => this.setState({ adOn: !this.state.adOn })), segAdMode: seg(s.adMode, [['voice', t.voice], ['sr', t.sr]], v => this.setState({ adMode: v })),
+      adVol: s.adVol, onAdVol: e => this.setState({ adVol: Number(e.target.value) }),
+      segTheme: seg(s.theme, [['light', t.light], ['dark', t.dark], ['contrast', t.contrast]], v => this.setState({ theme: v })),
+      swKeys: sw(s.shortcuts, () => this.setState({ shortcuts: !this.state.shortcuts })),
+      keysOff: !s.shortcuts, keyList: KL.map(([keys, label]) => ({ keys, label })),
+      gl, loopState: s.loopPaused ? '❚❚ ' + t.pause : '↻ ' + t.looping + (s.loopSlow ? ' · 0.5×' : ''),
+      loopPausedStr: String(s.loopPaused), toggleLoop: () => this.setState({ loopPaused: !this.state.loopPaused }), loopBtn: s.loopPaused ? '▶ ' + t.playLoop : '❚❚ ' + t.pauseLoop,
+      loopSlowStr: String(s.loopSlow), toggleSlow: () => this.setState({ loopSlow: !this.state.loopSlow }), slowLabel: (s.loopSlow ? '✓ ' : '') + t.slower,
+      slowBtnStyle: `flex:1;min-height:44px;border-radius:8px;font-size:16px;background:${s.loopSlow ? 'var(--tx)' : 'var(--sf)'};color:${s.loopSlow ? 'var(--bg)' : 'var(--tx)'};border:1px solid ${s.loopSlow ? 'var(--tx)' : 'var(--bd)'};font-weight:${s.loopSlow ? 700 : 400}`,
+
+      showPanels, txShown, scrShown, panelClosable: !textOnly, closePanel: () => this.setState({ panel: null }),
+      panelStyle: `display:flex;flex-direction:column;background:var(--sf);border:1px solid var(--bd);border-radius:12px;max-height:${besides ? (scrShown && txShown ? '380px' : '620px') : '420px'}`,
+      panelStyleScr: 'display:flex;flex-direction:column;gap:12px;padding:16px 18px;background:var(--sf);border:1px solid var(--bd);border-radius:12px',
+      tx, scrDesc, hasCode: code.length > 0, codeLines: code.map((c, i) => ({ n: i + 1, c })), codeAria: (am ? 'ኮድ፣ ' : 'Code, ') + code.length + (am ? ' መስመር' : (code.length > 1 ? ' lines' : ' line')),
+      copied: s.copied, copyCode: () => { try { navigator.clipboard.writeText(code.join('\n')); } catch (e) {} this.setState({ copied: true }); this.say(t.copied); setTimeout(() => this.setState({ copied: false }), 2500); },
+      chList: LH.CH.map((c, i) => { const cur = i === curCh && s.t > 0; return { label: (cur ? '▶ ' : '') + c[s.lang], time: fmt(c.t), aria: cur ? 'true' : undefined, onClick: () => this.seek(c.t),
+        style: `width:100%;min-height:52px;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:0 12px;border:0;border-bottom:1px solid var(--ln);border-left:4px solid ${cur ? 'var(--oh)' : 'transparent'};background:${cur ? 'var(--hl)' : 'transparent'};color:${cur ? 'var(--oh)' : 'var(--tx)'};font-size:16px;font-weight:${cur ? 700 : 400};text-align:left` }; }),
+      videoAbout: am ? 'በዚህ የ1 ደቂቃ ማሳያ ትምህርት name የሚባል ተለዋዋጭ ፈጥረው “Abebe” የሚለውን ጽሑፍ ያስቀምጡበታል፣ ከዚያም ያትሙታል። ምልክት፣ ግርጌ ጽሑፍ፣ ግልባጭ እና በማያ ላይ ይሞክሩ፤ የድምፅ መግለጫን በቅንብሮች ያብሩ።' : 'In this 1-minute demo lesson you create a variable called name, store the text “Abebe” in it, and print it. Try Sign, Captions, Transcript and On screen, or turn on audio description in Settings.',
+
+      textGrid: (s.w >= 900 && tl.sign) ? 'display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:40px;align-items:start' : 'display:block',
+      tbBtns, tlRunning: tl.listen || tl.sign,
+      tlStatus: `${t.readingN} ${Math.max(1, tl.idx + 1)} ${t.of} ${SENT.length}` + (tl.sign ? ' · ' + t.sign : '') + (tl.listen ? ' · ' + t.listen : ''),
+      tlPrev: () => { this.stopSpeech(); this.tlRunId++; this.tlStep(Math.max(0, this.state.tl.idx - 1)); }, tlNext: () => { this.stopSpeech(); this.tlRunId++; this.tlStep(Math.min(SENT.length - 1, this.state.tl.idx + 1)); },
+      tlStop: () => { this.stopSpeech(); this.tlRunId++; clearTimeout(this.tlTimer); this.setState({ tl: { ...this.state.tl, listen: false, sign: false, idx: -1 } }); },
+      tlDlActive: !!s.tlDl, tlDlPct: s.tlDl ? s.tlDl.pct : 0, tlDlBar: `height:100%;width:${s.tlDl ? s.tlDl.pct : 0}%;background:var(--ac)`, tlSaved: s.tlSaved,
+      tlLang, blocks, tlSignWide: tl.sign && s.w >= 900, tlSignNarrow: tl.sign && s.w < 900,
+      tlGloss: tl.idx >= 0 ? SENT[tl.idx].g : '…', tlSentLabel: tl.idx >= 0 ? (tl.idx + 1) + '/' + SENT.length : '',
+
+      jobsTitle: am ? 'ሥራዎች' : 'Jobs', jobsSub: am ? '3 ክፍት የሥራ ቦታዎች። የመጨረሻ ቀኖች በኢትዮጵያ እና በግሪጎሪያን አቆጣጠር ይታያሉ።' : '3 open roles. Deadlines are shown in the Ethiopian and Gregorian calendars.',
+      jobs, job, form: s.form,
+      sent: !!s.sent, notSent: !s.sent, sentRef: s.sent ? s.sent.ref : '', sentText: s.sent ? `${job.company} will contact you by ${s.sent.via}. You can close this window.` : '',
+      onName: e => this.setState({ form: { ...this.state.form, name: e.target.value } }), onPhone: e => this.setState({ form: { ...this.state.form, phone: e.target.value } }), onNeeds: e => this.setState({ form: { ...this.state.form, needs: e.target.value } }),
+      contactOpts: contacts.map(([v, l]) => ({ label: l, checked: s.form.contact === v, onChange: () => this.setState({ form: { ...this.state.form, contact: v } }) })),
+      errName: s.errs.name || '', errPhone: s.errs.phone || '', errNameB: s.errs.name ? 'true' : undefined, errPhoneB: s.errs.phone ? 'true' : undefined,
+      nameStyle: inputStyle(s.errs.name), phoneStyle: inputStyle(s.errs.phone), hasErrs: errList.length > 0, errCount: errList.length === 1 ? '1 field' : errList.length + ' fields', errSummary: errList.join(' '),
+      applySubmit: e => { e.preventDefault(); const f = this.state.form, errs = {};
+        if (f.name.trim().length < 2) errs.name = 'Enter your full name.';
+        const ph = f.phone.replace(/[\s-]/g, ''); if (!/^(\+251|0)[79]\d{8}$/.test(ph)) errs.phone = 'Enter an Ethiopian mobile number, like 0911 234 567.';
+        if (Object.keys(errs).length) { this.setState({ errs }); setTimeout(() => { const el = document.getElementById(errs.name ? 'lh-f-name' : 'lh-f-phone'); if (el) el.focus(); }, 30); return; }
+        this.setState({ errs: {}, sent: { ref: 'LH-AP-' + (1000 + Math.floor(Math.random() * 9000)), via: contacts.find(c => c[0] === f.contact)[1].toLowerCase() } }); this.say('Application sent'); },
+
+      certId: s.certId, onCertId: e => this.setState({ certId: e.target.value, cert: null }),
+      certSubmit: e => { e.preventDefault(); const id = this.state.certId.trim().toUpperCase(); this.setState({ cert: LH.VALID_IDS.includes(id) ? 'valid' : 'invalid', certChecked: id || '(empty)' }); },
+      tryValid: () => this.setState({ certId: 'LH-2026-0417-K9', cert: 'valid', certChecked: 'LH-2026-0417-K9' }),
+      tryInvalid: () => this.setState({ certId: 'LH-2026-9999-X0', cert: 'invalid', certChecked: 'LH-2026-9999-X0' }),
+      certValid: s.cert === 'valid', certInvalid: s.cert === 'invalid', certChecked: s.certChecked,
+
+      apiAttrs: [
+        { k:'src', v:'Lesson video URL (MP4 or HLS).' }, { k:'light-src', v:'Optional light lesson: slides plus audio, used on slow connections.' },
+        { k:'lang="am" | "en"', v:'Interface, captions and description language. Learners can switch at any time.' },
+        { k:'sign="auto" | "first" | "off"', v:'Automatic EthSL window. "first" opens in sign-first layout.' },
+        { k:'captions="on" | "below" | "off"', v:'Default caption state and position.' },
+        { k:'theme="auto" | "light" | "dark" | "contrast"', v:'"auto" follows prefers-color-scheme and prefers-contrast.' },
+        { k:'transcript', v:'WebVTT file with chapters and speaker names.' }, { k:'describe', v:'WebVTT description track. Video pauses while each cue is read.' }
+      ],
+      apiEvents: "const player = document.querySelector('db-player');\n\nplayer.addEventListener('lh:choice', e => {\n  // { sign: true, listen: false, read: true, saveData: false }\n  console.log(e.detail);\n});\n\nplayer.addEventListener('lh:sign-feedback', e => {\n  // { cue: 4, clear: false }\n});\n\nplayer.addEventListener('lh:offline-saved', e => {\n  // { bytes: 1572864 }\n});",
+      apiTheme: 'db-player {\n  --lh-accent: #0A6B4E;\n  --lh-radius-md: 8px;\n  --lh-cap-bg: rgb(0 0 0 / .88);\n}'
+    };
+  }
+}
+</script>
+</body>
+</html>

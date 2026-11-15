@@ -1,0 +1,11 @@
+id,text_am,text_en,gloss,nonmanual,rules_applied,confidence,status,source
+H01,ዛሬ ስለ ዝርዝር እንማራለን።,Today we learn about lists.,TODAY WE LEARN LIST,,time-first; drop-preposition(ስለ); S-V-O,high,generated-unverified,Haji 2017 §2.6
+H02,ፋይሉን ዝጉ።,Close the file.,CLOSE FILE,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6
+H03,ስክሪኑ ላይ ስህተት አለ?,Is there an error on the screen?,SCREEN ERROR EXIST,q-yn (eyebrows up; lean forward),drop-preposition(ላይ); topic-comment; yes-no-question-same-order,low,generated-unverified,Haji 2017 §2.6
+H04,ቁጥሩን አትሰርዙ።,Don't delete the number.,DELETE NUMBER NOT,neg (head shake),imperative-no-subject; V-O; negation-at-end,medium,generated-unverified,Haji 2017 §2.6
+H05,ኢሜይላችሁን አረጋግጡ።,Check your email.,CHECK POSS-YOU-PL EMAIL,,imperative-no-subject; V-O; possessive-palm,low,generated-unverified,Haji 2017 §2.6
+H06,ኮዱን እንደገና አስኪዱት።,Run the code again.,RUN CODE AGAIN,,imperative-no-subject; V-O; adverb-after-verb-phrase,medium,generated-unverified,Haji 2017 §2.6
+H07,መምህሩ ጥያቄውን ይመልሳል።,The teacher answers the question.,TEACHER ANSWER QUESTION,,S-V-O (topic-comment),high,generated-unverified,Haji 2017 §2.6
+H08,ነገ ኮርሱን እንጨርሳለን።,Tomorrow we finish the course.,TOMORROW WE FINISH COURSE,,time-first; S-V-O,high,generated-unverified,Haji 2017 §2.6
+H09,ስማችሁን ቀይሩ።,Change your name.,CHANGE POSS-YOU-PL NAME,,imperative-no-subject; V-O; possessive-palm,low,generated-unverified,Haji 2017 §2.6
+H10,አፕኑን አውርዱ።,Download the app.,DOWNLOAD APP,,imperative-no-subject; V-O,medium,generated-unverified,Haji 2017 §2.6

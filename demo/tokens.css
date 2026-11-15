@@ -1,0 +1,60 @@
+/* NFR-A11Y-01, NFR-A11Y-04: Design tokens. Light on :root; dark and contrast follow data-theme or the OS. */
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/atkinson-hyperlegible-400.woff2") format("woff2")}
+@font-face{font-family:"Atkinson Hyperlegible";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/atkinson-hyperlegible-700.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Ethiopic";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/noto-sans-ethiopic-400.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Ethiopic";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/noto-sans-ethiopic-600.woff2") format("woff2")}
+@font-face{font-family:"Noto Sans Ethiopic";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/noto-sans-ethiopic-700.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/jetbrains-mono-400.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/jetbrains-mono-600.woff2") format("woff2")}
+
+:root{
+  --lh-bg:#FAF8F3;--lh-surface:#FFFFFF;--lh-surface-2:#F1EDE4;--lh-text:#1C1B18;--lh-text-muted:#57534A;
+  --lh-border:#8A8478;--lh-line:#D9D3C7;--lh-accent:#0A6B4E;--lh-accent-hover:#085A41;--lh-on-accent:#FFFFFF;
+  --lh-highlight:#FFE38A;--lh-on-highlight:#1C1B18;--lh-danger:#B3261E;--lh-focus:#1C1B18;
+  --lh-code-bg:#1C1B18;--lh-code-text:#F3F0E8;--lh-scrim:rgba(28,27,24,.6);
+  --lh-cap-bg:rgb(0 0 0 / .88);--lh-cap-text:#FFFFFF;--lh-cap-speaker:#FFE38A;
+  --lh-player-bg:#14130F;--lh-player-text:#F3F0E8;--lh-player-border:#8C8678;--lh-player-accent:#62D6AA;
+  --lh-player-on:#0B2219;--lh-player-track:#2A2721;--lh-player-muted:#BDB7AA;--lh-player-focus:#FFD54A;
+  --lh-color-primary:var(--lh-accent);--lh-font-body:var(--lh-font-latin);
+  --lh-font-latin:"Atkinson Hyperlegible",system-ui,sans-serif;
+  --lh-font-ethiopic:"Noto Sans Ethiopic","Abyssinica SIL",Nyala,sans-serif;
+  --lh-font-code:"JetBrains Mono",ui-monospace,monospace;
+  --lh-space-1:.25rem;--lh-space-2:.5rem;--lh-space-3:.75rem;--lh-space-4:1rem;--lh-space-5:1.25rem;
+  --lh-space-6:1.5rem;--lh-space-7:2rem;--lh-space-8:2.5rem;--lh-space-9:3rem;--lh-space-10:4rem;
+  --lh-radius-sm:4px;--lh-radius-md:8px;--lh-radius-lg:12px;--lh-radius-pill:999px;
+  --lh-shadow-dialog:0 12px 32px rgba(0,0,0,.25);
+  --lh-focus-ring:0 0 0 2px var(--lh-bg),0 0 0 5px var(--lh-focus);
+  --lh-target:44px;--lh-target-lg:52px;--lh-bar-h:56px;
+}
+:root[data-theme="dark"]{
+  --lh-bg:#14130F;--lh-surface:#1E1C18;--lh-surface-2:#2A2721;--lh-text:#F3F0E8;--lh-text-muted:#BDB7AA;
+  --lh-border:#8C8678;--lh-line:#3A3730;--lh-accent:#62D6AA;--lh-accent-hover:#7BE0B8;--lh-on-accent:#0B2219;
+  --lh-highlight:#F5D76E;--lh-on-highlight:#14130F;--lh-danger:#FF8A80;--lh-focus:#FFD54A;
+  --lh-code-bg:#0E0D0A;--lh-code-text:#F3F0E8;--lh-scrim:rgba(0,0,0,.7);--lh-player-bg:#0E0D0A;
+}
+:root[data-theme="contrast"]{
+  --lh-bg:#000000;--lh-surface:#000000;--lh-surface-2:#000000;--lh-text:#FFFFFF;--lh-text-muted:#FFFFFF;
+  --lh-border:#FFFFFF;--lh-line:#FFFFFF;--lh-accent:#FFFF00;--lh-accent-hover:#FFFF00;--lh-on-accent:#000000;
+  --lh-highlight:#FFFF00;--lh-on-highlight:#000000;--lh-danger:#FF8A80;--lh-focus:#00E5FF;
+  --lh-code-bg:#000000;--lh-code-text:#FFFFFF;--lh-scrim:#000000;
+  --lh-player-bg:#000000;--lh-player-text:#FFFFFF;--lh-player-border:#FFFFFF;--lh-player-accent:#FFFF00;
+  --lh-player-on:#000000;--lh-player-track:#000000;--lh-player-muted:#FFFFFF;--lh-player-focus:#00E5FF;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme]){
+    --lh-bg:#14130F;--lh-surface:#1E1C18;--lh-surface-2:#2A2721;--lh-text:#F3F0E8;--lh-text-muted:#BDB7AA;
+    --lh-border:#8C8678;--lh-line:#3A3730;--lh-accent:#62D6AA;--lh-accent-hover:#7BE0B8;--lh-on-accent:#0B2219;
+    --lh-highlight:#F5D76E;--lh-on-highlight:#14130F;--lh-danger:#FF8A80;--lh-focus:#FFD54A;
+    --lh-code-bg:#0E0D0A;--lh-code-text:#F3F0E8;--lh-scrim:rgba(0,0,0,.7);--lh-player-bg:#0E0D0A;
+  }
+}
+@media (prefers-contrast:more){
+  :root:not([data-theme]){
+    --lh-bg:#000000;--lh-surface:#000000;--lh-surface-2:#000000;--lh-text:#FFFFFF;--lh-text-muted:#FFFFFF;
+    --lh-border:#FFFFFF;--lh-line:#FFFFFF;--lh-accent:#FFFF00;--lh-accent-hover:#FFFF00;--lh-on-accent:#000000;
+    --lh-highlight:#FFFF00;--lh-on-highlight:#000000;--lh-danger:#FF8A80;--lh-focus:#00E5FF;
+    --lh-code-bg:#000000;--lh-code-text:#FFFFFF;--lh-scrim:#000000;
+    --lh-player-bg:#000000;--lh-player-text:#FFFFFF;--lh-player-border:#FFFFFF;--lh-player-accent:#FFFF00;
+    --lh-player-on:#000000;--lh-player-track:#000000;--lh-player-muted:#FFFFFF;--lh-player-focus:#00E5FF;
+  }
+}

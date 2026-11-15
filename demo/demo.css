@@ -1,0 +1,98 @@
+/* NFR-A11Y-01: Demo site layout matching the LE HULUM design. No framework. */
+@import url("tokens.css");
+*{box-sizing:border-box}
+html{background:var(--lh-bg);color:var(--lh-text)}
+body{margin:0;font-family:var(--lh-font-latin);font-size:17px;line-height:1.55}
+:lang(am){font-family:var(--lh-font-ethiopic);letter-spacing:normal;text-transform:none;line-height:1.7}
+a{color:var(--lh-accent);text-underline-offset:3px}
+a:hover{color:var(--lh-text)}
+.skip{position:absolute;left:8px;top:8px;transform:translateY(-200%);background:var(--lh-text);color:var(--lh-bg);padding:10px 14px;border-radius:var(--lh-radius-md);z-index:50}
+.skip:focus{transform:none}
+:focus-visible{outline:3px solid var(--lh-focus);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none;animation:none}}
+.bar{display:flex;align-items:center;gap:8px;max-width:1200px;margin:0 auto;padding:8px 12px}
+.logo{display:flex;align-items:center;gap:8px;min-height:44px;min-width:0;text-decoration:none;color:var(--lh-text)}
+.mark{width:32px;height:32px;border-radius:8px;background:var(--lh-accent);display:flex;align-items:center;justify-content:center;flex:none}
+.mark i{width:12px;height:12px;border-radius:50%;background:var(--lh-bg);display:block}
+.brand{display:flex;flex-direction:column;line-height:1.15}
+.brand b{font-size:18px;letter-spacing:.04em;white-space:nowrap}
+.brand span{font-family:var(--lh-font-ethiopic);font-size:14px;letter-spacing:normal;font-weight:400}
+.desk{display:none;gap:2px;margin-left:8px}
+.desk a,.tools button,.mobile a{min-height:44px}
+.desk a{display:flex;align-items:center;padding:0 14px;border-radius:var(--lh-radius-md);text-decoration:none;color:var(--lh-text);font-size:16px}
+.desk a[aria-current="page"]{font-weight:700;background:var(--lh-surface-2);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px}
+.tools{margin-left:auto;display:flex;gap:6px}
+.tools button,.copy{min-height:44px;padding:0 12px;border-radius:var(--lh-radius-md);background:var(--lh-surface);color:var(--lh-text);border:1px solid var(--lh-border);font:600 16px var(--lh-font-latin)}
+.tools button{font-family:var(--lh-font-ethiopic),var(--lh-font-latin)}
+.menu{display:flex;align-items:center;background:var(--lh-text);color:var(--lh-bg);border:0;font-weight:700}
+.mobile{display:flex;flex-direction:column;padding:4px 16px 12px;border-top:1px solid var(--lh-line)}
+.mobile[hidden]{display:none}
+button[aria-expanded="false"] .opened,button[aria-expanded="true"] .closed{display:none}
+.mobile a{display:flex;justify-content:space-between;align-items:center;padding:10px 0;color:var(--lh-text);text-decoration:none;font-size:18px;border-bottom:1px solid var(--lh-line)}
+header{position:sticky;top:0;z-index:20;background:var(--lh-bg);border-bottom:1px solid var(--lh-line)}
+main{max-width:1280px;margin:0 auto;padding:28px 16px 48px}
+footer{border-top:1px solid var(--lh-line);padding:20px 16px 32px;color:var(--lh-text-muted);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+footer a{color:var(--lh-text)}
+h1{margin:0;font-size:38px;line-height:1.05;font-weight:700;text-wrap:balance}
+h1 .am,h2 .am{display:block;margin-top:8px;font-family:var(--lh-font-ethiopic);font-weight:600;font-size:22px;line-height:1.6;letter-spacing:normal;text-transform:none}
+.kicker{font-size:17px;color:var(--lh-text-muted)}
+.hero{display:flex;flex-direction:column;gap:20px}
+.lead{margin:0;font-size:20px;line-height:1.6}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.cta a,.btn{min-height:52px;display:inline-flex;align-items:center;padding:0 24px;border-radius:var(--lh-radius-md);text-decoration:none;font-size:18px;font-weight:700}
+.cta .go{background:var(--lh-accent);color:var(--lh-on-accent)}
+.cta .alt{background:var(--lh-surface);color:var(--lh-text);border:1px solid var(--lh-border);font-weight:400}
+.stack{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.stack a{min-height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border:1px solid var(--lh-border);border-radius:var(--lh-radius-md);background:var(--lh-surface);color:var(--lh-text);text-decoration:none;font-weight:700}
+.cards{display:none}
+.card{display:flex;flex-direction:column;gap:8px;min-height:150px;padding:22px;border:1px solid var(--lh-border);border-radius:var(--lh-radius-lg);background:var(--lh-surface);color:var(--lh-text);text-decoration:none}
+.card:hover{border-color:var(--lh-text);box-shadow:inset 0 0 0 1px var(--lh-text)}
+.card .n{font-family:var(--lh-font-code);font-size:14px;color:var(--lh-text-muted)}
+.card strong{font-size:21px}
+.card .am{font-family:var(--lh-font-ethiopic);font-size:17px;line-height:1.7;letter-spacing:normal}
+.card span{color:var(--lh-text-muted);font-size:16px;line-height:1.45}
+.install{display:flex;flex-direction:column;gap:16px;margin-top:40px;padding-top:32px;border-top:1px solid var(--lh-line)}
+.install h2{margin:0;font-size:28px}
+.devtools{margin-top:var(--lh-space-8);padding-top:var(--lh-space-6);border-top:1px solid var(--lh-line)}
+.devtools h2{margin:0 0 var(--lh-space-2);font-size:1.25rem}
+pre{margin:0;padding:16px;background:var(--lh-code-bg);color:var(--lh-code-text);border:1px solid var(--lh-border);border-radius:10px;font:400 15px/1.75 var(--lh-font-code);white-space:pre-wrap;overflow-wrap:anywhere}
+.note{color:var(--lh-text-muted)}
+.crumb{color:var(--lh-text-muted);font-size:16px}
+.lesson h1{font-size:26px;line-height:1.15}
+.lesson h1 .am{font-size:20px;line-height:1.6}
+.layout{display:flex;flex-direction:column;gap:20px}
+.chapters{display:flex;flex-direction:column;gap:4px;margin:0;padding:0;list-style:none}
+.chapters a{display:flex;justify-content:space-between;gap:12px;min-height:44px;align-items:center;padding:8px 12px;border-radius:var(--lh-radius-md);color:var(--lh-text);text-decoration:none}
+.chapters a[aria-current="true"]{background:var(--lh-highlight);color:var(--lh-on-highlight);border-left:4px solid var(--lh-text);font-weight:700}
+.chapters time{font-family:var(--lh-font-code);font-size:14px}
+.side h2{margin:0 0 8px;font-size:20px}
+.side .alt{min-height:48px;display:flex;align-items:center;justify-content:center;margin-top:12px;padding:0 12px;border:1px solid var(--lh-border);border-radius:var(--lh-radius-md);background:var(--lh-surface);color:var(--lh-text);text-decoration:none}
+article p{font-size:19px;line-height:1.75;margin:0 0 16px}
+article[lang="am"] p{line-height:1.8}
+article pre{margin:0 0 16px}
+.placeholder{padding:20px;border:1px solid var(--lh-border);border-radius:var(--lh-radius-lg);background:var(--lh-surface)}
+html[lang="en"] .am-only,html[lang="am"] .en-only{display:none}
+@media (min-width:880px){
+  .bar{padding:12px 40px}
+  .desk{display:flex}
+  .menu,.mobile{display:none}
+  main{padding:72px 80px 64px}
+  h1{font-size:64px}
+  .hero{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:end}
+  .stack{display:none}
+  .cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:48px}
+  .install{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:64px}
+  .install h2{font-size:32px}
+  .lesson h1{font-size:40px}
+  h1 .am{font-size:30px}
+  .lesson h1 .am{font-size:26px}
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:32px;align-items:start}
+  .text-layout{grid-template-columns:minmax(0,1fr) 280px}
+  footer{padding:24px 80px 40px}
+}
+@media (max-width:879px){
+  .cta .second-cta{display:none}
+  .bar{flex-wrap:wrap}
+  .logo{flex:0 0 auto}
+  .tools{flex:none}
+}

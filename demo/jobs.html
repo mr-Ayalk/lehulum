@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jobs — LE HULUM</title>
+<link rel="stylesheet" href="demo.css">
+<script>var t=new URLSearchParams(location.search).get("theme");if(t==="light"||t==="dark"||t==="contrast")document.documentElement.dataset.theme=t;</script>
+</head>
+<body>
+<a class="skip" href="#main"><span class="en-only">Skip to content</span><span class="am-only" lang="am">ወደ ይዘቱ ዝለል</span></a>
+<header>
+  <div class="bar">
+    <a class="logo" href="index.html"><span class="mark" aria-hidden="true"><i></i></span><span class="brand"><b>LE HULUM</b><span lang="am">ለሁሉም</span></span></a>
+    <nav class="desk" aria-label="Main">
+      <a href="index.html"><span class="en-only">Home</span><span class="am-only" lang="am">መነሻ</span></a>
+      <a href="lesson-video.html"><span class="en-only">Video lesson</span><span class="am-only" lang="am">የቪዲዮ ትምህርት</span></a>
+      <a href="lesson-text.html"><span class="en-only">Text lesson</span><span class="am-only" lang="am">የጽሑፍ ትምህርት</span></a>
+      <a href="jobs.html" aria-current="page"><span class="en-only">Jobs</span><span class="am-only" lang="am">ሥራዎች</span></a>
+      <a href="/api/docs"><span class="en-only">API docs</span><span class="am-only" lang="am">API ሰነዶች</span></a>
+    </nav>
+    <div class="tools">
+      <button type="button" id="lang"><span class="en-only" lang="am">አማርኛ</span><span class="am-only">English</span></button>
+      <button type="button" id="theme">Light</button>
+      <button type="button" id="menu" class="menu" aria-expanded="false" aria-controls="nav-menu"><span class="closed en-only">☰ Menu</span><span class="closed am-only" lang="am">☰ ምናሌ</span><span class="opened en-only">✕ Close</span><span class="opened am-only" lang="am">✕ ዝጋ</span></button>
+    </div>
+  </div>
+  <nav id="nav-menu" class="mobile" hidden aria-label="Main">
+    <a href="index.html"><span class="en-only">Home</span><span class="am-only" lang="am">መነሻ</span><span aria-hidden="true">→</span></a>
+    <a href="lesson-video.html"><span class="en-only">Video lesson</span><span class="am-only" lang="am">የቪዲዮ ትምህርት</span><span aria-hidden="true">→</span></a>
+    <a href="lesson-text.html"><span class="en-only">Text lesson</span><span class="am-only" lang="am">የጽሑፍ ትምህርት</span><span aria-hidden="true">→</span></a>
+    <a href="jobs.html"><span class="en-only">Jobs</span><span class="am-only" lang="am">ሥራዎች</span><span aria-hidden="true">→</span></a>
+    <a href="/api/docs"><span class="en-only">API docs</span><span class="am-only" lang="am">API ሰነዶች</span><span aria-hidden="true">→</span></a>
+  </nav>
+</header>
+<main id="main">
+  <h1>Jobs <span class="am" lang="am">ሥራዎች</span></h1>
+  <p class="placeholder">Job cards arrive in a later step</p>
+</main>
+<footer>
+  <span>Built for the Digital Bridge Accessibility Hackathon (ALX) · first used on Savanna</span>
+  <span>Source code</span>
+</footer>
+<script src="demo.js"></script>
+<script type="module" src="/module/db-player.js"></script>
+</body>
+</html>

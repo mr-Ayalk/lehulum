@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+Ethiopic:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9E5DC}a{color:#0A6B4E}a:hover{color:#1C1B18}</style>
+</helmet>
+<div style="padding:64px;display:flex;flex-direction:column;gap:96px;font-family:'Atkinson Hyperlegible','Noto Sans Ethiopic',sans-serif;color:#1C1B18">
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:900px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px">LE HULUM · &lt;db-player&gt; · player screens and states</span>
+    <h1 style="margin:0;font-size:48px;line-height:1.1">Player states A–I</h1>
+    <p style="margin:0;font-size:20px;line-height:1.5;color:#57534A;text-wrap:pretty">Laptop artboards at 1040 px, mobile at 360 px. Player chrome defaults to the dark theme over video; panels and dialogs follow the host theme (light, dark or high contrast). Mobile artboards show the Amharic interface.</p>
+  </header>
+
+  <!-- A -->
+  <section id="A" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">A</span><span style="font-size:20px;font-weight:700">First open · laptop</span></div>
+      <div style="width:1040px;background:#14130F;color:#F3F0E8;border-radius:12px;overflow:hidden">
+        <div style="padding:40px 48px;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <h2 style="margin:0;font-size:34px;line-height:1.2">How do you want to learn?</h2>
+              <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic',sans-serif;font-size:26px;line-height:1.6">እንዴት መማር ይፈልጋሉ?</p>
+              <p style="margin:0;font-size:18px;color:#BDB7AA">Choose one or more. You can change this any time in Settings.</p>
+            </div>
+            <div role="group" aria-label="Language" style="display:flex;border:1px solid #8C8678;border-radius:8px;overflow:hidden">
+              <button aria-pressed="true" style="min-height:44px;padding:0 16px;background:#F3F0E8;color:#14130F;border:0;font:700 16px 'Atkinson Hyperlegible'">✓ English</button>
+              <button aria-pressed="false" lang="am" style="min-height:44px;padding:0 16px;background:transparent;color:#F3F0E8;border:0;font:600 16px 'Noto Sans Ethiopic'">አማርኛ</button>
+            </div>
+          </div>
+          <div role="group" aria-label="Learning options" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+            <label style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:12px;background:#2A2721;border:2px solid #62D6AA;box-shadow:0 0 0 2px #14130F,0 0 0 5px #FFD54A">
+              <span style="display:flex;justify-content:space-between;align-items:center"><span style="width:28px;height:28px;border-radius:6px;background:#62D6AA;color:#0B2219;display:flex;align-items:center;justify-content:center;font-weight:700">✓</span><span style="font-size:14px;font-weight:700;color:#62D6AA">Selected</span></span>
+              <span style="font-size:24px;font-weight:700">Sign</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:20px">ምልክት</span>
+              <span style="font-size:16px;line-height:1.45;color:#BDB7AA">Ethiopian Sign Language window next to the lesson.</span>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:12px;background:#1E1C18;border:2px solid #8C8678">
+              <span style="display:flex;justify-content:space-between;align-items:center"><span style="width:28px;height:28px;border-radius:6px;border:2px solid #BDB7AA"></span><span style="font-size:14px;color:#BDB7AA">Not selected</span></span>
+              <span style="font-size:24px;font-weight:700">Listen</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:20px">አዳምጥ</span>
+              <span style="font-size:16px;line-height:1.45;color:#BDB7AA">Audio description of what is on screen, read aloud.</span>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:12px;background:#2A2721;border:2px solid #62D6AA">
+              <span style="display:flex;justify-content:space-between;align-items:center"><span style="width:28px;height:28px;border-radius:6px;background:#62D6AA;color:#0B2219;display:flex;align-items:center;justify-content:center;font-weight:700">✓</span><span style="font-size:14px;font-weight:700;color:#62D6AA">Selected</span></span>
+              <span style="font-size:24px;font-weight:700">Read</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:20px">አንብብ</span>
+              <span style="font-size:16px;line-height:1.45;color:#BDB7AA">Captions and a transcript you can move through by chapter.</span>
+            </label>
+            <label style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:12px;background:#1E1C18;border:2px solid #8C8678">
+              <span style="display:flex;justify-content:space-between;align-items:center"><span style="width:28px;height:28px;border-radius:6px;border:2px solid #BDB7AA"></span><span style="font-size:14px;color:#BDB7AA">Not selected</span></span>
+              <span style="font-size:24px;font-weight:700">Save data</span><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:20px">ዳታ ቆጥብ</span>
+              <span style="font-size:16px;line-height:1.45;color:#BDB7AA">Light lesson: slides with audio, about 1.5 MB.</span>
+            </label>
+          </div>
+          <div style="display:flex;gap:16px;align-items:center">
+            <button style="min-height:52px;padding:0 28px;border-radius:8px;background:#62D6AA;color:#0B2219;border:0;font:700 18px 'Atkinson Hyperlegible'">Start lesson</button>
+            <button style="min-height:52px;padding:0 24px;border-radius:8px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;font:400 18px 'Atkinson Hyperlegible'">Use default settings</button>
+            <span style="font-size:16px;color:#BDB7AA">Sign + Read selected</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">A</span><span style="font-size:20px;font-weight:700">Mobile · Amharic</span></div>
+      <div lang="am" style="width:360px;background:#14130F;color:#F3F0E8;border-radius:12px;overflow:hidden;font-family:'Noto Sans Ethiopic','Atkinson Hyperlegible',sans-serif;padding:24px 16px;display:flex;flex-direction:column;gap:16px;box-sizing:border-box">
+        <div style="display:flex;justify-content:flex-end"><button style="min-height:44px;padding:0 14px;border-radius:8px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;font:400 16px 'Atkinson Hyperlegible'">English</button></div>
+        <h2 style="margin:0;font-size:26px;line-height:1.5;font-weight:700">እንዴት መማር ይፈልጋሉ?</h2>
+        <p style="margin:0;font-size:16px;line-height:1.7;color:#BDB7AA">አንድ ወይም ከዚያ በላይ ይምረጡ።</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <label style="display:flex;gap:14px;align-items:center;min-height:64px;padding:12px 14px;border-radius:10px;background:#2A2721;border:2px solid #62D6AA"><span style="flex:none;width:28px;height:28px;border-radius:6px;background:#62D6AA;color:#0B2219;display:flex;align-items:center;justify-content:center;font-weight:700">✓</span><span style="display:flex;flex-direction:column"><span style="font-size:20px;font-weight:700">ምልክት</span><span style="font-size:14px;color:#BDB7AA;font-family:'Atkinson Hyperlegible'">Sign</span></span></label>
+          <label style="display:flex;gap:14px;align-items:center;min-height:64px;padding:12px 14px;border-radius:10px;background:#1E1C18;border:2px solid #8C8678"><span style="flex:none;width:28px;height:28px;border-radius:6px;border:2px solid #BDB7AA"></span><span style="display:flex;flex-direction:column"><span style="font-size:20px;font-weight:700">አዳምጥ</span><span style="font-size:14px;color:#BDB7AA;font-family:'Atkinson Hyperlegible'">Listen</span></span></label>
+          <label style="display:flex;gap:14px;align-items:center;min-height:64px;padding:12px 14px;border-radius:10px;background:#1E1C18;border:2px solid #8C8678"><span style="flex:none;width:28px;height:28px;border-radius:6px;border:2px solid #BDB7AA"></span><span style="display:flex;flex-direction:column"><span style="font-size:20px;font-weight:700">አንብብ</span><span style="font-size:14px;color:#BDB7AA;font-family:'Atkinson Hyperlegible'">Read</span></span></label>
+          <label style="display:flex;gap:14px;align-items:center;min-height:64px;padding:12px 14px;border-radius:10px;background:#2A2721;border:2px solid #62D6AA"><span style="flex:none;width:28px;height:28px;border-radius:6px;background:#62D6AA;color:#0B2219;display:flex;align-items:center;justify-content:center;font-weight:700">✓</span><span style="display:flex;flex-direction:column"><span style="font-size:20px;font-weight:700">ዳታ ቆጥብ</span><span style="font-size:14px;color:#BDB7AA;font-family:'Atkinson Hyperlegible'">Save data</span></span></label>
+        </div>
+        <button style="min-height:52px;border-radius:8px;background:#62D6AA;color:#0B2219;border:0;font:700 20px 'Noto Sans Ethiopic'">ትምህርቱን ጀምር</button>
+        <button style="min-height:48px;border-radius:8px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;font:400 18px 'Noto Sans Ethiopic'">ነባሪ ቅንብሮችን ተጠቀም</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section id="B" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">B</span><span style="font-size:20px;font-weight:700">Default player · captions on · focus on Captions</span></div>
+      <div style="width:1040px;border-radius:12px;overflow:hidden;background:#14130F">
+        <div style="position:relative;height:585px;background:repeating-linear-gradient(135deg,#24221D 0 12px,#1C1A16 12px 24px);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#BDB7AA;background:#14130F;padding:6px 10px">lesson video · teacher at code editor</span>
+          <div style="position:absolute;top:16px;left:16px;background:rgba(20,19,15,.92);color:#F3F0E8;padding:8px 12px;border-radius:6px;font-size:16px;font-weight:700">Python: Your first variable</div>
+          <div style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);max-width:760px;background:rgba(0,0,0,.88);color:#FFFFFF;padding:8px 16px;border-radius:6px;font-size:26px;line-height:1.4;text-align:center">
+            <span style="color:#FFE38A;font-weight:700">[Teacher]</span> We store the text in a variable<br>called <span style="text-decoration:underline dotted 2px;text-underline-offset:5px">name</span><span style="font-size:16px;vertical-align:super;font-weight:700;border:1px solid #FFFFFF;border-radius:4px;padding:0 4px;margin-left:4px">?</span><span style="position:absolute;width:1px;height:1px;overflow:hidden">(uncertain word)</span>, with an equals sign.
+          </div>
+        </div>
+        <dc-import name="PlayerControls" captions="{{ true }}" focus-key="cc" hint-size="100%,130px"></dc-import>
+      </div>
+      <p style="margin:0;max-width:1040px;font-size:16px;line-height:1.5;color:#57534A">Speaker name in square brackets (not colour alone). Uncertain word: dotted underline plus a boxed “?” and hidden text “uncertain word” for screen readers. Toggle buttons show state with fill, border and a 3 px bar, and expose aria-pressed.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">B</span><span style="font-size:20px;font-weight:700">Mobile · captions below video</span></div>
+      <div lang="am" style="width:360px;background:#14130F;border-radius:12px;overflow:hidden">
+        <div style="height:203px;background:repeating-linear-gradient(135deg,#24221D 0 10px,#1C1A16 10px 20px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#BDB7AA;background:#14130F;padding:4px 8px">lesson video</span></div>
+        <div style="background:#000000;color:#FFFFFF;padding:10px 14px;font-family:'Noto Sans Ethiopic';font-size:19px;line-height:1.6;min-height:62px"><span style="color:#FFE38A;font-weight:700">[መምህር]</span> ጽሑፉን <span style="text-decoration:underline dotted 2px;text-underline-offset:5px">name</span><span style="font-size:13px;vertical-align:super;border:1px solid #FFF;border-radius:4px;padding:0 3px;margin-left:3px">?</span> በሚባል ተለዋዋጭ ውስጥ እናስቀምጣለን።</div>
+        <dc-import name="PlayerControls" compact="{{ true }}" lang="am" hint-size="100%,130px"></dc-import>
+      </div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section id="C" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">C</span><span style="font-size:20px;font-weight:700">Sign-first · waiting for signer</span></div>
+      <div style="width:1040px;border-radius:12px;overflow:hidden;background:#14130F;color:#F3F0E8">
+        <div style="height:585px;display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:16px;padding:16px;box-sizing:border-box">
+          <div style="position:relative;border-radius:8px;background:repeating-linear-gradient(135deg,#2A2721 0 12px,#211F1A 12px 24px);display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:15px;color:#BDB7AA;background:#14130F;padding:6px 10px">signer video · portrait 9:16</span>
+            <span style="position:absolute;top:12px;left:12px;background:#14130F;border:1px solid #8C8678;padding:6px 10px;border-radius:6px;font-size:15px">Automatic sign (beta) · EthSL</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="position:relative;height:248px;border-radius:8px;background:repeating-linear-gradient(135deg,#24221D 0 10px,#1C1A16 10px 20px);display:flex;align-items:center;justify-content:center;opacity:.85">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#BDB7AA;background:#14130F;padding:4px 8px">lesson video · paused</span>
+              <span style="position:absolute;bottom:8px;left:8px;background:#14130F;padding:4px 8px;border-radius:4px;font-size:14px">❚❚ Paused at 0:24</span>
+            </div>
+            <button style="min-height:48px;border-radius:8px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;font:700 17px 'Atkinson Hyperlegible';display:flex;align-items:center;justify-content:center;gap:10px"><span aria-hidden="true">⇄</span> Swap: lesson large</button>
+            <div role="status" style="display:flex;flex-direction:column;gap:10px;padding:16px;border-radius:8px;background:#2A2721;border:2px solid #FFD54A">
+              <div style="display:flex;align-items:center;gap:10px"><span aria-hidden="true" style="display:flex;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#FFD54A"></span><span style="width:8px;height:8px;border-radius:50%;background:#FFD54A;opacity:.6"></span><span style="width:8px;height:8px;border-radius:50%;background:#FFD54A;opacity:.3"></span></span><span style="font-size:20px;font-weight:700">Waiting for signer…</span></div>
+              <p style="margin:0;font-size:16px;line-height:1.5;color:#BDB7AA">The lesson is paused so the signer can finish. It continues by itself.</p>
+              <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:16px;line-height:1.7">ምልክቱ እስኪጨርስ ትምህርቱ ቆሟል።</p>
+              <button style="align-self:flex-start;min-height:44px;padding:0 16px;border-radius:8px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;font:400 16px 'Atkinson Hyperlegible'">Don’t wait — continue</button>
+            </div>
+          </div>
+        </div>
+        <dc-import name="PlayerControls" paused="{{ true }}" sign="{{ true }}" hint-size="100%,130px"></dc-import>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">C</span><span style="font-size:20px;font-weight:700">Mobile · sign-first</span></div>
+      <div lang="am" style="width:360px;background:#14130F;color:#F3F0E8;border-radius:12px;overflow:hidden;font-family:'Noto Sans Ethiopic','Atkinson Hyperlegible'">
+        <div style="position:relative;height:420px;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);display:flex;align-items:center;justify-content:center">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#BDB7AA;background:#14130F;padding:4px 8px">signer video</span>
+          <div style="position:absolute;top:10px;right:10px;width:150px;height:84px;border:2px solid #F3F0E8;border-radius:6px;background:repeating-linear-gradient(135deg,#24221D 0 8px,#1C1A16 8px 16px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#BDB7AA;background:#14130F;padding:2px 4px">lesson</span></div>
+          <button style="position:absolute;top:104px;right:10px;min-height:44px;padding:0 14px;border-radius:8px;background:#14130F;color:#F3F0E8;border:1px solid #8C8678;font:700 16px 'Noto Sans Ethiopic'">⇄ ቀያይር</button>
+        </div>
+        <div role="status" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#2A2721;border-top:2px solid #FFD54A;border-bottom:2px solid #FFD54A"><span aria-hidden="true" style="width:10px;height:10px;border-radius:50%;background:#FFD54A;flex:none"></span><span style="font-size:17px;font-weight:700;line-height:1.6">ምልክት አስተርጓሚውን በመጠበቅ ላይ…</span></div>
+        <dc-import name="PlayerControls" compact="{{ true }}" lang="am" paused="{{ true }}" sign="{{ true }}" hint-size="100%,130px"></dc-import>
+      </div>
+    </div>
+  </section>
+
+  <!-- D -->
+  <section id="D" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">D</span><span style="font-size:20px;font-weight:700">Lesson-first · floating sign window (see-through on)</span></div>
+      <div style="width:1040px;border-radius:12px;overflow:hidden;background:#14130F;color:#F3F0E8">
+        <div style="position:relative;height:585px;background:repeating-linear-gradient(135deg,#24221D 0 12px,#1C1A16 12px 24px)">
+          <span style="position:absolute;left:280px;top:270px;font-family:'JetBrains Mono',monospace;font-size:15px;color:#BDB7AA;background:#14130F;padding:6px 10px">lesson video</span>
+          <div role="region" aria-label="Sign window" style="position:absolute;right:16px;top:16px;width:300px;display:flex;flex-direction:column;border:2px solid #F3F0E8;border-radius:10px;overflow:hidden;background:#14130F">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 4px 4px 10px;background:#14130F">
+              <span style="font-size:14px;font-weight:700">Automatic sign (beta)</span>
+              <button aria-label="Drag to move" style="min-width:44px;min-height:44px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:700 13px 'Atkinson Hyperlegible';cursor:grab">⠿ Move</button>
+            </div>
+            <div style="height:280px;background:repeating-linear-gradient(135deg,#2A2721 0 10px,#211F1A 10px 20px);opacity:.7;display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#F3F0E8;background:#14130F;padding:4px 8px">signer · 70% opacity</span></div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:6px;background:#1E1C18">
+              <button style="min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 13px 'Atkinson Hyperlegible';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">↖</span>Top left</button>
+              <button aria-pressed="true" style="min-height:44px;background:#F3F0E8;color:#14130F;border:1px solid #F3F0E8;border-radius:6px;font:700 13px 'Atkinson Hyperlegible';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">↗ ✓</span>Top right</button>
+              <button style="min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 13px 'Atkinson Hyperlegible';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">↙</span>Bottom left</button>
+              <button style="min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 13px 'Atkinson Hyperlegible';display:flex;flex-direction:column;align-items:center;justify-content:center"><span aria-hidden="true">↘</span>Bottom right</button>
+              <button style="grid-column:span 2;min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 14px 'Atkinson Hyperlegible'">− Smaller</button>
+              <button style="grid-column:span 2;min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 14px 'Atkinson Hyperlegible'">+ Larger</button>
+              <button aria-pressed="true" style="grid-column:span 4;min-height:44px;background:#2A2721;color:#F3F0E8;border:2px solid #62D6AA;border-radius:6px;font:700 14px 'Atkinson Hyperlegible'">✓ See-through: On (70%)</button>
+              <span style="grid-column:span 4;font-size:14px;padding:4px 2px 0;color:#BDB7AA">Was this sign clear?</span>
+              <button style="grid-column:span 2;min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 14px 'Atkinson Hyperlegible'">▲ Yes, clear</button>
+              <button style="grid-column:span 2;min-height:44px;background:#2A2721;color:#F3F0E8;border:1px solid #8C8678;border-radius:6px;font:400 14px 'Atkinson Hyperlegible'">▼ Not clear</button>
+            </div>
+          </div>
+          <div style="position:absolute;left:40px;bottom:24px;max-width:560px;background:rgba(0,0,0,.88);color:#FFFFFF;padding:8px 16px;border-radius:6px;font-size:26px;line-height:1.4"><span style="color:#FFE38A;font-weight:700">[Teacher]</span> Now let’s print the value.</div>
+        </div>
+        <dc-import name="PlayerControls" sign="{{ true }}" time="0:42" pct="{{ 22 }}" hint-size="100%,130px"></dc-import>
+      </div>
+      <p style="margin:0;max-width:1040px;font-size:16px;line-height:1.5;color:#57534A">Dragging is optional: every move is also possible with the corner buttons. Arrow keys move the window when “Move” has focus. Captions shift left to avoid the window.</p>
+    </div>
+  </section>
+
+  <!-- E -->
+  <section id="E" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">E</span><span style="font-size:20px;font-weight:700">Transcript panel · light host theme</span></div>
+      <div style="width:1040px;display:grid;grid-template-columns:minmax(0,1fr) 380px;background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;overflow:hidden">
+        <div style="background:#14130F;display:flex;flex-direction:column">
+          <div style="flex:1;min-height:360px;background:repeating-linear-gradient(135deg,#24221D 0 12px,#1C1A16 12px 24px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#BDB7AA;background:#14130F;padding:6px 10px">lesson video</span></div>
+          <dc-import name="PlayerControls" compact="{{ true }}" transcript="{{ true }}" time="0:31" pct="{{ 16 }}" hint-size="100%,130px"></dc-import>
+        </div>
+        <aside aria-label="Transcript" style="display:flex;flex-direction:column;border-left:1px solid #8A8478;max-height:620px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 12px 12px 20px;border-bottom:1px solid #D9D3C7">
+            <h2 style="margin:0;font-size:22px">Transcript</h2>
+            <button style="min-height:44px;padding:0 14px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">✕ Close</button>
+          </div>
+          <div style="overflow:hidden;padding:8px 12px 16px;display:flex;flex-direction:column;gap:4px">
+            <h3 style="margin:12px 8px 4px;font-size:17px;display:flex;justify-content:space-between"><span>1. What is a variable?</span><span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:14px;color:#57534A">0:00</span></h3>
+            <button style="display:grid;grid-template-columns:44px 1fr;gap:8px;text-align:left;min-height:44px;padding:8px;border-radius:6px;background:transparent;border:0;font:400 16px/1.5 'Atkinson Hyperlegible';color:#1C1B18"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#57534A;padding-top:2px">0:04</span><span>A <span style="text-decoration:underline 2px;text-underline-offset:4px;font-weight:700">variable</span> is a name that holds a value.</span></button>
+            <h3 style="margin:12px 8px 4px;font-size:17px;display:flex;justify-content:space-between"><span>2. Creating your first variable</span><span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:14px;color:#57534A">0:18</span></h3>
+            <button style="display:grid;grid-template-columns:44px 1fr;gap:8px;text-align:left;min-height:44px;padding:8px;border-radius:6px;background:transparent;border:0;font:400 16px/1.5 'Atkinson Hyperlegible';color:#1C1B18"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#57534A;padding-top:2px">0:18</span><span>Open your code editor and make a new file.</span></button>
+            <button aria-current="true" style="display:grid;grid-template-columns:44px 1fr;gap:8px;text-align:left;min-height:44px;padding:8px 8px 8px 4px;border-radius:6px;background:#FFE38A;border:0;border-left:4px solid #1C1B18;font:400 16px/1.5 'Atkinson Hyperlegible';color:#1C1B18"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;padding-top:2px;font-weight:600">▶ 0:24</span><span><span style="display:block;font-size:13px;font-weight:700">Now playing</span>We store the text in a <span style="text-decoration:underline 2px;text-underline-offset:4px;font-weight:700">variable</span> called name, with an equals sign.</span></button>
+            <button style="display:grid;grid-template-columns:44px 1fr;gap:8px;text-align:left;min-height:44px;padding:8px;border-radius:6px;background:transparent;border:0;font:400 16px/1.5 'Atkinson Hyperlegible';color:#1C1B18"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#57534A;padding-top:2px">0:31</span><span>The text in quotes is called a <span style="text-decoration:underline 2px;text-underline-offset:4px;font-weight:700">string</span>.</span></button>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;padding:4px 8px 0 60px">
+              <button style="min-height:44px;padding:0 12px;border-radius:999px;background:#FFFFFF;color:#0A6B4E;border:1px solid #0A6B4E;font:700 15px 'Atkinson Hyperlegible';box-shadow:0 0 0 2px #FAF8F3,0 0 0 5px #1C1B18">✋ variable · sign</button>
+              <button style="min-height:44px;padding:0 12px;border-radius:999px;background:#FFFFFF;color:#0A6B4E;border:1px solid #0A6B4E;font:700 15px 'Atkinson Hyperlegible'">✋ string · sign</button>
+            </div>
+            <h3 style="margin:12px 8px 4px;font-size:17px;display:flex;justify-content:space-between"><span>3. Printing the value</span><span style="font-family:'JetBrains Mono',monospace;font-weight:400;font-size:14px;color:#57534A">0:42</span></h3>
+            <button style="display:grid;grid-template-columns:44px 1fr;gap:8px;text-align:left;min-height:44px;padding:8px;border-radius:6px;background:transparent;border:0;font:400 16px/1.5 'Atkinson Hyperlegible';color:#1C1B18"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#57534A;padding-top:2px">0:42</span><span>Now let’s <span style="text-decoration:underline 2px;text-underline-offset:4px;font-weight:700">print</span> the value.</span></button>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">E</span><span style="font-size:20px;font-weight:700">Sign glossary dialog</span></div>
+      <div style="width:440px;height:620px;background:rgba(28,27,24,.55);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box">
+        <div role="dialog" aria-modal="true" aria-labelledby="gl-t" style="width:100%;background:#FFFFFF;border:1px solid #8A8478;border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 12px 32px rgba(0,0,0,.25)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start">
+            <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:14px;color:#57534A">Sign glossary</span><h2 id="gl-t" style="margin:0;font-size:28px">variable</h2><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:22px;line-height:1.6">ተለዋዋጭ</span></div>
+            <button style="min-height:44px;padding:0 14px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">✕ Close</button>
+          </div>
+          <div style="position:relative;height:230px;border-radius:8px;background:repeating-linear-gradient(135deg,#ECE7DD 0 10px,#F5F1EA 10px 20px);border:1px solid #D9D3C7;display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#57534A;background:#FFFFFF;padding:4px 8px">EthSL sign clip · loops</span><span style="position:absolute;top:8px;left:8px;background:#1C1B18;color:#FFFFFF;font-size:13px;padding:4px 8px;border-radius:4px">↻ Looping</span></div>
+          <p style="margin:0;font-size:17px;line-height:1.5">A name that holds a value in a program.</p>
+          <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:17px;line-height:1.7">በፕሮግራም ውስጥ እሴትን የሚይዝ ስም።</p>
+          <div style="display:flex;gap:8px">
+            <button style="flex:1;min-height:44px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">❚❚ Pause loop</button>
+            <button style="flex:1;min-height:44px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">Slower 0.5×</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- F -->
+  <section id="F" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">F</span><span style="font-size:20px;font-weight:700">“What’s on screen” panel · dark host theme</span></div>
+      <div style="width:1040px;display:grid;grid-template-columns:minmax(0,1fr) 380px;background:#14130F;color:#F3F0E8;border:1px solid #8C8678;border-radius:12px;overflow:hidden">
+        <div style="display:flex;flex-direction:column">
+          <div style="flex:1;min-height:360px;background:repeating-linear-gradient(135deg,#24221D 0 12px,#1C1A16 12px 24px);display:flex;align-items:center;justify-content:center"><span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#BDB7AA;background:#14130F;padding:6px 10px">lesson video · code editor visible</span></div>
+          <dc-import name="PlayerControls" compact="{{ true }}" paused="{{ true }}" hint-size="100%,130px"></dc-import>
+        </div>
+        <aside aria-label="What's on screen" style="display:flex;flex-direction:column;gap:16px;padding:16px 20px;background:#1E1C18;border-left:1px solid #8C8678">
+          <div style="display:flex;justify-content:space-between;align-items:center"><h2 style="margin:0;font-size:22px">What’s on screen</h2><button style="min-height:44px;padding:0 14px;border-radius:8px;background:transparent;color:#F3F0E8;border:1px solid #8C8678;font:400 16px 'Atkinson Hyperlegible'">✕ Close</button></div>
+          <h3 style="margin:0;font-size:18px;color:#BDB7AA;font-weight:400">On screen at <span style="font-family:'JetBrains Mono',monospace;color:#F3F0E8;font-weight:600">0:24</span></h3>
+          <p style="margin:0;font-size:17px;line-height:1.5">The code editor shows a file named <span style="font-family:'JetBrains Mono',monospace">hello.py</span> with two lines:</p>
+          <pre aria-label="Code, 2 lines" style="margin:0;padding:14px 16px;background:#000000;border:1px solid #8C8678;border-radius:8px;font:400 17px/1.7 'JetBrains Mono',monospace;color:#FFFFFF;white-space:pre-wrap"><span style="color:#BDB7AA">1 </span>name = "Abebe"
+<span style="color:#BDB7AA">2 </span>print(name)</pre>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <button style="min-height:48px;padding:0 20px;border-radius:8px;background:#62D6AA;color:#0B2219;border:0;font:700 17px 'Atkinson Hyperlegible'">Copy code</button>
+            <span role="status" style="font-size:16px">✓ Copied 2 lines</span>
+          </div>
+          <p style="margin:0;font-size:15px;line-height:1.5;color:#BDB7AA">Updates when the screen changes. Screen readers announce “Screen changed” once.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- G -->
+  <section id="G" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">G</span><span style="font-size:20px;font-weight:700">Settings · light theme</span></div>
+      <div role="dialog" aria-labelledby="set-t" style="width:1040px;background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;overflow:hidden">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 24px;border-bottom:1px solid #D9D3C7;background:#FFFFFF">
+          <div style="display:flex;gap:16px;align-items:baseline"><h2 id="set-t" style="margin:0;font-size:28px">Settings</h2><span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:20px">ቅንብሮች</span></div>
+          <div style="display:flex;gap:8px"><button style="min-height:44px;padding:0 16px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible'">Reset</button><button style="min-height:44px;padding:0 16px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;border:0;font:700 16px 'Atkinson Hyperlegible'">✕ Done</button></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#D9D3C7">
+          <!-- Captions -->
+          <fieldset style="margin:0;border:0;background:#FAF8F3;padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+            <legend style="float:left;font-size:22px;font-weight:700;padding:0">Captions</legend>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:700">Size</span>
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #8A8478;border-radius:8px;overflow:hidden">
+                <button style="min-height:44px;background:#FFFFFF;border:0;border-right:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Small</button>
+                <button aria-pressed="true" style="min-height:44px;background:#1C1B18;color:#FFFFFF;border:0;font:700 16px 'Atkinson Hyperlegible'">✓ Medium</button>
+                <button style="min-height:44px;background:#FFFFFF;border:0;border-right:1px solid #8A8478;border-left:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Large</button>
+                <button style="min-height:44px;background:#FFFFFF;border:0;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Extra large</button>
+              </div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:700">Text colour</span>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <button aria-pressed="true" style="min-height:44px;display:flex;align-items:center;gap:10px;padding:0 10px;background:#FFFFFF;border:2px solid #1C1B18;border-radius:8px;font:700 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:22px;height:22px;border-radius:4px;background:#FFFFFF;border:1px solid #1C1B18"></span>White ✓</button>
+                  <button style="min-height:44px;display:flex;align-items:center;gap:10px;padding:0 10px;background:#FFFFFF;border:1px solid #8A8478;border-radius:8px;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:22px;height:22px;border-radius:4px;background:#FFE38A;border:1px solid #1C1B18"></span>Yellow</button>
+                </div></div>
+              <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:700">Background</span>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <button aria-pressed="true" style="min-height:44px;display:flex;align-items:center;gap:10px;padding:0 10px;background:#FFFFFF;border:2px solid #1C1B18;border-radius:8px;font:700 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:22px;height:22px;border-radius:4px;background:#000000"></span>Black ✓</button>
+                  <button style="min-height:44px;display:flex;align-items:center;gap:10px;padding:0 10px;background:#FFFFFF;border:1px solid #8A8478;border-radius:8px;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:22px;height:22px;border-radius:4px;background:rgba(0,0,0,.6)"></span>See-through</button>
+                </div></div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:700">Position</span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #8A8478;border-radius:8px;overflow:hidden">
+                <button aria-pressed="true" style="min-height:44px;background:#1C1B18;color:#FFFFFF;border:0;font:700 16px 'Atkinson Hyperlegible'">✓ Over the video</button>
+                <button style="min-height:44px;background:#FFFFFF;border:0;border-left:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Below the video</button>
+              </div></div>
+            <div style="background:#000000;color:#FFFFFF;border-radius:6px;padding:10px 14px;font-size:20px;line-height:1.4;text-align:center"><span style="color:#FFE38A;font-weight:700">[Teacher]</span> Preview of your captions.</div>
+          </fieldset>
+          <!-- Hearing -->
+          <fieldset style="margin:0;border:0;background:#FAF8F3;padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+            <legend style="float:left;font-size:22px;font-weight:700;padding:0">Hearing</legend>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:700">Clear voice</span>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #8A8478;border-radius:8px;overflow:hidden">
+                <button style="min-height:44px;background:#FFFFFF;border:0;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Off</button>
+                <button aria-pressed="true" style="min-height:44px;background:#1C1B18;color:#FFFFFF;border:0;font:700 16px 'Atkinson Hyperlegible'">✓ Clear</button>
+                <button style="min-height:44px;background:#FFFFFF;border:0;border-left:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">Extra clear</button>
+              </div></div>
+            <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:16px;font-weight:700">Volume boost</span>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #8A8478;border-radius:8px;overflow:hidden">
+                <button style="min-height:44px;background:#FFFFFF;border:0;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">100%</button>
+                <button aria-pressed="true" style="min-height:44px;background:#1C1B18;color:#FFFFFF;border:0;font:700 16px 'Atkinson Hyperlegible'">✓ 150%</button>
+                <button style="min-height:44px;background:#FFFFFF;border:0;border-left:1px solid #8A8478;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18">200%</button>
+              </div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;min-height:44px"><span style="font-size:16px;font-weight:700">Mono audio</span>
+              <button role="switch" aria-checked="false" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18;padding:0"><span style="width:52px;height:32px;border-radius:999px;background:#FFFFFF;border:2px solid #8A8478;box-sizing:border-box;display:flex;align-items:center;padding:3px"><span style="width:22px;height:22px;border-radius:50%;background:#57534A"></span></span>Off</button></div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:700">Balance</span>
+              <div style="display:flex;align-items:center;gap:12px;min-height:44px"><span style="font-size:15px">Left</span><div role="slider" aria-valuetext="Centre" style="flex:1;position:relative;height:44px;display:flex;align-items:center"><div style="width:100%;height:6px;border-radius:3px;background:#D9D3C7;border:1px solid #8A8478"></div><div style="position:absolute;left:50%;width:4px;height:16px;margin-left:-2px;background:#8A8478"></div><div style="position:absolute;left:50%;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#0A6B4E;border:3px solid #FFFFFF;box-shadow:0 0 0 1px #0A6B4E"></div></div><span style="font-size:15px">Right</span><span style="font-family:'JetBrains Mono';font-size:14px;min-width:56px;text-align:right">Centre</span></div></div>
+          </fieldset>
+          <!-- Audio description -->
+          <fieldset style="margin:0;border:0;background:#FAF8F3;padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+            <legend style="float:left;font-size:22px;font-weight:700;padding:0">Audio description</legend>
+            <div role="radiogroup" aria-label="Read descriptions with" style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-size:16px;font-weight:700">Read descriptions with</span>
+              <label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:16px"><span style="width:24px;height:24px;border-radius:50%;border:2px solid #1C1B18;display:flex;align-items:center;justify-content:center;box-sizing:border-box"><span style="width:12px;height:12px;border-radius:50%;background:#1C1B18"></span></span>Recorded voice (Amharic or English)</label>
+              <label style="min-height:44px;display:flex;align-items:center;gap:12px;font-size:16px"><span style="width:24px;height:24px;border-radius:50%;border:2px solid #8A8478;box-sizing:border-box"></span>My screen reader</label>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:16px;font-weight:700">Description volume</span>
+              <div style="display:flex;align-items:center;gap:12px;min-height:44px"><div role="slider" aria-valuenow="80" style="flex:1;position:relative;height:44px;display:flex;align-items:center"><div style="width:100%;height:6px;border-radius:3px;background:#D9D3C7;border:1px solid #8A8478"></div><div style="position:absolute;left:0;width:80%;height:6px;border-radius:3px;background:#0A6B4E"></div><div style="position:absolute;left:80%;width:24px;height:24px;margin-left:-12px;border-radius:50%;background:#0A6B4E;border:3px solid #FFFFFF;box-shadow:0 0 0 1px #0A6B4E"></div></div><span style="font-family:'JetBrains Mono';font-size:14px;min-width:56px;text-align:right">80%</span></div></div>
+          </fieldset>
+          <!-- Display -->
+          <fieldset style="margin:0;border:0;background:#FAF8F3;padding:20px 24px;display:flex;flex-direction:column;gap:16px">
+            <legend style="float:left;font-size:22px;font-weight:700;padding:0">Display</legend>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+              <button aria-pressed="true" style="min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FFFFFF;border:2px solid #1C1B18;border-radius:8px;font:700 16px 'Atkinson Hyperlegible';color:#1C1B18;box-shadow:0 0 0 2px #FAF8F3,0 0 0 5px #1C1B18"><span style="width:40px;height:20px;border-radius:4px;background:#FAF8F3;border:1px solid #8A8478"></span>✓ Light</button>
+              <button style="min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FFFFFF;border:1px solid #8A8478;border-radius:8px;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:40px;height:20px;border-radius:4px;background:#14130F"></span>Dark</button>
+              <button style="min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#FFFFFF;border:1px solid #8A8478;border-radius:8px;font:400 16px 'Atkinson Hyperlegible';color:#1C1B18"><span style="width:40px;height:20px;border-radius:4px;background:#000000;border:2px solid #FFFF00;box-sizing:border-box"></span>High contrast</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;min-height:44px;gap:16px"><span style="display:flex;flex-direction:column"><span style="font-size:16px;font-weight:700">Keyboard shortcuts</span><span style="font-size:15px;color:#57534A">Single keys like K (play) and C (captions)</span></span>
+              <button role="switch" aria-checked="true" style="min-height:44px;display:flex;align-items:center;gap:10px;background:transparent;border:0;font:700 16px 'Atkinson Hyperlegible';color:#1C1B18;padding:0"><span style="width:52px;height:32px;border-radius:999px;background:#0A6B4E;border:2px solid #0A6B4E;box-sizing:border-box;display:flex;align-items:center;justify-content:flex-end;padding:3px"><span style="width:22px;height:22px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:13px;color:#0A6B4E">✓</span></span>On</button></div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- H -->
+  <section id="H" style="display:flex;flex-wrap:wrap;gap:48px;align-items:flex-start">
+    <div style="width:100%;display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">H</span><span style="font-size:20px;font-weight:700">Slow connection · mobile · light theme</span></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:16px;color:#57534A">H1 · Choose</span>
+      <div style="width:360px;background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:20px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+        <div role="status" style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;background:#FFFFFF;border:1px solid #8A8478;font-size:15px"><span aria-hidden="true" style="font-weight:700">▁▃</span>Slow connection detected (3G)</div>
+        <h2 style="margin:0;font-size:24px;line-height:1.3">How do you want to watch?</h2>
+        <p lang="am" style="margin:-8px 0 0;font-family:'Noto Sans Ethiopic';font-size:18px;line-height:1.7">እንዴት መመልከት ይፈልጋሉ?</p>
+        <div role="radiogroup" style="display:flex;flex-direction:column;gap:8px">
+          <label style="display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;padding:14px;border-radius:10px;background:#FFFFFF;border:2px solid #0A6B4E"><span style="width:24px;height:24px;border-radius:50%;border:2px solid #0A6B4E;display:flex;align-items:center;justify-content:center;box-sizing:border-box;margin-top:2px"><span style="width:12px;height:12px;border-radius:50%;background:#0A6B4E"></span></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:18px;font-weight:700">Light lesson</span><span style="font-size:15px;line-height:1.4;color:#57534A">Slides, audio, captions and sign</span><span style="align-self:flex-start;font-size:13px;font-weight:700;padding:2px 8px;border-radius:999px;background:#0A6B4E;color:#FFFFFF">Recommended</span></span><span style="font-family:'JetBrains Mono';font-size:15px;font-weight:600">1.5 MB</span></label>
+          <label style="display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;padding:14px;border-radius:10px;background:#FFFFFF;border:1px solid #8A8478"><span style="width:24px;height:24px;border-radius:50%;border:2px solid #8A8478;box-sizing:border-box;margin-top:2px"></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:18px;font-weight:700">Video</span><span style="font-size:15px;line-height:1.4;color:#57534A">Full video, 360p</span></span><span style="font-family:'JetBrains Mono';font-size:15px;font-weight:600">15 MB</span></label>
+          <label style="display:grid;grid-template-columns:24px 1fr auto;gap:12px;align-items:start;padding:14px;border-radius:10px;background:#FFFFFF;border:1px solid #8A8478"><span style="width:24px;height:24px;border-radius:50%;border:2px solid #8A8478;box-sizing:border-box;margin-top:2px"></span><span style="display:flex;flex-direction:column;gap:4px"><span style="font-size:18px;font-weight:700">Text only</span><span style="font-size:15px;line-height:1.4;color:#57534A">Transcript and code</span></span><span style="font-family:'JetBrains Mono';font-size:15px;font-weight:600">50 KB</span></label>
+        </div>
+        <button style="min-height:52px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;border:0;font:700 18px 'Atkinson Hyperlegible'">Watch now</button>
+        <button style="min-height:48px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 17px 'Atkinson Hyperlegible'">↓ Download for later</button>
+      </div></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:16px;color:#57534A">H2 · Downloading</span>
+      <div style="width:360px;background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:20px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0;font-size:24px;line-height:1.3">Downloading light lesson</h2>
+        <p style="margin:0;font-size:17px">Python: Your first variable</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div role="progressbar" aria-valuenow="60" style="height:16px;border-radius:999px;background:#FFFFFF;border:1px solid #8A8478;overflow:hidden"><div style="width:60%;height:100%;background:repeating-linear-gradient(90deg,#0A6B4E 0 12px,#0D7D5A 12px 16px)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:16px"><span style="font-weight:700">60%</span><span style="font-family:'JetBrains Mono';font-size:15px">0.9 of 1.5 MB</span></div>
+          <span style="font-size:15px;color:#57534A">About 40 seconds left. You can keep using your phone.</span>
+        </div>
+        <div style="display:flex;gap:8px"><button style="flex:1;min-height:48px;border-radius:8px;background:#FFFFFF;color:#1C1B18;border:1px solid #8A8478;font:400 17px 'Atkinson Hyperlegible'">❚❚ Pause</button><button style="flex:1;min-height:48px;border-radius:8px;background:#FFFFFF;color:#B3261E;border:1px solid #B3261E;font:400 17px 'Atkinson Hyperlegible'">✕ Cancel</button></div>
+        <p lang="am" style="margin:0;font-family:'Noto Sans Ethiopic';font-size:16px;line-height:1.7;color:#57534A">በማውረድ ላይ… ስልክዎን መጠቀም ይችላሉ።</p>
+      </div></div>
+    <div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:16px;color:#57534A">H3 · Saved, offline</span>
+      <div style="width:360px;background:#FAF8F3;border:1px solid #8A8478;border-radius:12px;padding:20px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:16px">
+        <div role="status" style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:8px;background:#1C1B18;color:#FAF8F3;font-size:15px"><span aria-hidden="true">⊘</span>You are offline</div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding:16px;border-radius:10px;background:#FFFFFF;border:2px solid #0A6B4E">
+          <span style="align-self:flex-start;display:flex;gap:6px;align-items:center;font-size:15px;font-weight:700;padding:4px 10px;border-radius:999px;background:#0A6B4E;color:#FFFFFF">✓ Saved on this phone</span>
+          <span lang="am" style="font-family:'Noto Sans Ethiopic';font-size:16px;line-height:1.7">በዚህ ስልክ ላይ ተቀምጧል</span>
+          <span style="font-size:18px;font-weight:700">Python: Your first variable</span>
+          <span style="font-size:15px;color:#57534A">Light lesson · 1.5 MB · captions, sign, transcript</span>
+        </div>
+        <button style="min-height:52px;border-radius:8px;background:#0A6B4E;color:#FFFFFF;border:0;font:700 18px 'Atkinson Hyperlegible'">▶ Play offline</button>
+        <button style="min-height:48px;border-radius:8px;background:#FFFFFF;color:#B3261E;border:1px solid #B3261E;font:400 17px 'Atkinson Hyperlegible'">Delete download</button>
+        <span style="font-size:15px;color:#57534A">LE HULUM uses 4.5 MB on this phone (3 lessons).</span>
+      </div></div>
+  </section>
+
+  <!-- I -->
+  <section id="I" style="display:flex;flex-wrap:wrap;gap:64px;align-items:flex-start">
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:center;gap:12px"><span style="background:#1C1B18;color:#FAF8F3;font-weight:700;font-size:18px;padding:4px 12px;border-radius:6px">I</span><span style="font-size:20px;font-weight:700">Audio description moment · high-contrast theme</span></div>
+      <div style="width:1040px;border-radius:12px;overflow:hidden;background:#000000;color:#FFFFFF;border:2px solid #FFFFFF">
+        <div style="position:relative;height:585px;background:repeating-linear-gradient(135deg,#1A1A1A 0 12px,#0D0D0D 12px 24px)">
+          <span style="position:absolute;left:24px;top:24px;font-family:'JetBrains Mono',monospace;font-size:15px;color:#FFFFFF;background:#000;padding:6px 10px;border:1px solid #FFFFFF">lesson video · paused for description</span>
+          <div role="status" aria-live="polite" style="position:absolute;left:24px;right:24px;bottom:24px;background:#000000;border:3px solid #FFFF00;border-radius:8px;padding:20px 24px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+              <span style="display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;color:#FFFF00"><span aria-hidden="true">◉</span>Audio description · video paused</span>
+              <span style="font-family:'JetBrains Mono';font-size:15px">0:24 · 6 s</span>
+            </div>
+            <p style="margin:0;font-size:26px;line-height:1.45">The screen shows a code editor. Line 1 reads: name equals “Abebe” in quotes. Line 2 reads: print, then name in brackets.</p>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <button style="min-height:48px;padding:0 20px;border-radius:8px;background:#FFFF00;color:#000000;border:2px solid #FFFF00;font:700 17px 'Atkinson Hyperlegible';box-shadow:0 0 0 2px #000,0 0 0 5px #00E5FF">Skip description</button>
+              <button style="min-height:48px;padding:0 20px;border-radius:8px;background:#000000;color:#FFFFFF;border:2px solid #FFFFFF;font:400 17px 'Atkinson Hyperlegible'">↺ Replay</button>
+              <button style="min-height:48px;padding:0 20px;border-radius:8px;background:#000000;color:#FFFFFF;border:2px solid #FFFFFF;font:400 17px 'Atkinson Hyperlegible'">Show code</button>
+            </div>
+          </div>
+        </div>
+        <dc-import name="PlayerControls" theme="hc" paused="{{ true }}" hint-size="100%,130px"></dc-import>
+      </div>
+      <p style="margin:0;max-width:1040px;font-size:16px;line-height:1.5;color:#57534A">High contrast: pure black and white, yellow for selection and primary actions, cyan focus ring. Borders replace shadows and tints.</p>
+    </div>
+  </section>
+</div>
+</x-dc>
+</body>
+</html>

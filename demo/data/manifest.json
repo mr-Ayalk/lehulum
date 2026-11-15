@@ -1,0 +1,31 @@
+{
+  "id": "python-01",
+  "type": "video",
+  "title": "Variables",
+  "lang": "am",
+  "tracks": {
+    "captions": {
+      "en": "lesson.en.vtt",
+      "am": "lesson.am.vtt"
+    },
+    "chapters": "chapters.vtt",
+    "descriptions": {
+      "am": "descriptions.am.vtt"
+    },
+    "sign": "sign.json",
+    "screen": "screen.json",
+    "glossary": "glossary.json"
+  },
+  "renditions": [
+    {
+      "kind": "video",
+      "url": "lesson.mp4",
+      "bytes": 0
+    }
+  ],
+  "packs": {
+    "text": "text",
+    "light": "light",
+    "full": "full"
+  }
+}

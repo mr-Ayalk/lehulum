@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://le-hulum.local/schemas/glossary.schema.json",
+  "title": "glossary.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version", "lesson", "terms"],
+  "properties": {
+    "version": { "const": 1 },
+    "lesson": { "type": "string", "minLength": 1 },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "am", "en", "group", "sign", "from", "to", "forms_am", "forms_en", "cues"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "am": { "type": "string" },
+          "en": { "type": "string" },
+          "group": { "type": "string" },
+          "sign": { "type": "string" },
+          "from": { "type": "number", "minimum": 0 },
+          "to": { "type": "number", "minimum": 0 },
+          "forms_am": { "type": "array", "items": { "type": "string" } },
+          "forms_en": { "type": "array", "items": { "type": "string" } },
+          "cues": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

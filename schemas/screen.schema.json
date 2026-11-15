@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://le-hulum.local/schemas/screen.schema.json",
+  "title": "screen.json",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["start", "end", "kind", "text"],
+    "properties": {
+      "start": { "type": "number", "minimum": 0 },
+      "end": { "type": "number", "minimum": 0 },
+      "kind": { "enum": ["code", "slide"] },
+      "text": { "type": "string" }
+    }
+  }
+}

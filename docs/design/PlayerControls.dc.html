@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div role="group" aria-label="{{ groupLabel }}" style="display:flex;flex-direction:column;gap:8px;padding:10px 12px 12px;background:{{ t.bar }};color:{{ t.text }};font-family:'Atkinson Hyperlegible','Noto Sans Ethiopic',sans-serif;border-top:1px solid {{ t.border }}">
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:44px">{{ time }}</span>
+    <div role="slider" aria-label="{{ seekLabel }}" style="flex:1;height:44px;display:flex;align-items:center;position:relative">
+      <div style="height:6px;width:100%;border-radius:3px;background:{{ t.track }};border:1px solid {{ t.border }}"></div>
+      <div style="position:absolute;left:0;height:6px;width:{{ pctCss }};border-radius:3px;background:{{ t.accent }}"></div>
+      <div style="position:absolute;left:{{ pctCss }};width:20px;height:20px;margin-left:-10px;border-radius:50%;background:{{ t.thumb }};border:2px solid {{ t.bar }};box-shadow:0 0 0 2px {{ t.accent }}"></div>
+    </div>
+    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;min-width:44px;text-align:right">{{ duration }}</span>
+  </div>
+  <div style="display:flex;gap:4px;justify-content:space-between">
+    <sc-for list="{{ buttons }}" as="b" hint-placeholder-count="8">
+      <button aria-pressed="{{ b.pressed }}" style="{{ b.style }}">
+        <span aria-hidden="true" style="font-size:16px;line-height:1;font-weight:700;height:18px;display:flex;align-items:center">{{ b.glyph }}</span>
+        <span style="font-size:13px;line-height:1.2;white-space:nowrap">{{ b.label }}</span>
+        <span aria-hidden="true" style="{{ b.bar }}"></span>
+      </button>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:960,&quot;height&quot;:130},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;hc&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;am&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;compact&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;paused&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;captions&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;sign&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;transcript&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;time&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;0:24&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;duration&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;3:10&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;pct&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:13,&quot;tsType&quot;:&quot;number&quot;},&quot;focusKey&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props, am = p.lang === 'am', hc = p.theme === 'hc';
+    const t = hc ? {bar:'#000000',text:'#FFFFFF',border:'#FFFFFF',track:'#000000',accent:'#FFFF00',thumb:'#FFFFFF',on:'#FFFF00',onText:'#000000'}
+                 : {bar:'#14130F',text:'#F3F0E8',border:'#8C8678',track:'#2A2721',accent:'#62D6AA',thumb:'#F3F0E8',on:'#2A2721',onText:'#F3F0E8'};
+    const L = (en, a) => am ? a : en;
+    const all = [
+      {k:'play', glyph: p.paused ? '▶\uFE0E' : '❚❚', label: p.paused ? L('Play','አጫውት') : L('Pause','አቁም')},
+      {k:'back', glyph:'↺', label:L('Back 10 s','ወደኋላ 10')},
+      {k:'fwd', glyph:'↻', label:L('Fwd 10 s','ወደፊት 10')},
+      {k:'speed', glyph:'1×', label:L('Speed','ፍጥነት')},
+      {k:'cc', glyph:'CC', label:L('Captions','ግርጌ ጽሑፍ'), toggle:true, on:p.captions ?? true},
+      {k:'sign', glyph:'✋\uFE0E', label:L('Sign','ምልክት'), toggle:true, on:p.sign ?? false},
+      {k:'tx', glyph:'≡', label:L('Transcript','ግልባጭ'), toggle:true, on:p.transcript ?? false},
+      {k:'set', glyph:'⚙\uFE0E', label:L('Settings','ቅንብሮች')},
+      {k:'kb', glyph:'⌨\uFE0E', label:L('Keys','ቁልፎች')},
+      {k:'fs', glyph:'⤢', label:L('Full screen','ሙሉ ማያ')},
+    ];
+    const compactKeys = ['play','back','fwd','cc','sign','more'];
+    let list = all;
+    if (p.compact) list = all.filter(b => compactKeys.includes(b.k)).concat([{k:'more', glyph:'⋯', label:L('More','ተጨማሪ')}]);
+    const buttons = list.map(b => {
+      const on = b.toggle && b.on;
+      const focus = p.focusKey === b.k;
+      return {
+        glyph: b.glyph, label: b.label + (b.toggle ? (on ? '' : '') : ''), pressed: b.toggle ? String(!!on) : undefined,
+        style: `flex:1 1 0;min-width:${p.compact?'52px':'60px'};min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px 4px 4px;border-radius:8px;cursor:pointer;font-family:inherit;color:${on?t.onText:t.text};background:${on?t.on:'transparent'};border:${on?'1px solid '+t.border:'1px solid transparent'};${focus?`box-shadow:0 0 0 2px ${t.bar},0 0 0 5px ${hc?'#00E5FF':'#FFD54A'};`:''}`,
+        bar: `height:3px;width:24px;border-radius:2px;background:${on?t.accent:'transparent'}`
+      };
+    });
+    const pct = p.pct ?? 13;
+    return { t, buttons, time: p.time ?? '0:24', duration: p.duration ?? '3:10', pctCss: pct + '%',
+      groupLabel: L('Player controls','የማጫወቻ መቆጣጠሪያዎች'), seekLabel: L('Seek','ቦታ ፈልግ') };
+  }
+}
+</script>
+</body>
+</html>

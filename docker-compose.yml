@@ -1,0 +1,30 @@
+# NFR-SUS-03: One command brings up the web server and the API.
+services:
+  web:
+    build: ./nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./savanna:/srv/savanna:ro
+      - ./module:/srv/module:ro
+      - ./demo:/srv/demo:ro
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+      args:
+        WITH_ASR: ${WITH_ASR:-0}
+    environment:
+      DATA_DIR: /data
+      ASR_AM: ${ASR_AM:-none}
+      ASR_EN: ${ASR_EN:-faster_whisper}
+      ASR_MODEL_AM_WHISPER: ${ASR_MODEL_AM_WHISPER:-waxal-benchmarking/whisper-tiny-waxal-amh}
+      TRANSLATE: ${TRANSLATE:-none}
+    volumes:
+      - ./data:/data
+    expose:
+      - "8000"

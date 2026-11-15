@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://le-hulum.local/schemas/manifest.schema.json",
+  "title": "manifest.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "type", "title", "lang", "tracks", "renditions", "packs"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "enum": ["video", "text"] },
+    "title": { "type": "string" },
+    "lang": { "type": "string" },
+    "tracks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "captions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "en": { "type": "string" },
+            "am": { "type": "string" }
+          }
+        },
+        "chapters": { "type": "string" },
+        "descriptions": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "en": { "type": "string" },
+            "am": { "type": "string" }
+          }
+        },
+        "sign": { "type": "string" },
+        "screen": { "type": "string" },
+        "glossary": { "type": "string" }
+      }
+    },
+    "renditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "url", "bytes"],
+        "properties": {
+          "kind": { "type": "string" },
+          "url": { "type": "string" },
+          "bytes": { "type": "integer", "minimum": 0 }
+        }
+      }
+    },
+    "packs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "light", "full"],
+      "properties": {
+        "text": { "type": "string" },
+        "light": { "type": "string" },
+        "full": { "type": "string" }
+      }
+    }
+  }
+}

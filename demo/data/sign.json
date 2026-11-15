@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "lesson": "lesson.mp4",
+  "lang": "am",
+  "segments": [
+    {
+      "cue": "A01",
+      "start": 0.781,
+      "end": 2.398,
+      "source": "memory",
+      "src": "memory/A01.mp4",
+      "from": 0.05,
+      "to": 7.3,
+      "duration": 7.25
+    },
+    {
+      "cue": "A02",
+      "start": 2.818,
+      "end": 5.281,
+      "source": "memory",
+      "src": "memory/A02.mp4",
+      "from": 0.1,
+      "to": 3.8,
+      "duration": 3.7
+    },
+    {
+      "cue": "A03",
+      "start": 5.281,
+      "end": 8.397,
+      "source": "memory",
+      "src": "memory/A03.mp4",
+      "from": 0.05,
+      "to": 4.2,
+      "duration": 4.15
+    },
+    {
+      "cue": "A04",
+      "start": 8.844,
+      "end": 11.705,
+      "source": "memory",
+      "src": "memory/A04.mp4",
+      "from": 0.05,
+      "to": 3.55,
+      "duration": 3.5
+    },
+    {
+      "cue": "A05",
+      "start": 12.073,
+      "end": 14.896,
+      "source": "memory",
+      "src": "memory/A05.mp4",
+      "from": 0.1,
+      "to": 4.5,
+      "duration": 4.4
+    },
+    {
+      "cue": "A06",
+      "start": 14.941,
+      "end": 18.058,
+      "source": "memory",
+      "src": "memory/A06.mp4",
+      "from": 0.05,
+      "to": 3.15,
+      "duration": 3.1
+    },
+    {
+      "cue": "A07",
+      "start": 18.465,
+      "end": 20.121,
+      "source": "memory",
+      "src": "memory/A07.mp4",
+      "from": 0.1,
+      "to": 4.05,
+      "duration": 3.95
+    },
+    {
+      "cue": "A08",
+      "start": 20.496,
+      "end": 24.314,
+      "source": "memory",
+      "src": "memory/A08.mp4",
+      "from": 0.1,
+      "to": 2.5,
+      "duration": 2.4
+    },
+    {
+      "cue": "A09",
+      "start": 24.486,
+      "end": 25.874,
+      "source": "memory",
+      "src": "memory/A09.mp4",
+      "from": 0.1,
+      "to": 4.9,
+      "duration": 4.8
+    },
+    {
+      "cue": "A10",
+      "start": 25.884,
+      "end": 29.537,
+      "source": "memory",
+      "src": "memory/A10.mp4",
+      "from": 0.1,
+      "to": 4.55,
+      "duration": 4.45
+    },
+    {
+      "cue": "A11",
+      "start": 29.537,
+      "end": 34.04,
+      "source": "memory",
+      "src": "memory/A11.mp4",
+      "from": 0.0,
+      "to": 5.0,
+      "duration": 5.0
+    },
+    {
+      "cue": "A12",
+      "start": 34.04,
+      "end": 38.821,
+      "source": "memory",
+      "src": "memory/A12.mp4",
+      "from": 0.0,
+      "to": 3.2,
+      "duration": 3.2
+    },
+    {
+      "cue": "A13",
+      "start": 39.198,
+      "end": 43.141,
+      "source": "memory",
+      "src": "memory/A13.mp4",
+      "from": 0.0,
+      "to": 1.9,
+      "duration": 1.9
+    },
+    {
+      "cue": "A14",
+      "start": 43.496,
+      "end": 46.345,
+      "source": "memory",
+      "src": "memory/A14.mp4",
+      "from": 0.0,
+      "to": 4.25,
+      "duration": 4.25
+    }
+  ]
+}

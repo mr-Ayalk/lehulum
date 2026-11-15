@@ -1,0 +1,472 @@
+{
+  "version": 1,
+  "lesson": "lesson",
+  "terms": [
+    {
+      "id": "VARIABLE",
+      "am": "ተለዋዋጭ",
+      "en": "variable",
+      "group": "tech",
+      "sign": "lexicon/variable.mp4",
+      "from": 0.05,
+      "to": 2.05,
+      "forms_am": [
+        "ተለዋዋጮች",
+        "ተለዋዋጭ",
+        "የተለዋዋጩ",
+        "ተለዋዋጩን",
+        "ተለዋዋጫችሁን"
+      ],
+      "forms_en": [
+        "variables",
+        "variable"
+      ],
+      "cues": [
+        "A02",
+        "A03",
+        "A06",
+        "A08",
+        "A12"
+      ]
+    },
+    {
+      "id": "VALUE",
+      "am": "እሴት",
+      "en": "value",
+      "group": "tech",
+      "sign": "lexicon/value.mp4",
+      "from": 0.0,
+      "to": 2.1,
+      "forms_am": [
+        "እሴቱ"
+      ],
+      "forms_en": [
+        "value"
+      ],
+      "cues": [
+        "A07"
+      ]
+    },
+    {
+      "id": "DATA",
+      "am": "መረጃ",
+      "en": "data",
+      "group": "tech",
+      "sign": "lexicon/data.mp4",
+      "from": 0.05,
+      "to": 1.75,
+      "forms_am": [
+        "መረጃን"
+      ],
+      "forms_en": [
+        "data"
+      ],
+      "cues": [
+        "A03"
+      ]
+    },
+    {
+      "id": "CODE",
+      "am": "ኮድ",
+      "en": "code",
+      "group": "tech",
+      "sign": "lexicon/code.mp4",
+      "from": 0.0,
+      "to": 1.65,
+      "forms_am": [
+        "የኮድ",
+        "ኮዱን"
+      ],
+      "forms_en": [
+        "code"
+      ],
+      "cues": [
+        "A04",
+        "A09"
+      ]
+    },
+    {
+      "id": "COMPUTER",
+      "am": "ኮምፒውተር",
+      "en": "computer",
+      "group": "tech",
+      "sign": "lexicon/computer.mp4",
+      "from": 0.0,
+      "to": 1.55,
+      "forms_am": [
+        "ኮምፒውተሩ"
+      ],
+      "forms_en": [
+        "computer"
+      ],
+      "cues": [
+        "A10"
+      ]
+    },
+    {
+      "id": "SCREEN",
+      "am": "ስክሪን",
+      "en": "screen",
+      "group": "tech",
+      "sign": "lexicon/screen.mp4",
+      "from": 0.0,
+      "to": 3.55,
+      "forms_am": [
+        "በስክሪን",
+        "ስክሪኑን"
+      ],
+      "forms_en": [
+        "screen"
+      ],
+      "cues": [
+        "A08",
+        "A10"
+      ]
+    },
+    {
+      "id": "LINE",
+      "am": "መስመር",
+      "en": "line",
+      "group": "tech",
+      "sign": "lexicon/line.mp4",
+      "from": 0.05,
+      "to": 1.8,
+      "forms_am": [
+        "መስመር"
+      ],
+      "forms_en": [
+        "line"
+      ],
+      "cues": [
+        "A05"
+      ]
+    },
+    {
+      "id": "NAME",
+      "am": "ስም",
+      "en": "name",
+      "group": "tech",
+      "sign": "lexicon/name.mp4",
+      "from": 0.0,
+      "to": 0.95,
+      "forms_am": [
+        "ስም"
+      ],
+      "forms_en": [
+        "name"
+      ],
+      "cues": [
+        "A06"
+      ]
+    },
+    {
+      "id": "ERROR",
+      "am": "ስህተት",
+      "en": "error",
+      "group": "tech",
+      "sign": "lexicon/error.mp4",
+      "from": 0.0,
+      "to": 0.8,
+      "forms_am": [
+        "ስህተት",
+        "የስህተት"
+      ],
+      "forms_en": [
+        "error"
+      ],
+      "cues": [
+        "A11"
+      ]
+    },
+    {
+      "id": "LOOP",
+      "am": "ድግግሞሽ",
+      "en": "loop",
+      "group": "tech",
+      "sign": "lexicon/loop.mp4",
+      "from": 0.05,
+      "to": 1.85,
+      "forms_am": [
+        "ድግግሞሽ"
+      ],
+      "forms_en": [
+        "loops"
+      ],
+      "cues": [
+        "A13"
+      ]
+    },
+    {
+      "id": "EDITOR",
+      "am": "ኤዲተር",
+      "en": "editor",
+      "group": "tech",
+      "sign": "lexicon/editor.mp4",
+      "from": 0.1,
+      "to": 1.75,
+      "forms_am": [
+        "ኤዲተራችሁን"
+      ],
+      "forms_en": [
+        "editor"
+      ],
+      "cues": [
+        "A04"
+      ]
+    },
+    {
+      "id": "BOX",
+      "am": "ሳጥን",
+      "en": "box",
+      "group": "thing",
+      "sign": "lexicon/box.mp4",
+      "from": 0.05,
+      "to": 2.0,
+      "forms_am": [
+        "ሳጥን"
+      ],
+      "forms_en": [
+        "box"
+      ],
+      "cues": [
+        "A03"
+      ]
+    },
+    {
+      "id": "OPEN",
+      "am": "ክፈት",
+      "en": "open",
+      "group": "action",
+      "sign": "lexicon/open.mp4",
+      "from": 0.05,
+      "to": 1.5,
+      "forms_am": [
+        "ክፈቱ"
+      ],
+      "forms_en": [
+        "open"
+      ],
+      "cues": [
+        "A04"
+      ]
+    },
+    {
+      "id": "WRITE",
+      "am": "ጻፍ",
+      "en": "write",
+      "group": "action",
+      "sign": "lexicon/write.mp4",
+      "from": 0.0,
+      "to": 1.75,
+      "forms_am": [
+        "ጻፉ"
+      ],
+      "forms_en": [],
+      "cues": [
+        "A05"
+      ]
+    },
+    {
+      "id": "RUN",
+      "am": "አስኪድ",
+      "en": "run",
+      "group": "action",
+      "sign": "lexicon/run.mp4",
+      "from": 0.05,
+      "to": 1.55,
+      "forms_am": [
+        "አስኪዱት"
+      ],
+      "forms_en": [
+        "Run"
+      ],
+      "cues": [
+        "A09"
+      ]
+    },
+    {
+      "id": "SHOW",
+      "am": "አሳይ",
+      "en": "show",
+      "group": "action",
+      "sign": "lexicon/show.mp4",
+      "from": 0.0,
+      "to": 1.75,
+      "forms_am": [
+        "እናሳያለን",
+        "ያሳያል"
+      ],
+      "forms_en": [
+        "show",
+        "shows"
+      ],
+      "cues": [
+        "A08",
+        "A10"
+      ]
+    },
+    {
+      "id": "CREATE",
+      "am": "ፍጠር",
+      "en": "create",
+      "group": "action",
+      "sign": "lexicon/create.mp4",
+      "from": 0.0,
+      "to": 1.7,
+      "forms_am": [
+        "ፈጠራችሁ"
+      ],
+      "forms_en": [],
+      "cues": [
+        "A12"
+      ]
+    },
+    {
+      "id": "CHECK",
+      "am": "አረጋግጥ",
+      "en": "check",
+      "group": "action",
+      "sign": "lexicon/check.mp4",
+      "from": 0.05,
+      "to": 1.8,
+      "forms_am": [
+        "አረጋግጡ"
+      ],
+      "forms_en": [
+        "check"
+      ],
+      "cues": [
+        "A11"
+      ]
+    },
+    {
+      "id": "LEARN",
+      "am": "ተማር",
+      "en": "learn",
+      "group": "action",
+      "sign": "lexicon/learn.mp4",
+      "from": 0.05,
+      "to": 1.95,
+      "forms_am": [
+        "እንማራለን"
+      ],
+      "forms_en": [
+        "learn"
+      ],
+      "cues": [
+        "A02",
+        "A13"
+      ]
+    },
+    {
+      "id": "START",
+      "am": "ጀምር",
+      "en": "start",
+      "group": "action",
+      "sign": "lexicon/start.mp4",
+      "from": 0.0,
+      "to": 1.7,
+      "forms_am": [
+        "መጀመሪያ",
+        "የመጀመሪያ"
+      ],
+      "forms_en": [],
+      "cues": [
+        "A04",
+        "A12"
+      ]
+    },
+    {
+      "id": "WORK",
+      "am": "ሥራ",
+      "en": "work",
+      "group": "career",
+      "sign": "lexicon/work.mp4",
+      "from": 0.05,
+      "to": 1.95,
+      "forms_am": [
+        "ሥራ"
+      ],
+      "forms_en": [],
+      "cues": [
+        "A12"
+      ]
+    },
+    {
+      "id": "LESSON",
+      "am": "ትምህርት",
+      "en": "lesson",
+      "group": "learning",
+      "sign": "lexicon/lesson.mp4",
+      "from": 0.0,
+      "to": 1.85,
+      "forms_am": [
+        "ትምህርት"
+      ],
+      "forms_en": [
+        "lesson"
+      ],
+      "cues": [
+        "A02",
+        "A13"
+      ]
+    },
+    {
+      "id": "NOW",
+      "am": "አሁን",
+      "en": "now",
+      "group": "time",
+      "sign": "lexicon/now.mp4",
+      "from": 0.05,
+      "to": 1.75,
+      "forms_am": [
+        "አሁን"
+      ],
+      "forms_en": [
+        "Now"
+      ],
+      "cues": [
+        "A05"
+      ]
+    },
+    {
+      "id": "NEXT",
+      "am": "ቀጥሎ",
+      "en": "next",
+      "group": "time",
+      "sign": "lexicon/next.mp4",
+      "from": 0.05,
+      "to": 1.6,
+      "forms_am": [
+        "ቀጥሎ",
+        "በሚቀጥለው"
+      ],
+      "forms_en": [
+        "Next"
+      ],
+      "cues": [
+        "A08",
+        "A13",
+        "A14"
+      ]
+    },
+    {
+      "id": "GOOD",
+      "am": "ጥሩ",
+      "en": "good",
+      "group": "other",
+      "sign": "lexicon/good.mp4",
+      "from": 0.05,
+      "to": 1.7,
+      "forms_am": [
+        "ጥሩ"
+      ],
+      "forms_en": [
+        "Good"
+      ],
+      "cues": [
+        "A12"
+      ]
+    }
+  ]
+}
