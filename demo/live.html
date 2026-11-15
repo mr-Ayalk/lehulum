@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recorded session — LE HULUM</title>
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<main id="main">
+  <h1>Recorded session</h1>
+  <p>This is a saved lesson, not a live camera. The sign window plays the recorded Ethiopian Sign Language clips for each line.</p>
+  <db-player data-sign-open src="data/lesson.mp4" poster="data/lesson-poster.webp" captions="data/lesson.am.vtt,data/lesson.en.vtt" sign="data/sign.json" glossary="data/glossary.json" describe="data/descriptions.am.vtt,data/descriptions.en.vtt" screen="data/screen.json" chapters="data/chapters.vtt" lang="am"></db-player>
+  <p><a href="lesson-video.html">Back to the video lesson</a></p>
+</main>
+<script type="module" src="/module/db-player.js"></script>
+</body>
+</html>

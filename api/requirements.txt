@@ -4,3 +4,8 @@ uvicorn[standard]
 sqlmodel
 python-dotenv
 python-multipart
+cryptography
+segno
+pymupdf
+fonttools
+brotli

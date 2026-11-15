@@ -28,6 +28,16 @@ export function layoutChip(player, box) {
     x: sign.offsetLeft, y: sign.offsetTop, w: sign.offsetWidth, h: sign.offsetHeight
   } : null;
   if (box.dataset.force === "below") { park(player, box); nudge(player); return; }
+  if (box.dataset.force === "top") {
+    if (box.parentElement !== player.slots.overlay) player.slots.overlay.append(box);
+    box.dataset.pos = "picture";
+    box.style.position = "absolute";
+    box.style.left = picture.x + "px";
+    box.style.top = picture.y + "px";
+    box.style.width = Math.max(40, picture.w * 0.9) + "px";
+    nudge(player);
+    return;
+  }
   box.style.position = "absolute";
   box.style.bottom = "auto";
   box.style.height = "auto";

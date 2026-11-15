@@ -104,6 +104,16 @@ export function attachCaptions(player) {
     box.hidden = false;
     player.glossary?.mark?.(line);
     box.append(line);
+    if (player.prefs.captionBoth && player.captions) {
+      const other = mode === "am" ? "en" : "am";
+      const extra = player.captions.cueAt(player.media.currentTime || 0, other);
+      if (extra?.text) {
+        const second = document.createElement("p");
+        second.lang = other;
+        second.textContent = extra.text;
+        box.append(second);
+      }
+    }
     layoutChip(player, box);
   }
   function emitCue(cue) {
@@ -183,7 +193,11 @@ export function attachCaptions(player) {
       return this.getCues(lang).find((cue) => time >= cue.start && time < cue.end) || null;
     },
     currentLang: () => (mode === "off" ? "" : mode),
-    setPosition(next) { pos = next === "below" ? "below" : "bottom"; box.dataset.force = pos === "below" ? "below" : ""; layoutChip(player, box); },
+    setPosition(next) {
+      pos = next === "below" || next === "top" ? next : "bottom";
+      box.dataset.force = pos === "bottom" ? "" : pos;
+      layoutChip(player, box);
+    },
     relayout() { layoutChip(player, box); },
     refresh: () => frame(),
     reload: mount

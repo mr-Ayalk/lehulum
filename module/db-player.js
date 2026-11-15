@@ -77,6 +77,10 @@ video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;obje
 [data-id="glossary"]::before{content:"Aa"}
 .controls button[aria-pressed="true"]{box-shadow:inset 0 -3px 0 var(--lh-player-accent,#62D6AA)}
 button:focus-visible,.seek:focus-visible{outline:3px solid var(--lh-player-focus,#FFD54A);outline-offset:2px}
+.lh-panel{margin:0;padding:1rem;color:var(--lh-text,#1C1B18);background:var(--lh-surface,#fff);border-top:1px solid var(--lh-border,#8A8478)}
+.lh-panel h2{margin:0 0 .5rem;font-size:1.125rem}
+.lh-panel button,.lh-panel a{min-height:2.75rem;min-width:2.75rem;margin:.25rem .25rem 0 0;padding:.25rem .75rem;font:inherit;color:inherit;background:transparent;border:1px solid var(--lh-border,#8A8478);border-radius:8px}
+.lh-panel button:focus-visible,.lh-panel a:focus-visible{outline:3px solid var(--lh-focus,#1C1B18);outline-offset:2px}
 .below,.panels{max-width:100%}
 dialog{max-width:min(32rem,calc(100vw - 2rem));padding:1.25rem;border:1px solid var(--lh-border,#8A8478);border-radius:12px;color:var(--lh-text,#1C1B18);background:var(--lh-surface,#fff);box-shadow:var(--lh-shadow-dialog,0 12px 32px rgba(0,0,0,.25))}
 dialog::backdrop{background:var(--lh-scrim,rgba(28,27,24,.6))}
@@ -92,7 +96,7 @@ dialog button:focus-visible{outline:3px solid var(--lh-focus,#1C1B18);outline-of
 <dialog class="help" aria-labelledby="help-title"><h2 id="help-title"></h2><ul></ul><button type="button" class="shortcuts"></button><button type="button" class="close"></button></dialog></div>`;
 
 class DbPlayer extends HTMLElement {
-  static get observedAttributes() { return ["src", "lang", "captions", "sign", "glossary"]; }
+  static get observedAttributes() { return ["src", "lang", "captions", "sign", "glossary", "describe", "screen", "chapters"]; }
 
   constructor() { super(); this.attachShadow({ mode: "open" }); }
 
@@ -131,7 +135,28 @@ class DbPlayer extends HTMLElement {
     mountSign(this._player);
     loadGlossary(this._player);
     this._player.setSource(this.getAttribute("src") || "", this.getAttribute("poster"));
-    if (new URLSearchParams(location.search).get("sign") === "on") toggleSign(this._player);
+    if (new URLSearchParams(location.search).get("sign") === "on" || this.hasAttribute("data-sign-open")) toggleSign(this._player);
+    loadFeatures(this._player);
+  }
+}
+
+function loadFeatures(player) {
+  const modules = [
+    ["./core/transcript.js", "attachTranscript"],
+    ["./hearing/caption-style.js", "attachCaptionStyle"],
+    ["./hearing/repeat.js", "attachRepeat"],
+    ["./hearing/audio-chain.js", "attachHearing"],
+    ["./blind/descriptions.js", "attachDescriptions"],
+    ["./blind/on-screen.js", "attachOnScreen"],
+    ["./blind/chapters.js", "attachChapters"],
+    ["./net/offline.js", "attachOffline"],
+    ["./net/connection.js", "attachConnection"],
+    ["./net/progress-queue.js", "attachProgress"],
+    ["./text/text-mode.js", "attachTextMode"],
+    ["./blind/earcons.js", "attachEarcons"]
+  ];
+  for (const [path, name] of modules) {
+    import(path).then((mod) => mod[name](player)).catch((error) => console.error(path, error));
   }
 }
 

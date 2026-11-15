@@ -20,11 +20,15 @@ services:
         WITH_ASR: ${WITH_ASR:-0}
     environment:
       DATA_DIR: /data
+      DEMO_DIR: /demo/data
+      FONT_ETHIOPIC: /fonts/noto-sans-ethiopic-400.woff2
       ASR_AM: ${ASR_AM:-none}
       ASR_EN: ${ASR_EN:-faster_whisper}
       ASR_MODEL_AM_WHISPER: ${ASR_MODEL_AM_WHISPER:-waxal-benchmarking/whisper-tiny-waxal-amh}
       TRANSLATE: ${TRANSLATE:-none}
     volumes:
       - ./data:/data
+      - ./demo/data:/demo/data:ro
+      - ./module/fonts:/fonts:ro
     expose:
       - "8000"

@@ -9,7 +9,7 @@ from fastapi.responses import FileResponse, JSONResponse
 from api.pipeline.job import lesson_dir, public_lesson, run_lesson, write_state
 
 router = APIRouter()
-FILES = {"lesson.am.vtt", "lesson.en.vtt", "captions.json", "manifest.json", "video.mp4", "status.json"}
+FILES = {"lesson.am.vtt", "lesson.en.vtt", "captions.json", "manifest.json", "video.mp4", "status.json", "light.mp4", "audio.m4a", "descriptions.vtt", "screen.json", "chapters.vtt"}
 
 
 def _fail(status, message):
@@ -24,6 +24,8 @@ async def create_lesson(
     lang: str = Form(...),
     script: str = Form(""),
     script_file: Optional[UploadFile] = File(None),
+    descriptions: Optional[UploadFile] = File(None),
+    screen: Optional[UploadFile] = File(None),
 ):
     if lang not in ("am", "en"):
         return _fail(400, "Language must be am or en.")
@@ -39,6 +41,10 @@ async def create_lesson(
     (folder / "video.mp4").write_bytes(payload)
     if text.strip():
         (folder / "script.txt").write_text(text, encoding="utf-8")
+    if descriptions is not None and descriptions.filename:
+        (folder / "descriptions.vtt").write_bytes(await descriptions.read())
+    if screen is not None and screen.filename:
+        (folder / "screen.json").write_bytes(await screen.read())
     meta = {"id": lesson_id, "title": title.strip() or "Untitled", "lang": lang}
     (folder / "meta.json").write_text(json.dumps(meta, ensure_ascii=False) + "\n", encoding="utf-8")
     write_state(folder, "queued")
@@ -61,7 +67,9 @@ def read_file(lesson_id: str, name: str):
     path = lesson_dir(lesson_id) / name
     if not path.is_file():
         return _fail(404, "That file is not ready yet.")
-    media = "text/vtt" if name.endswith(".vtt") else "application/json"
-    if name.endswith(".mp4"):
-        media = "video/mp4"
+    media = "application/json"
+    if name.endswith(".vtt"):
+        media = "text/vtt"
+    if name.endswith(".mp4") or name.endswith(".m4a"):
+        media = "video/mp4" if name.endswith(".mp4") else "audio/mp4"
     return FileResponse(path, media_type=media)

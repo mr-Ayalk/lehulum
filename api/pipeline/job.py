@@ -5,7 +5,11 @@ from api.pipeline.align import align_text
 from api.pipeline.asr import NoAsr, transcribe
 from api.pipeline.audio import extract
 from api.pipeline.captions import cues_from_lines, cues_from_words, write_json, write_vtt
+from api.pipeline.chapters import write_chapters
+from api.pipeline.text_lesson import write_text_lesson
+from api.pipeline.renditions import make_light
 from api.pipeline.translate import draft
+from api.routes.webhooks import notify
 from api.settings import data_dir
 
 
@@ -29,6 +33,7 @@ def run_lesson(lesson_id):
     try:
         _build(folder, meta)
         write_state(folder, "done")
+        notify("lesson.completed", {"lesson_id": lesson_id})
     except Exception as exc:
         write_state(folder, "failed", str(exc) or "The caption job failed.")
 
@@ -60,6 +65,9 @@ def _build(folder, meta):
     cues = cues_from_lines(align_text(folder / "audio.wav", lines, lang)) if lines else _from_asr(folder / "audio.wav", lang)
     write_vtt(folder / f"lesson.{lang}.vtt", cues)
     write_json(folder / "captions.json", cues)
+    write_chapters(folder / "chapters.vtt", cues)
+    write_text_lesson(folder, cues, meta.get("title") or "Lesson")
+    make_light(folder)
     _translate(folder, cues, lang)
     manifest = _manifest(meta, folder)
     (folder / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -91,12 +99,24 @@ def _translate(folder, cues, lang):
     write_vtt(folder / f"lesson.{target}.vtt", cues_from_lines(rows))
 
 
+def _renditions(folder):
+    rows = []
+    for name, kind in (("video.mp4", "video"), ("light.mp4", "light"), ("audio.m4a", "audio")):
+        path = folder / name
+        if path.is_file():
+            rows.append({"kind": kind, "url": name, "bytes": path.stat().st_size})
+    return rows
+
+
 def _manifest(meta, folder):
     captions = {code: f"lesson.{code}.vtt" for code in ("am", "en") if (folder / f"lesson.{code}.vtt").exists()}
     return {
         "id": meta["id"], "type": "video", "title": meta["title"], "lang": meta["lang"],
-        "tracks": {"captions": captions, "chapters": "chapters.vtt", "descriptions": {},
-                   "sign": "sign.json", "screen": "screen.json", "glossary": "glossary.json"},
-        "renditions": [{"kind": "video", "url": "video.mp4", "bytes": (folder / "video.mp4").stat().st_size}],
+        "tracks": {"captions": captions,
+                   "chapters": "chapters.vtt" if (folder / "chapters.vtt").is_file() else "",
+                   "descriptions": "descriptions.vtt" if (folder / "descriptions.vtt").is_file() else "",
+                   "sign": "sign.json", "screen": "screen.json" if (folder / "screen.json").is_file() else "",
+                   "glossary": "glossary.json"},
+        "renditions": _renditions(folder),
         "packs": {"text": "text", "light": "light", "full": "full"},
     }

@@ -2,6 +2,7 @@
 import { announce } from "./announce.js";
 import { formatClock, formatTime, loadStrings, t } from "./i18n.js";
 import { createKeyboard } from "./keyboard.js";
+import { loadPrefs } from "./prefs.js";
 
 const RATES = [1, 0.85, 0.75];
 
@@ -12,7 +13,7 @@ function hostEvent(host, name, detail) {
 export class Player {
   constructor(host, shadow) {
     Object.assign(this, {
-      host, shadow, media: null, prefs: {}, slots: {}, _bus: {}, _controls: [],
+      host, shadow, media: null, prefs: loadPrefs(), slots: {}, _bus: {}, _controls: [],
       _bucket: 0, _wasFs: false, _completed: false
     });
   }
@@ -116,7 +117,7 @@ export class Player {
 
   openHelp(opener) { this._opener = opener || this._helpBtn; this._fillHelp(); if (!this.help.open) this.help.showModal(); }
 
-  _state(event, key) { this.emit(event); this._paintAll(); this.announce(key); }
+  _state(event, key) { this.emit(event); this._paintAll(); if (!this._quiet) this.announce(key); }
   _ended() { this.emit("ended"); if (this._completed) return; this._completed = true; hostEvent(this.host, "db-player:complete", {}); }
   _tick() {
     const now = this.media.currentTime || 0;

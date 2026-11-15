@@ -62,7 +62,7 @@ export function attachCueSync(player, win) {
     state.maxLag = Math.max(state.maxLag, state.lag);
     state.lagSum += state.lag; state.lagN += 1;
     const here = segmentAt(state.segments, time);
-    if (here && (here.source === "none" || here.cue === params.get("missing"))) status.showCard();
+    if (here && (here.source === "none" || here.cue === params.get("missing"))) status.showCard(player.captions?.cueAt(time)?.text || "");
     const busy = state.play >= 0 && !state.hitTo;
     const atEnd = Number.isFinite(media.duration) && time >= media.duration - 0.08;
     if (state.ending) {
@@ -108,7 +108,7 @@ export function attachCueSync(player, win) {
       state.queue.forEach((segment, index) => { if (segment.start <= time + 1e-3) prev = index; });
       state.done = prev;
       const place = segmentAt(state.segments, time);
-      if (place && (place.source === "none" || place.cue === params.get("missing"))) status.showCard();
+      if (place && (place.source === "none" || place.cue === params.get("missing"))) status.showCard(player.captions?.cueAt(time)?.text || "");
     }
     if (user) play.active().pause();
     else if (media.paused) { state.internal = true; media.play().catch(() => {}); state.internal = false; }

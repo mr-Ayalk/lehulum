@@ -33,7 +33,12 @@ export function attachStatus(player, win, skip) {
     label,
     showPill() { ensure(); ui.pill.hidden = false; label(); layoutPill(player, ui.pill); },
     hidePill() { if (ui.pill) ui.pill.hidden = true; },
-    showCard() { ensure(); ui.card.hidden = false; label(); },
+    showCard(letters) {
+      ensure();
+      ui.card.hidden = false;
+      const spelled = letters ? Array.from(letters).join(" ") : "";
+      ui.card.textContent = spelled ? player.t("sign_missing") + " " + spelled : player.t("sign_missing");
+    },
     hideCard() { if (ui.card) ui.card.hidden = true; },
     place() { if (ui.pill && !ui.pill.hidden) layoutPill(player, ui.pill); }
   };

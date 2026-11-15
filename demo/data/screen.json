@@ -1,1 +1,6 @@
-[]
+[
+  {"start": 12.073, "end": 20.121, "kind": "code", "lang": "en", "title": "The first line", "content": "name = \"Abebe\""},
+  {"start": 20.496, "end": 25.874, "kind": "code", "lang": "en", "title": "Show it", "content": "print(name)"},
+  {"start": 25.884, "end": 29.537, "kind": "text", "lang": "am", "title": "On screen", "content": "አበበ"},
+  {"start": 29.537, "end": 34.040, "kind": "text", "lang": "en", "title": "Error", "content": "Check the spelling of the name."}
+]

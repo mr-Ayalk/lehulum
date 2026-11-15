@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check a certificate — LE HULUM</title>
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<main id="main">
+  <h1>Check a certificate</h1>
+  <form id="check">
+    <label for="token">Paste the certificate</label>
+    <textarea id="token" name="token" required></textarea>
+    <button type="submit">Check</button>
+  </form>
+  <p id="result" role="status"></p>
+</main>
+<script>
+const params = new URLSearchParams(location.search);
+const box = document.querySelector("#token");
+if (params.get("id")) {
+  fetch("/api/v1/certificates/" + params.get("id")).then((response) => response.json()).then((body) => {
+    if (body.credential) box.value = JSON.stringify(body.credential, null, 2);
+  }).catch(() => {});
+}
+document.querySelector("#check").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const result = document.querySelector("#result");
+  try {
+    const response = await fetch("/api/v1/certificates/verify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: box.value.trim() })
+    });
+    const body = await response.json();
+    if (body.valid) result.textContent = "Valid. Issued by " + body.issuer + " on " + body.issued + ". " + body.achievement.en;
+    else result.textContent = "Not valid. " + (body.reason || "");
+  } catch (error) {
+    result.textContent = "Not valid. The check server is not running.";
+  }
+});
+</script>
+</body>
+</html>

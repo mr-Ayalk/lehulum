@@ -1,5 +1,4 @@
-# FR-BLV-05, FR-BLV-06, FR-BLV-07: Flag visual moments and draft description cues.
+# FR-BLV-05: Descriptions are written by a person. The server does not invent the picture.
 
-def todo():
-    """TODO"""
-    raise NotImplementedError
+def author_note():
+    return "Descriptions are written by a person. This server does not invent what is on screen."

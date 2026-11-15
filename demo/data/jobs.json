@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "id": "job-1",
+    "title": {"en": "Junior web developer", "am": "ጀማሪ የድር ገንቢ"},
+    "org": "Test Employer PLC",
+    "city": "Addis Ababa",
+    "type": "FULL_TIME",
+    "salary": {"min": 8000, "max": 12000},
+    "datePosted": "2026-11-14",
+    "validThrough": "2026-12-31",
+    "description": {"en": "Build simple web pages with HTML and JavaScript. Remote work is possible. A sign interpreter can join interviews.", "am": "በ HTML እና JavaScript ቀላል ገጾችን ይገንቡ። ከሩቅ መሥራት ይቻላል። በቃለ መጠይቅ የምልክት ቋንቋ አስተርጓሚ ይገኛል።"},
+    "skills": ["HTML", "JavaScript"],
+    "accessibility": ["Remote possible", "Sign interpreter for interviews", "Screen-reader-friendly tools"]
+  },
+  {
+    "id": "job-2",
+    "title": {"en": "Data entry assistant", "am": "የመረጃ ማስገቢያ ረዳት"},
+    "org": "Sample Office PLC",
+    "city": "Adama",
+    "type": "PART_TIME",
+    "salary": {"min": 5000, "max": 7000},
+    "datePosted": "2026-11-10",
+    "validThrough": "2026-12-20",
+    "description": {"en": "Type lesson records into a spreadsheet. The tools work with a screen reader. Hours are flexible.", "am": "የትምህርት መዝገቦችን ወደ ሠንጠረዥ ያስገቡ። መሣሪያዎቹ ከማያ አንባቢ ጋር ይሠራሉ። ሰዓቱ ተለዋዋጭ ነው።"},
+    "skills": ["Typing", "Spreadsheets"],
+    "accessibility": ["Screen-reader-friendly tools", "Flexible hours"]
+  },
+  {
+    "id": "job-3",
+    "title": {"en": "IT support trainee", "am": "የአይቲ ድጋፍ ሠልጣኝ"},
+    "org": "Bridge Test Labs",
+    "city": "Addis Ababa",
+    "type": "FULL_TIME",
+    "salary": {"min": 7000, "max": 9000},
+    "datePosted": "2026-11-12",
+    "validThrough": "2027-01-15",
+    "description": {"en": "Help learners with passwords, email, and a slow connection. The office has step-free access.", "am": "ተማሪዎችን በይለፍ ቃል፣ ኢሜይል እና ቀርፋፋ መስመር ይርዱ። ቢሮው ያለ ደረጃ ይገባል።"},
+    "skills": ["Email", "Windows"],
+    "accessibility": ["Step-free office", "Quiet room"]
+  },
+  {
+    "id": "job-4",
+    "title": {"en": "Caption reviewer", "am": "የመግለጫ ጽሑፍ ገምጋሚ"},
+    "org": "Lesson Test Co",
+    "city": "Bahir Dar",
+    "type": "CONTRACTOR",
+    "salary": {"min": 6000, "max": 8000},
+    "datePosted": "2026-11-08",
+    "validThrough": "2026-12-15",
+    "description": {"en": "Check Amharic captions for short lessons. Work is remote. You can reply by text.", "am": "ለአጭር ትምህርቶች የአማርኛ መግለጫ ጽሑፍ ያረጋግጡ። ሥራው ከሩቅ ነው። በጽሑፍ መመለስ ይቻላል።"},
+    "skills": ["Amharic", "Captions"],
+    "accessibility": ["Remote possible", "Text contact"]
+  },
+  {
+    "id": "job-5",
+    "title": {"en": "School computer aide", "am": "የትምህርት ቤት ኮምፒውተር ረዳት"},
+    "org": "North Test School",
+    "city": "Mekelle",
+    "type": "PART_TIME",
+    "salary": {"min": 4500, "max": 6000},
+    "datePosted": "2026-11-01",
+    "validThrough": "2026-12-01",
+    "description": {"en": "Open the computer lab and help students save their work. A quiet hour is set aside each day.", "am": "የኮምፒውተር ክፍሉን ይክፈቱ እና ተማሪዎች ሥራቸውን እንዲያስቀምጡ ይርዱ። በየቀኑ ጸጥ ያለ ሰዓት አለ።"},
+    "skills": ["Files", "Teaching"],
+    "accessibility": ["Quiet room", "Flexible hours"]
+  },
+  {
+    "id": "job-6",
+    "title": {"en": "Community translator", "am": "የማህበረሰብ ተርጓሚ"},
+    "org": "Open Lessons PLC",
+    "city": "Hawassa",
+    "type": "CONTRACTOR",
+    "salary": {"min": 5500, "max": 7500},
+    "datePosted": "2026-11-14",
+    "validThrough": "2027-02-01",
+    "description": {"en": "Turn short English lesson lines into plain Amharic. Remote work. No travel is required.", "am": "አጭር የእንግሊዝኛ የትምህርት መስመሮችን ወደ ቀላል አማርኛ ይቀይሩ። ከሩቅ ነው። ጉዞ አያስፈልግም።"},
+    "skills": ["Amharic", "English"],
+    "accessibility": ["Remote possible"]
+  }
+]

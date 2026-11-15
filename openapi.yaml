@@ -1,1 +1,164 @@
-# Placeholder. The OpenAPI document for /api/v1 will be written here (INT-05).
+openapi: 3.0.3
+info:
+  title: LE HULUM
+  version: 0.1.0
+  description: Lesson media, jobs, and certificates for Track 2.
+servers:
+  - url: http://localhost:8080
+paths:
+  /api/v1/health:
+    get:
+      summary: Health
+      responses:
+        "200":
+          description: The server is up.
+  /api/v1/lessons:
+    post:
+      summary: Upload a lesson video
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: The input was not usable.
+  /api/v1/lessons/{id}:
+    get:
+      summary: Lesson status and tracks
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: The lesson
+        "404":
+          description: No lesson with that id.
+  /api/v1/lessons/{id}/document.html:
+    get:
+      summary: Accessible HTML of the sample lesson
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: HTML
+  /api/v1/lessons/{id}/document.pdf:
+    get:
+      summary: English text PDF of the sample lesson
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: PDF
+  /api/v1/lessons/{id}/document.brf:
+    get:
+      summary: English braille of the sample lesson
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: BRF text
+  /api/v1/jobs:
+    get:
+      summary: Test jobs
+      responses:
+        "200":
+          description: A list of jobs
+  /api/v1/jobs/{id}/jsonld:
+    get:
+      summary: schema.org JobPosting
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: JSON-LD
+        "404":
+          description: No job with that id.
+  /api/v1/applications:
+    post:
+      summary: Store a test application
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, contact, job_id]
+      responses:
+        "201":
+          description: Stored
+        "400":
+          description: A field is missing.
+  /api/v1/sign/translate:
+    post:
+      summary: Match a line to glossary sign clips
+      responses:
+        "200":
+          description: Machine gloss. Not a human translation.
+        "400":
+          description: Text is required.
+  /api/v1/progress:
+    post:
+      summary: Store one progress event
+      responses:
+        "201":
+          description: Stored
+        "200":
+          description: This event id was already stored.
+  /api/v1/certificates:
+    post:
+      summary: Issue a signed certificate
+      responses:
+        "201":
+          description: Issued
+  /api/v1/certificates/verify:
+    post:
+      summary: Check a certificate
+      responses:
+        "200":
+          description: valid true or false, with a reason in words
+  /api/v1/webhooks:
+    post:
+      summary: Register a host address for lesson.completed
+      responses:
+        "201":
+          description: Stored
+        "400":
+          description: The address must start with http.
+  /api/v1/glossary:
+    get:
+      summary: Glossary terms
+      responses:
+        "200":
+          description: Sample terms plus any a teacher added
+    post:
+      summary: Add a glossary term
+      responses:
+        "201":
+          description: Stored
+        "400":
+          description: id and am are required.
+  /api/v1/lexicon:
+    get:
+      summary: Word-sign clip names
+      responses:
+        "200":
+          description: Clips under lexicon/
+  /api/v1/phrases:
+    get:
+      summary: Phrase lines and clip names
+      responses:
+        "200":
+          description: Lines from phrases.csv
+
