@@ -1,6 +1,7 @@
 # INT-05: FastAPI application. Health check and lesson upload.
 from fastapi import FastAPI
 
+from api.routes.access import router as access
 from api.routes.certificates import router as certificates
 from api.routes.documents import router as documents
 from api.routes.glossary import router as glossary
@@ -20,7 +21,7 @@ app = FastAPI(
     redoc_url=None,
     openapi_url="/api/openapi.json",
 )
-for router in (lessons, jobs, documents, certificates, progress, sign, webhooks, glossary, lexicon, phrases, packs):
+for router in (lessons, jobs, documents, certificates, progress, sign, webhooks, glossary, lexicon, phrases, packs, access):
     app.include_router(router)
 
 

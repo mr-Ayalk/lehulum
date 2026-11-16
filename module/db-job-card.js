@@ -92,11 +92,17 @@ class DbJobCard extends HTMLElement {
         live.className = "sr";
         live.textContent = job.description[lang];
         card.append(live);
-        if (window.speechSynthesis) {
-          const utter = new SpeechSynthesisUtterance(job.description[lang]);
-          utter.lang = lang === "am" ? "am-ET" : "en";
-          speechSynthesis.speak(utter);
-        }
+        const api = this.getAttribute("api");
+        const say = () => {
+          if (!window.speechSynthesis) return;
+          const said = new SpeechSynthesisUtterance(job.description[lang]);
+          said.lang = lang === "am" ? "am-ET" : "en";
+          speechSynthesis.cancel();
+          speechSynthesis.speak(said);
+        };
+        if (!api) { say(); return; }
+        const audio = new Audio(api + "/jobs/" + job.id + "/summary.opus?lang=" + lang);
+        audio.play().catch(say);
       });
       const sign = document.createElement("button");
       sign.type = "button";

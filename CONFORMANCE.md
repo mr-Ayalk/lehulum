@@ -8,7 +8,7 @@ This table is for the LE HULUM player, the sample lesson pages, the job card, an
 | 1.2.1 Audio-only and Video-only (Prerecorded) | Supports | The lesson has a transcript and captions. |
 | 1.2.2 Captions (Prerecorded) | Supports | Amharic and English WebVTT. The learner can resize and recolour them. A pair under 4.5:1 is refused. |
 | 1.2.3 Audio Description or Media Alternative (Prerecorded) | Partly | Five description cues cover the editor, the code, the output, and the error. They do not describe every frame. |
-| 1.2.5 Audio Description (Prerecorded) | Partly | Same cues. The lesson pauses when a description would be covered by the next caption. |
+| 1.2.5 Audio Description (Prerecorded) | Partly | The lesson pauses for a long description, plays a short tone, then the voice file or the screen reader. A short one can lower the lesson to 30%. The cues do not describe every frame. |
 | 1.3.1 Info and Relationships | Partly | The HTML document uses headings, paragraphs, and figures. The PDF is untagged. |
 | 1.3.2 Meaningful Sequence | Supports | Captions, transcript, and the text lesson follow lesson order. |
 | 1.4.3 Contrast (Minimum) | Supports | Caption presets are checked at 4.5:1. The player uses a visible focus ring. |

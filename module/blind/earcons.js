@@ -20,7 +20,7 @@ export function attachEarcons(player) {
     osc.stop(stop);
   }
 
-  player.on("play", () => tone(660));
-  player.on("pause", () => tone(440));
+  player.on("play", () => { if (!player._describing) tone(660); });
+  player.on("pause", () => { if (!player._describing) tone(440); });
   player.on("describe", () => tone(520));
 }

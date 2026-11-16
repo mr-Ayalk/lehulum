@@ -30,11 +30,6 @@ function mountSign(player) {
     onClick: () => toggleSign(player)
   });
   player.registerShortcut("s", "key_s", () => toggleSign(player));
-  player.registerShortcut("w", "key_w", () => {
-    const sign = player.sign;
-    if (!sign?.isOpen()) return;
-    sign.setLayout(sign.layout === "sign-first" ? "lesson-first" : "sign-first");
-  });
 }
 const SHELL = `<style>
 @font-face{font-family:"Atkinson Hyperlegible";font-weight:400;font-display:swap;src:url("/module/fonts/atkinson-hyperlegible-400.woff2") format("woff2")}
@@ -46,9 +41,9 @@ const SHELL = `<style>
 :host([lang="am"]){font-family:var(--lh-font-ethiopic,"Noto Sans Ethiopic","Atkinson Hyperlegible",sans-serif);line-height:1.7;letter-spacing:normal;text-transform:none}
 :host([lang="am"]) *{letter-spacing:normal;text-transform:none}
 *,*::before,*::after{box-sizing:border-box}
-.player{max-width:100%;background:var(--lh-player-bg,#14130F);border-radius:12px;overflow:hidden}
+.player{max-width:100%;background:var(--lh-player-bg,#14130F);border-radius:12px;overflow:visible}
 .player:fullscreen{width:100%;height:100%;overflow:auto;border-radius:0}
-.stage{position:relative;background:#14130F}
+.stage{position:relative;background:#14130F;overflow:hidden}
 video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#14130F}
 .overlay{position:absolute;inset:0;pointer-events:none}
 .error{margin:0;padding:.75rem 1rem;color:var(--lh-player-text,#F3F0E8)}
@@ -88,7 +83,8 @@ dialog button{min-height:2.75rem;margin:.25rem .5rem .25rem 0;padding:0 1rem;bor
 dialog button:focus-visible{outline:3px solid var(--lh-focus,#1C1B18);outline-offset:2px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none;animation:none}}
-@media (prefers-contrast:more){:host{--lh-player-bg:#000;--lh-player-text:#fff;--lh-player-accent:#FFFF00;--lh-player-focus:#00E5FF}}
+:host([theme="contrast"]){--lh-player-bg:#000;--lh-player-text:#FFE14A;--lh-player-accent:#FFFF00;--lh-player-focus:#00E5FF;--lh-text:#FFE14A;--lh-surface:#000;--lh-border:#fff;--lh-focus:#00E5FF}
+@media (prefers-contrast:more){:host{--lh-player-bg:#000;--lh-player-text:#FFE14A;--lh-player-accent:#FFFF00;--lh-player-focus:#00E5FF;--lh-text:#FFE14A;--lh-surface:#000;--lh-border:#fff;--lh-focus:#00E5FF}}
 </style>
 <div class="player"><div class="stage"><video preload="none" crossorigin="anonymous" playsinline></video><div class="overlay"></div><p class="error" role="alert" hidden></p></div>
 <div class="controls" role="group"><div class="seekrow"><span class="time" aria-hidden="true"></span><input class="seek" type="range" min="0" max="0" step="0.1" value="0"><span class="dur" aria-hidden="true"></span></div><div class="btns"></div></div>

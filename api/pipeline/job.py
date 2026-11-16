@@ -5,7 +5,7 @@ from api.pipeline.align import align_text
 from api.pipeline.asr import NoAsr, transcribe
 from api.pipeline.audio import extract
 from api.pipeline.captions import cues_from_lines, cues_from_words, write_json, write_vtt
-from api.pipeline.chapters import write_chapters
+from api.pipeline.chapters import scene_starts, write_chapters
 from api.pipeline.text_lesson import write_text_lesson
 from api.pipeline.renditions import make_light
 from api.pipeline.translate import draft
@@ -65,7 +65,13 @@ def _build(folder, meta):
     cues = cues_from_lines(align_text(folder / "audio.wav", lines, lang)) if lines else _from_asr(folder / "audio.wav", lang)
     write_vtt(folder / f"lesson.{lang}.vtt", cues)
     write_json(folder / "captions.json", cues)
-    write_chapters(folder / "chapters.vtt", cues)
+    starts = scene_starts(folder / "video.mp4")
+    write_chapters(folder / "chapters.vtt", cues, starts or None)
+    try:
+        from api.pipeline.describe import build_blind
+        build_blind(folder, cues, starts)
+    except Exception:
+        pass
     write_text_lesson(folder, cues, meta.get("title") or "Lesson")
     make_light(folder)
     _translate(folder, cues, lang)

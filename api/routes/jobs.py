@@ -2,7 +2,7 @@
 import json
 
 from fastapi import APIRouter
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from api.store import demo_dir, read_list, write_list
 
@@ -56,6 +56,21 @@ def read_jsonld(job_id: str):
     if job is None:
         return JSONResponse({"error": "No job with that id."}, status_code=404)
     return _jsonld(job)
+
+
+@router.get("/api/v1/jobs/{job_id}/summary.opus")
+def job_voice(job_id: str, lang: str = "am"):
+    job = _one(job_id)
+    if job is None:
+        return JSONResponse({"error": "No job with that id."}, status_code=404)
+    if lang not in ("am", "en"):
+        return JSONResponse({"error": "Language must be am or en."}, status_code=400)
+    from api.pipeline.tts import render
+    from api.settings import data_dir
+    dest = data_dir() / "speech" / f"{job_id}.{lang}.opus"
+    if not dest.is_file() and not render(job["description"][lang], lang, dest):
+        return JSONResponse({"error": "No voice on this machine."}, status_code=404)
+    return FileResponse(dest, media_type="audio/ogg")
 
 
 @router.post("/api/v1/applications")

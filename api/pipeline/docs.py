@@ -15,7 +15,7 @@ def _plain(vtt):
     rows = []
     for raw in vtt.splitlines():
         line = raw.strip()
-        if not line or line == "WEBVTT" or "-->" in line:
+        if not line or line == "WEBVTT" or "-->" in line or line.startswith("audio:"):
             continue
         if len(line) <= 8 and line.isalnum() and line[0].isalpha() and any(ch.isdigit() for ch in line):
             continue
@@ -67,7 +67,7 @@ def _lines(vtt):
     rows = []
     for raw in vtt.splitlines():
         line = raw.strip()
-        if not line or line == "WEBVTT" or "-->" in line:
+        if not line or line == "WEBVTT" or "-->" in line or line.startswith("audio:"):
             continue
         if len(line) <= 8 and line.isalnum() and line[0].isalpha() and any(ch.isdigit() for ch in line):
             continue
@@ -77,7 +77,19 @@ def _lines(vtt):
 
 def lesson_brf():
     from api.braille import to_brf
-    return to_brf(_lines(_read("lesson.am.vtt")) + "\n\n" + _lines(_read("lesson.en.vtt")))
+    try:
+        screen = json.loads(_read("screen.json") or "[]")
+    except json.JSONDecodeError:
+        screen = []
+    visual = "\n".join(((item.get("title") or "On screen") + " " + (item.get("content") or "")) for item in screen)
+    text = "\n\n".join(part for part in (
+        _lines(_read("lesson.am.vtt")),
+        _lines(_read("lesson.en.vtt")),
+        visual,
+        _lines(_read("descriptions.am.vtt")),
+        _lines(_read("descriptions.en.vtt")),
+    ) if part)
+    return to_brf(text)
 
 
 def lesson_pdf():

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Description studio — LE HULUM</title>
+<link rel="stylesheet" href="demo.css">
+</head>
+<body>
+<main id="main">
+  <h1>Description studio <span lang="am">የመግለጫ ስቱዲዮ</span></h1>
+  <p>Edit only the flagged moments. <span lang="am">ምልክት የተደረገባቸውን ጊዜያት ብቻ ያርሙ።</span></p>
+  <div id="list"></div>
+  <p id="note" role="status"></p>
+  <p><a href="lesson-video.html">Back to the lesson</a></p>
+</main>
+<script>
+const note = document.getElementById("note");
+const list = document.getElementById("list");
+fetch("/api/v1/lessons/python-01/moments").then((response) => response.json()).then((body) => {
+  const flags = document.createElement("ul");
+  for (const moment of body.moments || []) {
+    const item = document.createElement("li");
+    item.textContent = moment.reason + " " + Math.floor(moment.start) + "s " + (moment.text || "");
+    flags.append(item);
+  }
+  list.append(flags);
+  for (const row of body.descriptions || []) {
+    const form = document.createElement("form");
+    form.innerHTML = "<h2></h2>";
+    form.querySelector("h2").textContent = row.id;
+    for (const lang of ["am", "en"]) {
+      const label = document.createElement("label");
+      label.textContent = lang === "am" ? "አማርኛ" : "English";
+      const input = document.createElement("textarea");
+      input.name = lang;
+      input.lang = lang;
+      input.required = true;
+      input.value = row[lang] || "";
+      label.append(input);
+      form.append(label);
+    }
+    const save = document.createElement("button");
+    save.type = "submit";
+    save.textContent = "Save";
+    form.append(save);
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      for (const lang of ["am", "en"]) {
+        const response = await fetch("/api/v1/lessons/python-01/descriptions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: row.id, lang, text: form.elements[lang].value })
+        });
+        if (!response.ok) { note.textContent = "Not saved."; return; }
+      }
+      note.textContent = "Saved.";
+    });
+    list.append(form);
+  }
+}).catch(() => { note.textContent = "The lesson server is not running."; });
+</script>
+</body>
+</html>

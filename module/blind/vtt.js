@@ -13,11 +13,18 @@ export function parseVtt(text) {
     const timeAt = lines.findIndex((line) => line.includes("-->"));
     if (timeAt < 0) continue;
     const [start, end] = lines[timeAt].split("-->");
+    let audio = "";
+    const body = [];
+    for (const line of lines.slice(timeAt + 1)) {
+      if (line.startsWith("audio:")) audio = line.slice(6).trim();
+      else body.push(line);
+    }
     cues.push({
       id: timeAt > 0 ? lines[0].trim() : "",
       start: seconds(start),
-      end: seconds(end.split(" ")[0]),
-      text: lines.slice(timeAt + 1).join("\n").trim()
+      end: seconds(end.trim().split(/\s+/)[0]),
+      audio,
+      text: body.join("\n").trim()
     });
   }
   return cues;
