@@ -20,7 +20,22 @@
     {
       "kind": "video",
       "url": "lesson.mp4",
-      "bytes": 0
+      "bytes": 45266332
+    },
+    {
+      "kind": "light",
+      "url": "lesson-light.mp4",
+      "bytes": 430956
+    },
+    {
+      "kind": "audio",
+      "url": "lesson-audio.m4a",
+      "bytes": 243643
+    },
+    {
+      "kind": "slides",
+      "url": "slides/",
+      "bytes": 62866
     }
   ],
   "packs": {

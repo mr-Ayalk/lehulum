@@ -146,6 +146,8 @@ function loadFeatures(player) {
     ["./blind/on-screen.js", "attachOnScreen"],
     ["./blind/chapters.js", "attachChapters"],
     ["./net/offline.js", "attachOffline"],
+    ["./net/choose.js", "attachChoice"],
+    ["./net/downloads.js", "attachDownloads"],
     ["./net/connection.js", "attachConnection"],
     ["./net/progress-queue.js", "attachProgress"],
     ["./text/text-mode.js", "attachTextMode"],

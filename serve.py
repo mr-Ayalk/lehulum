@@ -16,6 +16,13 @@ from fastapi.staticfiles import StaticFiles
 from api.main import app
 
 
+@app.middleware("http")
+async def cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers.setdefault("Access-Control-Allow-Origin", "*")
+    return response
+
+
 @app.get("/module/sw.js")
 def service_worker():
     return FileResponse(

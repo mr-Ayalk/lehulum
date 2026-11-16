@@ -46,9 +46,11 @@ def pack_sizes(lesson_id: str):
     audio = data_dir() / "packs" / "python-01-audio.m4a"
     if not audio.is_file():
         audio = demo_dir() / "lesson-audio.m4a"
+    light = offline_pack(lesson_id, "light")
+    light_bytes = len(light.encode("utf-8")) if isinstance(light, str) else text + _bytes(audio)
     return {
         "text": text,
-        "light": text + _bytes(audio),
+        "light": light_bytes,
         "full": _bytes(demo_dir() / "lesson.mp4"),
         "audio": audio.is_file(),
     }
@@ -65,4 +67,19 @@ def offline_pack(lesson_id: str, level: str = "text"):
     if audio is None:
         return html.replace("</body>", "<p>The light audio is not on this computer yet. The text and the slides are here.</p></body>")
     clip = base64.b64encode(audio.read_bytes()).decode()
-    return html.replace("</body>", '<h2>Audio</h2><audio controls src="data:audio/mp4;base64,' + clip + '"></audio></body>')
+    slides = _slides()
+    return html.replace("</body>", slides + '<h2>Audio</h2><audio controls src="data:audio/mp4;base64,' + clip + '"></audio></body>')
+
+
+def _slides():
+    import json
+    folder = demo_dir() / "slides"
+    screen = demo_dir() / "screen.json"
+    labels = json.loads(screen.read_text(encoding="utf-8")) if screen.is_file() else []
+    parts = []
+    for index, path in enumerate(sorted(folder.glob("*.webp")) if folder.is_dir() else []):
+        item = labels[index] if index < len(labels) else {}
+        alt = ((item.get("title") or "") + " " + (item.get("content") or "")).strip() or "Slide"
+        raw = base64.b64encode(path.read_bytes()).decode()
+        parts.append('<img alt="' + alt.replace('"', "") + '" src="data:image/webp;base64,' + raw + '">')
+    return "".join(parts)

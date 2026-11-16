@@ -1,4 +1,4 @@
-# FR-BLV-07: Read and write description and chapter WebVTT files.
+# FR-BLV-07, FR-HOH-11: Read and write WebVTT, and clear a checked line.
 from pathlib import Path
 
 
@@ -79,3 +79,13 @@ def replace_text(path, cue_id, text):
     if found:
         save(path, cues)
     return found
+
+
+def clear_low(path, cue_id):
+    cues = load(path)
+    for cue in cues:
+        if cue["id"] == cue_id:
+            cue["text"] = cue["text"].replace("<c.low>", "").replace("</c>", "")
+            save(path, cues)
+            return True
+    return False

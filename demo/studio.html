@@ -10,6 +10,7 @@
 <main id="main">
   <h1>Description studio <span lang="am">የመግለጫ ስቱዲዮ</span></h1>
   <p>Edit only the flagged moments. <span lang="am">ምልክት የተደረገባቸውን ጊዜያት ብቻ ያርሙ።</span></p>
+  <p id="score" role="status"></p>
   <div id="list"></div>
   <p id="note" role="status"></p>
   <p><a href="lesson-video.html">Back to the lesson</a></p>
@@ -17,6 +18,16 @@
 <script>
 const note = document.getElementById("note");
 const list = document.getElementById("list");
+fetch("/api/v1/lessons/python-01/score").then((response) => response.json()).then((score) => {
+  const line = document.getElementById("score");
+  line.textContent = "Captions " + score.captions + "% checked. Sign " + score.sign
+    + "%. Descriptions " + score.descriptions + ". Offline pack " + (score.offline ? "ready" : "missing") + ". ";
+  const am = document.createElement("span");
+  am.lang = "am";
+  am.textContent = "ንዑስ ጽሑፍ " + score.captions + "% ተረጋግጧል። ምልክት " + score.sign
+    + "%። መግለጫ " + score.descriptions + "። ያለ መስመር ጥቅል " + (score.offline ? "ዝግጁ ነው።" : "የለም።");
+  line.append(am);
+}).catch(() => {});
 fetch("/api/v1/lessons/python-01/moments").then((response) => response.json()).then((body) => {
   const flags = document.createElement("ul");
   for (const moment of body.moments || []) {

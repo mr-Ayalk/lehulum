@@ -22,7 +22,7 @@ A05
 
 A06
 00:00:14.941 --> 00:00:18.058
-<v Teacher>As you can see, the variable name is "name".
+<v Teacher>As you can see, the variable <c.low>name</c> is "name".
 
 A07
 00:00:18.465 --> 00:00:20.121

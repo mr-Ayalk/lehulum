@@ -71,7 +71,7 @@ def _lines(vtt):
             continue
         if len(line) <= 8 and line.isalnum() and line[0].isalpha() and any(ch.isdigit() for ch in line):
             continue
-        rows.append(line.replace("<v Teacher>", "").replace("</v>", ""))
+        rows.append(line.replace("<v Teacher>", "").replace("</v>", "").replace("<c.low>", "").replace("</c>", ""))
     return "\n".join(rows)
 
 

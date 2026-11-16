@@ -1,4 +1,4 @@
-// FR-CAP-02, FR-CAP-04, FR-HOH-10: Caption size, colour, and position saved on the device.
+// FR-CAP-02, FR-CAP-04, FR-HOH-10, FR-HOH-12: Caption size, colour, and position, also inside the hearing panel.
 import { contrastRatio } from "../core/contrast.js";
 import { savePrefs } from "../core/prefs.js";
 
@@ -16,8 +16,9 @@ export function attachCaptionStyle(player) {
   let size = saved.size || 100;
   let fg = saved.fg || "#ffffff";
   let bg = saved.bg || "#000000";
-  let place = saved.place || "bottom";
+  let place = saved.place || "below";
   let both = !!saved.both;
+  const boxes = new Set();
 
   function apply() {
     const box = player.shadow.querySelector(".captions");
@@ -30,13 +31,8 @@ export function attachCaptionStyle(player) {
     player.prefs.captionStyle = savePrefs({ captionStyle: { size, fg, bg, place, both } }).captionStyle;
   }
 
-  const panel = document.createElement("form");
-  panel.className = "lh-panel";
-  panel.hidden = true;
-  panel.addEventListener("submit", (event) => event.preventDefault());
-
-  function paint() {
-    panel.replaceChildren();
+  function draw(target) {
+    target.replaceChildren();
     const title = document.createElement("h2");
     title.tabIndex = -1;
     title.textContent = player.t("style");
@@ -85,11 +81,24 @@ export function attachCaptionStyle(player) {
     reset.type = "button";
     reset.textContent = player.t("reset");
     reset.addEventListener("click", () => {
-      size = 100; fg = "#ffffff"; bg = "#000000"; place = "bottom"; both = false;
+      size = 100; fg = "#ffffff"; bg = "#000000"; place = "below"; both = false;
       apply(); paint();
     });
-    panel.append(title, preview, sizeDown, sizeLabel, sizeUp, colors, positions, bothBtn, reset, note);
+    target.append(title, preview, sizeDown, sizeLabel, sizeUp, colors, positions, bothBtn, reset, note);
   }
+
+  function paint() {
+    for (const box of [...boxes]) {
+      if (box.isConnected) draw(box);
+      else boxes.delete(box);
+    }
+  }
+
+  const panel = document.createElement("form");
+  panel.className = "lh-panel";
+  panel.hidden = true;
+  panel.addEventListener("submit", (event) => event.preventDefault());
+  boxes.add(panel);
 
   let open = false;
   player.addControl({
@@ -103,6 +112,15 @@ export function attachCaptionStyle(player) {
     }
   });
   player.registerShortcut("v", "key_v", () => player.shadow.querySelector("[data-id='caption-style']")?.click());
+  player.captionStyle = {
+    mount(parent) {
+      const box = document.createElement("div");
+      box.dataset.capStyle = "1";
+      parent.append(box);
+      boxes.add(box);
+      paint();
+    }
+  };
   player.slots.panels.append(panel);
   apply();
 }

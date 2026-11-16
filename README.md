@@ -64,9 +64,17 @@ LTI 1.3 is documented here and is not built, which is what the specification ask
 
 ## Offline and slow connection
 
-On a slow link the player shows a note. The text pack and the light pack show their size before download. The text pack is the HTML lesson. The light pack is that HTML plus the lesson audio when ffmpeg is available. “Save for offline” puts the lesson files in the Cache Storage bucket `lehulum-lesson`. Progress stays in `localStorage` under `db-player:progress` and is sent to `POST /api/v1/progress` when the network returns. A repeated `event_id` is stored once. Finishing the lesson also issues the certificate.
+Before play, the player offers Text only, Light lesson, or Video, with the size of each. It remembers the choice. On a phone that reports the connection, a slow link pre-selects text or light. Otherwise it times a 20 KB probe. Light mode plays `lesson-audio.m4a` and changes the slide at each scene. The next slide is preloaded.
 
-The full lesson video is 43 MB. The smaller copy is `demo/data/lesson-light.mp4`, 421 KB, and the audio is `demo/data/lesson-audio.m4a`, 238 KB. The Docker image also includes ffmpeg, so a newly uploaded lesson gets the same small files.
+Three packs show their size before the tap. Text is one HTML file. Light is that HTML with the speech audio and the slide pictures inside it. Video is saved in 256 KB pieces so a dropped connection continues, and Background Fetch is used when the browser has it. “My downloads” lists what is stored and can delete it. Share sends the text lesson as a file, or a link if the phone will not share a file. “Save for offline” stores the lesson files in the Cache Storage bucket `lehulum-lesson` and asks the browser to keep that storage. A service worker plays those files with no network.
+
+Progress events sit in IndexedDB with a unique id. They are sent on `online` and on the Background Sync tag `lehulum-progress`. A repeated id is stored once. The learner sees “Saved on this phone. It will send when you are online.” Finishing the lesson also issues the certificate.
+
+Hearing controls are one panel: Clear voice (off, clear, extra clear), volume boost (100, 150, 200%), speed (1, 0.85, 0.75, pitch kept), mono, balance, caption size, colour, and position, and uncertain words. Say again replays the last line from 0.2 s before it started. A second press within 2 s steps back one more line. A long press or Shift+R plays that line at 0.75. Words the recogniser was unsure of are underlined until a person marks the line checked.
+
+The player core that loads before a feature is opened — the player, captions, keyboard, and both language files — is 17 KB gzip (57 KB raw). The project limit is 60 KB gzip. At Chrome Slow 3G (400 kbps, 400 ms round trip) that gzip transfers in about 0.7 s after one round trip. This PC was not run through Chrome’s CPU throttle, so that figure is the transfer time, not a filmed page load. Fonts and the sign window load separately.
+
+The full lesson video is 43 MB. The smaller copy is `demo/data/lesson-light.mp4`, 421 KB, and the audio is `demo/data/lesson-audio.m4a`, 238 KB. Four scene slides are in `demo/data/slides/`. The Docker image also includes ffmpeg, so a newly uploaded lesson gets the same small files.
 
 ## Languages
 
@@ -86,17 +94,18 @@ Finished for the sample lesson:
 
 - Keyboard player, transcript, caption size and colour, both languages
 - Recorded Ethiopian Sign Language window, glossary, phrase clips
-- Descriptions, on-screen text, chapters
-- Hearing clarity presets and mono
-- Text lesson, offline text download, progress queue
-- Job cards with audio summary and sign, HTML document, bilingual PDF, Ethiopic and English braille
-- Savanna mount, jobs API, Ed25519 Open Badges check, one webhook
-- Text pack and light pack with sizes. A line with no sign shows its letters.
+- Descriptions, on-screen text, chapters, braille
+- Hearing panel: clarity, boost, speed, mono, balance, caption style, say again
+- Text, light, and video choice before play; light slides; offline cache; chunked download; share
+- Job cards, HTML document, bilingual PDF, Ethiopic and English braille
+- Savanna mount, jobs API, Ed25519 Open Badges check, lesson score in the studio
 
 Still remaining:
 
+- Speech recognition for a new upload needs faster-whisper and torchaudio. They are not installed. The sample captions are written by hand, with one word marked uncertain so the check can be tried.
+- A newly uploaded video keeps a description file and a screen file when the teacher uploads them. Picture reading needs Tesseract, which is not installed. The sample screen text is written by hand.
+- Spoken description files need espeak-ng. It is not installed, so descriptions and job audio use the phone’s own voice when it has one.
 - The PDF has a document language, a title, and real Amharic and English text. It is not yet a validator-clean PDF/UA file. WeasyPrint needs system libraries this machine and the slim Docker image do not have.
-- A newly uploaded video keeps a description file and a screen file when the teacher uploads them. The server does not invent the picture.
 - Fingerspelling clips are not recorded yet. Put one clip per letter in `demo/data/fingerspell/`. Until then the sign window shows the letters of a missing line.
 - There is no Kinect recogniser. Haji 2017 stays a grammar note.
 - A co-designer still has to pass the lesson unaided with NVDA or TalkBack. axe-core has not been run on the new controls.

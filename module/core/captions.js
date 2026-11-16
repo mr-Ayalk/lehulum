@@ -1,6 +1,9 @@
 // FR-CAP-01, FR-CAP-03, FR-CAP-04, FR-HOH-10, FR-HOH-11, FR-CORE-11: Draw WebVTT cues ourselves.
 import { layoutChip } from "./caption-place.js";
+import { parseCueText, plainText } from "./cue-text.js";
 import { t } from "./i18n.js";
+
+export { parseCueText };
 
 const ORDER = ["off", "am", "en"];
 const PALETTE = ["#FFE38A", "#9BE7FF", "#C6F6D2", "#FFC7B8"];
@@ -14,53 +17,6 @@ const STYLE = `<style data-captions>
 [data-id="captions"]::before{content:"CC"}
 </style>`;
 
-export function parseCueText(input) {
-  const src = String(input || "").replace(/\r\n/g, "\n");
-  const parts = [];
-  const sounds = [];
-  let speaker = "";
-  let low = false;
-  let i = 0;
-  const push = (type, text) => {
-    if (!text) return;
-    const prev = parts[parts.length - 1];
-    if (prev && prev.type === type) prev.text += text;
-    else parts.push({ type, text });
-  };
-  while (i < src.length) {
-    if (src[i] === "<") {
-      const end = src.indexOf(">", i);
-      if (end < 0) { push(low ? "low" : "text", src.slice(i)); break; }
-      const tag = src.slice(i + 1, end).trim();
-      const voice = /^v(?:\.\S+)?(?:\s+(.+))?$/i.exec(tag);
-      if (voice) speaker = speaker || (voice[1] || "").trim();
-      else if (/^c\.low\b/i.test(tag)) low = true;
-      else if (/^\/c\b/i.test(tag)) low = false;
-      i = end + 1;
-      continue;
-    }
-    if (src[i] === "[") {
-      const end = src.indexOf("]", i);
-      if (end > i) {
-        const sound = src.slice(i + 1, end).trim();
-        if (sound) { sounds.push(sound); push("sound", sound); }
-        i = end + 1;
-        continue;
-      }
-    }
-    let next = src.length;
-    for (const mark of ["<", "["]) {
-      const at = src.indexOf(mark, i);
-      if (at >= 0 && at < next) next = at;
-    }
-    push(low ? "low" : "text", src.slice(i, next));
-    i = next;
-  }
-  return { speaker, sounds, parts };
-}
-function plain(parsed) {
-  return parsed.parts.filter((part) => part.type !== "sound").map((part) => part.text).join("").replace(/\s+/g, " ").trim();
-}
 function langOf(url) { return (/\.([a-z]{2})\.vtt(?:$|\?)/i.exec(url || "") || [])[1]?.toLowerCase() || ""; }
 
 export function attachCaptions(player) {
@@ -69,11 +25,12 @@ export function attachCaptions(player) {
   box.className = "captions";
   box.setAttribute("aria-hidden", "true");
   box.hidden = true;
+  box.dataset.force = "below";
   player.slots.overlay.append(box);
   const tracks = new Map();
   const speakers = new Map();
   let mode = "off";
-  let pos = "bottom";
+  let pos = "below";
   let activeId = "";
   let stamp = 0;
 
@@ -93,7 +50,8 @@ export function attachCaptions(player) {
       who.textContent = (/^teacher$/i.test(parsed.speaker) ? t("speaker_teacher") : parsed.speaker) + ":";
       line.append(who, " ");
     }
-    const showLow = player.prefs.showUncertain !== false;
+    const reviewed = !!(player.prefs.checked || {})[cue.id];
+    const showLow = player.prefs.showUncertain !== false && !reviewed;
     for (const part of parsed.parts) {
       const node = document.createElement(part.type === "sound" ? "em" : "span");
       if (part.type === "low" && showLow) node.className = "low";
@@ -124,7 +82,7 @@ export function attachCaptions(player) {
   }
   function pack(cue) {
     const parsed = parseCueText(cue.text);
-    return { id: cue.id, start: cue.startTime, end: cue.endTime, text: plain(parsed), speaker: parsed.speaker, sounds: parsed.sounds };
+    return { id: cue.id, start: cue.startTime, end: cue.endTime, text: plainText(parsed), speaker: parsed.speaker, sounds: parsed.sounds, low: parsed.parts.some((part) => part.type === "low") };
   }
   function onChange() {
     const time = player.media.currentTime || 0;
