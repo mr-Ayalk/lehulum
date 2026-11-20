@@ -104,6 +104,7 @@ export function attachSign(player) {
     open() {
       const src = player.host.getAttribute("sign") || "";
       open = true;
+      store(player, { signOpen: true });
       none.textContent = player.t("sign_none");
       none.hidden = !!src;
       begin(src);
@@ -113,6 +114,7 @@ export function attachSign(player) {
     },
     close() {
       open = false;
+      store(player, { signOpen: false });
       none.hidden = true;
       if (win.word) win.word.style.visibility = "hidden";
       cues.stop();

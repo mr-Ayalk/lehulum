@@ -4,11 +4,12 @@ export const PLACES = [["tl", "move_top_left"], ["tr", "move_top_right"], ["bl",
 export const PACES = [["smooth", "pacing_smooth"], ["pause", "pacing_pause"], ["off", "pacing_off"]];
 export const ACTS = [...PLACES, ["larger", "larger"], ["smaller", "smaller"], ["opacity", "opacity"], ["speed", "signer_speed"]];
 
-export const CSS = `.sign-window{position:absolute;z-index:4;border:1px solid rgba(255,255,255,.14);border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.45);background:#14130F;overflow:visible;touch-action:none;cursor:grab;aspect-ratio:3/4}
+export const CSS = `.sign-window{position:absolute;z-index:4;border:2px solid #C9A227;border-radius:16px;box-shadow:0 16px 40px rgba(0,0,0,.5);background:#14130F;overflow:visible;touch-action:none;cursor:grab;aspect-ratio:3/4}
 .sign-window:active{cursor:grabbing}.sign-window[hidden]{display:none}
-.sign-window video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:13px;background:#14130F;pointer-events:none}
-.sign-bar{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;justify-content:flex-end;background:linear-gradient(rgba(0,0,0,.6),transparent);opacity:0;pointer-events:none;transition:opacity 150ms}
-.sign-window:hover>.sign-bar,.sign-window:focus-within>.sign-bar,.sign-window.show-ui>.sign-bar{opacity:1;pointer-events:auto}
+.sign-window video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;border-radius:14px;background:#14130F;pointer-events:none}
+.sign-bar{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:flex-end;background:linear-gradient(rgba(11,61,48,.82),transparent 78%);border-radius:14px 14px 0 0}
+.sign-mark{margin-right:auto;padding:.35rem .7rem;color:#F6E7B2;font:700 .8rem/1.2 "Atkinson Hyperlegible",system-ui,sans-serif}
+.sign-window[lang="am"] .sign-mark{font-family:"Noto Sans Ethiopic",sans-serif;letter-spacing:normal;text-transform:none}
 .sign-icon{width:44px;height:44px;display:grid;place-items:center;border:0;background:transparent;color:#fff;padding:0}
 .sign-grip{position:absolute;z-index:2;width:44px;height:44px;border:0;background:transparent;color:#fff;opacity:0;padding:0}
 .sign-window:hover>.sign-grip,.sign-window:focus-within>.sign-grip,.sign-window.show-ui>.sign-grip{opacity:1}
@@ -91,6 +92,8 @@ export function buildChrome(win) {
   win.video.dataset.sign = "1";
   win.bar = document.createElement("div");
   win.bar.className = "sign-bar";
+  win.mark = document.createElement("span");
+  win.mark.className = "sign-mark";
   win.swap = button("swap");
   win.more = button("more");
   win.more.setAttribute("aria-haspopup", "menu");
@@ -103,7 +106,7 @@ export function buildChrome(win) {
   win.grip = document.createElement("button");
   win.grip.type = "button";
   win.grip.className = "sign-grip grip-bl";
-  win.bar.append(win.swap, win.more, win.closeBtn);
+  win.bar.append(win.mark, win.swap, win.more, win.closeBtn);
   for (const [id] of ACTS) {
     const item = document.createElement("button");
     item.type = "button";
@@ -131,6 +134,8 @@ export function buildChrome(win) {
 export function paintChrome(win) {
   const t = win.hooks.t;
   win.root.setAttribute("aria-label", t("sign_window_label"));
+  win.root.lang = /[\u1200-\u137F]/.test(t("sign_mark")) ? "am" : "en";
+  if (win.mark) win.mark.textContent = t("sign_mark");
   name(win.swap, t("swap_layout"));
   name(win.more, t("more"));
   name(win.closeBtn, t("close_sign"));

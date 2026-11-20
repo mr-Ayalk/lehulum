@@ -1,6 +1,7 @@
 // C-01, C-03, C-04, FR-CORE-01, FR-CORE-03, INT-01, INT-03, INT-04: Define <db-player> and keep src and lang in sync.
 import { attachCaptions } from "./core/captions.js";
 import { loadStrings } from "./core/i18n.js";
+import { loadPrefs } from "./core/prefs.js";
 import { Player } from "./core/player.js";
 
 const TAG = "db-player";
@@ -41,13 +42,13 @@ const SHELL = `<style>
 :host([lang="am"]){font-family:var(--lh-font-ethiopic,"Noto Sans Ethiopic","Atkinson Hyperlegible",sans-serif);line-height:1.7;letter-spacing:normal;text-transform:none}
 :host([lang="am"]) *{letter-spacing:normal;text-transform:none}
 *,*::before,*::after{box-sizing:border-box}
-.player{max-width:100%;background:var(--lh-player-bg,#14130F);border-radius:12px;overflow:visible}
+.player{max-width:100%;background:var(--lh-player-bg,#14130F);border-radius:18px;overflow:visible;box-shadow:0 18px 48px rgba(20,19,15,.28);outline:1px solid rgba(201,162,39,.45)}
 .player:fullscreen{width:100%;height:100%;overflow:auto;border-radius:0}
-.stage{position:relative;background:#14130F;overflow:hidden}
+.stage{position:relative;background:#14130F;overflow:hidden;border-radius:18px 18px 0 0}
 video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#14130F}
 .overlay{position:absolute;inset:0;pointer-events:none}
 .error{margin:0;padding:.75rem 1rem;color:var(--lh-player-text,#F3F0E8)}
-.controls{display:flex;flex-direction:column;max-width:100%;background:var(--lh-player-bg,#14130F);color:var(--lh-player-text,#F3F0E8)}
+.controls{display:flex;flex-direction:column;max-width:100%;background:linear-gradient(180deg,#221F1A,#14130F);color:var(--lh-player-text,#F3F0E8);border-radius:0 0 18px 18px}
 .seekrow{display:flex;align-items:center;gap:.75rem;padding:.5rem 1rem 0}
 .time,.dur{min-width:3rem;font-family:var(--lh-font-code,"JetBrains Mono",ui-monospace,monospace);font-size:.94rem;font-variant-numeric:tabular-nums}
 .seek{flex:1;min-width:2.75rem;min-height:2.75rem;margin:0;background:transparent;appearance:none;accent-color:var(--lh-player-accent,var(--bs-primary,#62D6AA))}
@@ -55,8 +56,9 @@ video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;obje
 .seek::-webkit-slider-thumb{appearance:none;width:22px;height:22px;margin-top:-9px;border-radius:50%;background:var(--lh-player-text,#F3F0E8);border:3px solid var(--lh-player-accent,#62D6AA)}
 .seek::-moz-range-track{height:6px;border-radius:3px;background:var(--lh-player-track,#2A2721);border:1px solid var(--lh-player-border,#8C8678)}
 .seek::-moz-range-thumb{width:22px;height:22px;border:3px solid var(--lh-player-accent,#62D6AA);border-radius:50%;background:var(--lh-player-text,#F3F0E8)}
-.btns{display:flex;flex-wrap:wrap}
-.controls button{flex:1 1 3.5rem;min-width:2.75rem;min-height:3.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;padding:.25rem;background:transparent;color:inherit;border:0;border-radius:8px;font:400 .85rem/1.2 var(--lh-font-latin,"Atkinson Hyperlegible",system-ui,sans-serif)}
+.btns{display:flex;flex-wrap:wrap;gap:.2rem;padding:0 .45rem .4rem}
+.controls button{flex:1 1 3.5rem;min-width:2.75rem;min-height:3.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;padding:.25rem;background:transparent;color:inherit;border:0;border-radius:12px;font:400 .85rem/1.2 var(--lh-font-latin,"Atkinson Hyperlegible",system-ui,sans-serif)}
+.controls button:hover{background:rgba(255,255,255,.06)}
 :host([lang="am"]) .controls button{font-family:var(--lh-font-ethiopic,"Noto Sans Ethiopic",sans-serif);line-height:1.4}
 .controls button::before{font-weight:700;font-size:1rem;line-height:1}
 [data-id="play"][data-state="play"]::before{content:"▶"}
@@ -68,7 +70,10 @@ video{display:block;width:100%;max-width:100%;height:auto;aspect-ratio:16/9;obje
 [data-id="mute"][aria-pressed="true"]::before{content:"✕"}
 [data-id="full"]::before{content:"⤢"}
 [data-id="help"]::before{content:"⌨"}
+[data-id="play"]{flex:0 0 3.75rem;border-radius:999px;background:#0A6B4E;color:#fff}
+[data-id="play"]:hover{background:#0F5A38}
 [data-id="sign"]::before{content:"✋"}
+[data-id="sign"][aria-pressed="true"]{background:rgba(98,214,170,.2);color:#D8FFE8}
 [data-id="glossary"]::before{content:"Aa"}
 .controls button[aria-pressed="true"]{box-shadow:inset 0 -3px 0 var(--lh-player-accent,#62D6AA)}
 button:focus-visible,.seek:focus-visible{outline:3px solid var(--lh-player-focus,#FFD54A);outline-offset:2px}
@@ -131,7 +136,10 @@ class DbPlayer extends HTMLElement {
     mountSign(this._player);
     loadGlossary(this._player);
     this._player.setSource(this.getAttribute("src") || "", this.getAttribute("poster"));
-    if (new URLSearchParams(location.search).get("sign") === "on" || this.hasAttribute("data-sign-open")) toggleSign(this._player);
+    const asked = new URLSearchParams(location.search).get("sign");
+    const savedOpen = loadPrefs().signOpen;
+    const showSign = asked === "on" || this.hasAttribute("data-sign-open") || (this.getAttribute("sign") && savedOpen !== false && asked !== "off");
+    if (showSign) toggleSign(this._player);
     loadFeatures(this._player);
   }
 }
